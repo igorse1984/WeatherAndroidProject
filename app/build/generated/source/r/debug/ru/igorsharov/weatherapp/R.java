@@ -3226,7 +3226,7 @@ containing a value of this type.
         public static final int fill_horizontal=0x7f0e003e;
         public static final int fill_vertical=0x7f0e0034;
         public static final int fixed=0x7f0e0047;
-        public static final int frame=0x7f0e007b;
+        public static final int fragment_container=0x7f0e007b;
         public static final int home=0x7f0e0004;
         public static final int homeAsUp=0x7f0e001d;
         public static final int icon=0x7f0e0051;

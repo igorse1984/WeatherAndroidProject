@@ -1,10 +1,9 @@
 package ru.igorsharov.weatherapp;
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,10 +39,10 @@ public class OneActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.activity_one, container, false);
         initView(view);
-//        initListView();
-//        Weather.getInstance().initWeather(listView.getCount());
+        initListView();
+        Weather.getInstance().initWeather(listView.getCount());
         //        initSpinner();
 
 //        buttonCheck.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +88,7 @@ public class OneActivity extends Fragment {
     }
 
     private void initListView() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.city_selection));
 
         listView.setAdapter(adapter);
@@ -104,7 +103,7 @@ public class OneActivity extends Fragment {
     private void initSpinner() {
         // необходимо настроить адаптер, увеличить размер текста
         ArrayAdapter adapter =
-                ArrayAdapter.createFromResource(getContext(), R.array.city_selection, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(getActivity(), R.array.city_selection, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
@@ -154,7 +153,7 @@ public class OneActivity extends Fragment {
         primaryLayout.setVisibility(View.GONE);
         weatherLayout.setVisibility(View.VISIBLE);
         changeLayout = true;
-        checkBoxCheck(pos);
+        checkBoxHandler(pos);
     }
 
     String plus(int temperature) {
@@ -175,7 +174,7 @@ public class OneActivity extends Fragment {
     }
 
 
-    private void checkBoxCheck(int pos) {
+    private void checkBoxHandler(int pos) {
         // обработка чекбоксов
         if (checkBoxTemperature.isChecked()) {
             temperatureTodayTv.setVisibility(View.VISIBLE);

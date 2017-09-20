@@ -810,7 +810,7 @@ int id fill 0x7f0e003d
 int id fill_horizontal 0x7f0e003e
 int id fill_vertical 0x7f0e0034
 int id fixed 0x7f0e0047
-int id frame 0x7f0e007b
+int id fragment_container 0x7f0e007b
 int id home 0x7f0e0004
 int id homeAsUp 0x7f0e001d
 int id icon 0x7f0e0051
