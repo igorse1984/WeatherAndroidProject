@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="button_title">Check the weather</string>
+    <string name="text_title">Select a city</string>
+    <string name="share">Share friends</string>
+    <string name="temperature">Temperature</string>
+    <string name="pressure">Pressure</string>
+    <string name="forecast">Forecast</string>
+    <string name="buttonBackText">Back</string>
+    <string name="pressure1"> mmHg</string>
+    <string name="forecast_text">Weather forecast:</string>
+
+    <string-array name="city_selection">
+        <item>Moscow</item>
+        <item>Saint-Petersburg </item>
+        <item>Tver</item>
+        <item>Voronezh</item>
+        <item>Rostov-on-don</item>
+        <item>Krasnodar</item>
+        <item>Simferopol</item>
+    </string-array>
+
+</resources>
