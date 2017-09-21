@@ -1,8 +1,8 @@
 package ru.igorsharov.weatherapp;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,30 +10,46 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class SecondFragment extends Fragment {
 
-    public final static String RECEIVE_WEATHER_INFO = "receive_weather_info";
+    public final static String CHECKBOX_STATUSES = "checkBoxesStatus";
+    public final static String CITY = "city";
+    public final static String LV_POSITION = "lvPosition";
+    public final static String CH_TEMPERATURE = "chTemperature";
+    public final static String CH_PRESSURE = "chPressure";
+    public final static String CH_FORECAST = "chForecast";
 
-    private TextView cityTv, temperatureTodayTv, pressureTodayTv, descWeatherForecastTv, temperatureForecastTv, pressureForecastTv;
-    String city;
-    int weather;
+
+    private final static String TAG = SecondFragment.class.getSimpleName();
+    private TextView tvCity, tvTemperatureToday, tvPressureToday, tvDescWeatherForecast, tvTemperatureForecast, tvPressureForecast;
+    Bundle b;
+
+    interface SecondFragmentInterface {
+        void clickButtonBackOnSecondFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_second, container, false);
+        View view = inflater.inflate(R.layout.fragment_second, container, false);
 
-//            textView = view.findViewById(R.id.textView);
-        temperatureTodayTv = view.findViewById(R.id.temperatureToday);
-        pressureTodayTv = view.findViewById(R.id.pressureToday);
-        descWeatherForecastTv = view.findViewById(R.id.descWeatherForecast);
-        temperatureForecastTv = view.findViewById(R.id.temperatureForecast);
-        pressureForecastTv = view.findViewById(R.id.pressureForecast);
-        cityTv = view.findViewById(R.id.city);
-//            weather = WeatherSelector.getTemperature(city);
-//            textView.setText(weather);
+        Button buttonBack = view.findViewById(R.id.buttonBack);
+        tvTemperatureToday = view.findViewById(R.id.temperatureToday);
+        tvPressureToday = view.findViewById(R.id.pressureToday);
+        tvDescWeatherForecast = view.findViewById(R.id.descWeatherForecast);
+        tvTemperatureForecast = view.findViewById(R.id.temperatureForecast);
+        tvPressureForecast = view.findViewById(R.id.pressureForecast);
+        tvCity = view.findViewById(R.id.city);
 
-
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SecondFragmentInterface secondFragmentInterface = (SecondFragmentInterface) getActivity();
+                secondFragmentInterface.clickButtonBackOnSecondFragment();
+            }
+        });
         // передача неявного интента
 //        button.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -49,44 +65,96 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
-    void setWeather(){
-                cityTv.setText(String.valueOf(((TextView) view).getText()));
-        checkBoxHandler(pos);
+    @Override
+    public void onStart() {
+        super.onStart();
+        tvCity.setText(b.getString(CITY));
+        setTextViewOfOption((HashMap) b.getSerializable(CHECKBOX_STATUSES), b.getInt(LV_POSITION));
     }
 
-    private void checkBoxHandler(int pos) {
+    void setWeather(Bundle b) {
+        this.b = b;
+    }
+
+    void buttonBack() {
+
+    }
+
+    private void setTextViewOfOption(HashMap hm, int pos) {
         // обработка чекбоксов
-        if (checkBoxTemperature.isChecked()) {
-            temperatureTodayTv.setVisibility(View.VISIBLE);
+
+        // отображение температуры
+        if ((boolean) hm.get(CH_TEMPERATURE)) {
+            tvTemperatureToday.setVisibility(View.VISIBLE);
+
             // определяем цвет TextView для отображаемой температуры
-            setColorOfTemperature(temperatureTodayTv, getTemperature(pos));
+            setColorOfTemperature(tvTemperatureToday, getTemperature(pos));
             Log.d(TAG, "pos " + pos);
-            temperatureTodayTv.setText(plus(getTemperature(pos)).concat(String.valueOf(getTemperature(pos)).concat("°")));
+            tvTemperatureToday.setText(plus(getTemperature(pos)).concat(String.valueOf(getTemperature(pos)).concat("°")));
         } else {
-            temperatureTodayTv.setVisibility(View.GONE);
+            tvTemperatureToday.setVisibility(View.GONE);
         }
 
-        if (checkBoxPressure.isChecked()) {
-            pressureTodayTv.setVisibility(View.VISIBLE);
-//            pressureTodayTv.setText(String.valueOf(Weather.getInstance().getPressure((int) spinner.getSelectedItemId())).concat(getResources().getString(R.string.pressure1)));
-            pressureTodayTv.setText(String.valueOf(Weather.getInstance().getPressure(pos)).concat(getResources().getString(R.string.pressure1)));
+        // давление воздуха
+        if ((boolean) hm.get(CH_PRESSURE)) {
+            tvPressureToday.setVisibility(View.VISIBLE);
+            tvPressureToday.setText(String.valueOf(Weather.getInstance().getPressure(pos)).concat(getResources().getString(R.string.pressure1)));
         } else {
-            pressureTodayTv.setVisibility(View.GONE);
+            tvPressureToday.setVisibility(View.GONE);
         }
 
-        if (checkBoxWeatherForecast.isChecked()) {
-            descWeatherForecastTv.setVisibility(View.VISIBLE);
-            temperatureForecastTv.setVisibility(View.VISIBLE);
-            pressureForecastTv.setVisibility(View.VISIBLE);
+        // прогноз погоды
+        if ((boolean) hm.get(CH_FORECAST)) {
+            tvDescWeatherForecast.setVisibility(View.VISIBLE);
+            tvTemperatureForecast.setVisibility(View.VISIBLE);
+            tvPressureForecast.setVisibility(View.VISIBLE);
             // определяем цвет TextView для отображаемой температуры
-            setColorOfTemperature(temperatureForecastTv, getTemperatureForecast(pos));
-            temperatureForecastTv.setText(plus(getTemperatureForecast(pos)).concat(String.valueOf(getTemperatureForecast(pos)).concat("°")));
-//            pressureForecastTv.setText(String.valueOf(Weather.getInstance().getPressureForecast((int) spinner.getSelectedItemId())).concat(getResources().getString(R.string.pressure1)));
-            pressureForecastTv.setText(String.valueOf(Weather.getInstance().getPressureForecast(pos)).concat(getResources().getString(R.string.pressure1)));
+            setColorOfTemperature(tvTemperatureForecast, getTemperatureForecast(pos));
+            tvTemperatureForecast.setText(plus(getTemperatureForecast(pos)).concat(String.valueOf(getTemperatureForecast(pos)).concat("°")));
+            tvPressureForecast.setText(String.valueOf(Weather.getInstance().getPressureForecast(pos)).concat(getResources().getString(R.string.pressure1)));
         } else {
-            descWeatherForecastTv.setVisibility(View.GONE);
-            temperatureForecastTv.setVisibility(View.GONE);
-            pressureForecastTv.setVisibility(View.GONE);
+            tvDescWeatherForecast.setVisibility(View.GONE);
+            tvTemperatureForecast.setVisibility(View.GONE);
+            tvPressureForecast.setVisibility(View.GONE);
+        }
+    }
+
+    int getTemperature(int pos) {
+        return Weather.getInstance().getTemperature(pos);
+    }
+
+    int getTemperatureForecast(int pos) {
+        return Weather.getInstance().getTemperatureForecast(pos);
+    }
+
+    String plus(int temperature) {
+        if (temperature > 0) {
+            return "+";
+        }
+        return "";
+    }
+
+    void setColorOfTemperature(TextView tv, int temperature) {
+        tv.setTextColor(ContextCompat.getColor(getActivity(), getColorForTemperature(temperature)));
+    }
+
+    private int getColorForTemperature(int weather) {
+        if (weather >= 0 && weather < 10) {
+            return R.color.color0;
+        } else {
+            if (weather >= 10 && weather < 20) {
+                return R.color.color10;
+            } else {
+                if (weather >= 20 && weather < 30) {
+                    return R.color.color20;
+                } else {
+                    if (weather >= 30) {
+                        return R.color.color30;
+                    } else {
+                        return R.color.colorCold;
+                    }
+                }
+            }
         }
     }
 }

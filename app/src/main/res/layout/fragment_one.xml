@@ -5,7 +5,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/primaryLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -14,20 +13,6 @@
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="140dp" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/city_selection"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/buttonCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/button_title"
-            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,9 +43,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
-
-
 
 </LinearLayout>
 
