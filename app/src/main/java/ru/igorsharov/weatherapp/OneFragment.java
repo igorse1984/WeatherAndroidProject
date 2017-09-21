@@ -17,9 +17,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class OneActivity extends Fragment {
+public class OneFragment extends Fragment {
 
-    private final static String TAG = OneActivity.class.getSimpleName();
+    private final static String TAG = OneFragment.class.getSimpleName();
     //    private final static String WEATHER_INFO = "weather_info";
     private final static String SPINNER_POS = "spinner_pos";
     private final static String CHANGE_LAYOUT = "change_layout";
@@ -36,6 +36,10 @@ public class OneActivity extends Fragment {
     boolean changeLayout;
     SharedPreferences mySharedPreferences;
 
+
+    interface OneFragmentInterface {
+        void onListViewSelected(int p);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,12 +79,7 @@ public class OneActivity extends Fragment {
         spinner = v.findViewById(R.id.spinner);
         buttonCheck = v.findViewById(R.id.buttonCheck);
         buttonBack = v.findViewById(R.id.buttonBack);
-        temperatureTodayTv = v.findViewById(R.id.temperatureToday);
-        pressureTodayTv = v.findViewById(R.id.pressureToday);
-        descWeatherForecastTv = v.findViewById(R.id.descWeatherForecast);
-        temperatureForecastTv = v.findViewById(R.id.temperatureForecast);
-        pressureForecastTv = v.findViewById(R.id.pressureForecast);
-        cityTv = v.findViewById(R.id.city);
+
         checkBoxTemperature = v.findViewById(R.id.checkBoxTemperature);
         checkBoxPressure = v.findViewById(R.id.checkBoxPressure);
         checkBoxWeatherForecast = v.findViewById(R.id.checkBoxWeatherForecast);
@@ -108,7 +107,7 @@ public class OneActivity extends Fragment {
         spinner.setAdapter(adapter);
     }
 
-       private void restoreInstance(Bundle savedInstanceState) {
+    private void restoreInstance(Bundle savedInstanceState) {
 
         if (savedInstanceState != null) {
             spinner.setSelection(savedInstanceState.getInt(SPINNER_POS));
@@ -125,7 +124,6 @@ public class OneActivity extends Fragment {
         }
     }
 
-
     // срабатывает между onPause() и onStop()
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -140,20 +138,13 @@ public class OneActivity extends Fragment {
 
 
     private void showWeatherInfo(View view, int pos) {
-        // пока без перехода на новое активити
-//        Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-//        intent.putExtra(SecondActivity.RECEIVE_WEATHER_INFO, String.valueOf(spinner.getSelectedItem()));
-//        startActivity(intent);
-//        Log.d(TAG, "spinner position " + spinner.getSelectedItemId());
-
-        // вывод погоды на экран
-//        cityTv.setText(String.valueOf(spinner.getSelectedItem()));
-//        Log.d(TAG, String.valueOf(checkBoxTemperature.isChecked()));
-        cityTv.setText(String.valueOf(((TextView) view).getText()));
-        primaryLayout.setVisibility(View.GONE);
-        weatherLayout.setVisibility(View.VISIBLE);
-        changeLayout = true;
-        checkBoxHandler(pos);
+        OneFragmentInterface oneFragmenInterface = (OneFragmentInterface) getActivity();
+        oneFragmenInterface.onListViewSelected(pos);
+//        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new SecondFragment()).commit();
+//        cityTv.setText(String.valueOf(((TextView) view).getText()));
+//        primaryLayout.setVisibility(View.GONE);
+//        weatherLayout.setVisibility(View.VISIBLE);
+//        changeLayout = true;
     }
 
     String plus(int temperature) {
@@ -174,41 +165,7 @@ public class OneActivity extends Fragment {
     }
 
 
-    private void checkBoxHandler(int pos) {
-        // обработка чекбоксов
-        if (checkBoxTemperature.isChecked()) {
-            temperatureTodayTv.setVisibility(View.VISIBLE);
-            // определяем цвет TextView для отображаемой температуры
-            setColorOfTemperature(temperatureTodayTv, getTemperature(pos));
-            Log.d(TAG, "pos " + pos);
-            temperatureTodayTv.setText(plus(getTemperature(pos)).concat(String.valueOf(getTemperature(pos)).concat("°")));
-        } else {
-            temperatureTodayTv.setVisibility(View.GONE);
-        }
 
-        if (checkBoxPressure.isChecked()) {
-            pressureTodayTv.setVisibility(View.VISIBLE);
-//            pressureTodayTv.setText(String.valueOf(Weather.getInstance().getPressure((int) spinner.getSelectedItemId())).concat(getResources().getString(R.string.pressure1)));
-            pressureTodayTv.setText(String.valueOf(Weather.getInstance().getPressure(pos)).concat(getResources().getString(R.string.pressure1)));
-        } else {
-            pressureTodayTv.setVisibility(View.GONE);
-        }
-
-        if (checkBoxWeatherForecast.isChecked()) {
-            descWeatherForecastTv.setVisibility(View.VISIBLE);
-            temperatureForecastTv.setVisibility(View.VISIBLE);
-            pressureForecastTv.setVisibility(View.VISIBLE);
-            // определяем цвет TextView для отображаемой температуры
-            setColorOfTemperature(temperatureForecastTv, getTemperatureForecast(pos));
-            temperatureForecastTv.setText(plus(getTemperatureForecast(pos)).concat(String.valueOf(getTemperatureForecast(pos)).concat("°")));
-//            pressureForecastTv.setText(String.valueOf(Weather.getInstance().getPressureForecast((int) spinner.getSelectedItemId())).concat(getResources().getString(R.string.pressure1)));
-            pressureForecastTv.setText(String.valueOf(Weather.getInstance().getPressureForecast(pos)).concat(getResources().getString(R.string.pressure1)));
-        } else {
-            descWeatherForecastTv.setVisibility(View.GONE);
-            temperatureForecastTv.setVisibility(View.GONE);
-            pressureForecastTv.setVisibility(View.GONE);
-        }
-    }
 
     private int getColorForTemperature(int weather) {
         if (weather >= 0 && weather < 10) {
@@ -232,6 +189,6 @@ public class OneActivity extends Fragment {
 
 
     void setColorOfTemperature(TextView tv, int temperature) {
-        tv.setTextColor(ContextCompat.getColor(getContext(), getColorForTemperature(temperature)));
+        tv.setTextColor(ContextCompat.getColor(getActivity(), getColorForTemperature(temperature)));
     }
 }
