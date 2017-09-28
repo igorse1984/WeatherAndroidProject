@@ -1,11 +1,15 @@
 [
     {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\color\\design_tint_password_toggle.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_seek_thumb.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_default.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
@@ -30,6 +34,14 @@
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\2adeb89c29e13aa9178c990ac115cd42d987ff4a\\output\\res\\color\\design_tint_password_toggle.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
@@ -68,6 +80,10 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_switch_track.xml"
     },
@@ -88,12 +104,28 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_edittext.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_tint_password_toggle.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\color\\design_tint_password_toggle.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_switch_thumb.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
@@ -112,12 +144,24 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_btn_checkable.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\switch_thumb_material_dark.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
@@ -140,6 +184,10 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_default.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_spinner.xml"
     },
@@ -148,8 +196,16 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_switch_track.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\switch_thumb_material_light.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
@@ -180,6 +236,10 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_search_url_text.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_primary_text_material_dark.xml"
     },
@@ -192,8 +252,20 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\switch_thumb_material_light.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
@@ -224,6 +296,14 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_secondary_text_material_light.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\design_error.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\2adeb89c29e13aa9178c990ac115cd42d987ff4a\\output\\res\\color\\design_error.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_tint_switch_track.xml"
     },
@@ -242,6 +322,14 @@
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\color\\abc_primary_text_material_dark.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",

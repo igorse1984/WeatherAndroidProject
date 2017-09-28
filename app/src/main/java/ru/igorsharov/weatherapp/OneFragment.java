@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class OneFragment extends Fragment {
@@ -24,18 +23,15 @@ public class OneFragment extends Fragment {
     private ListView listView;
     private EditText editTextCityAdd;
     private Button buttonAdd;
-    private static List<String> cityArr = new ArrayList<>();
+    private List<String> cityArr = new ArrayList<>();
     private ArrayAdapter<String> listViewAdapter;
 
-    interface OneFragmentInterface {
-        void onListViewSelected(Bundle bundle);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         initView(view);
-        setListener();
+        setOnClickListeners();
         return view;
     }
 
@@ -53,7 +49,7 @@ public class OneFragment extends Fragment {
         listView.setAdapter(listViewAdapter);
     }
 
-    private void setListener() {
+    private void setOnClickListeners() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -66,6 +62,7 @@ public class OneFragment extends Fragment {
             public void onClick(View view) {
                 String city = String.valueOf(editTextCityAdd.getText());
                 cityArr.add(city);
+                editTextCityAdd.setText("");
                 listViewAdapter.notifyDataSetChanged();
                 WeatherBox.getInstance().putCityAndGenerateWeather(city);
             }
@@ -73,22 +70,17 @@ public class OneFragment extends Fragment {
     }
 
     private void showWeatherInfo(String city) {
-        HashMap<String, Boolean> chBoxState = new HashMap<>();
         Bundle b = new Bundle();
 
-        chBoxState.put(SecondFragment.SHOW_TEMPERATURE, chBoxTemperature.isChecked());
-        chBoxState.put(SecondFragment.SHOW_PRESSURE, chBoxPressure.isChecked());
-        chBoxState.put(SecondFragment.SHOW_FORECAST, chBoxForecast.isChecked());
+        b.putBoolean(SecondFragment.SHOW_TEMPERATURE, chBoxTemperature.isChecked());
+        b.putBoolean(SecondFragment.SHOW_PRESSURE, chBoxPressure.isChecked());
+        b.putBoolean(SecondFragment.SHOW_FORECAST, chBoxForecast.isChecked());
 
-        b.putSerializable(SecondFragment.WEATHER_INFO_OF_CITY, chBoxState);
         b.putString(SecondFragment.CITY, city);
 
 
         // обратиться к активити можно либо через создание интерфейса фрагмента,
         // либо через каст с получением ссылки на активити
-
-//        OneFragmentInterface oneFragmentInterface = (OneFragmentInterface) getActivity();
-//        oneFragmentInterface.onListViewSelected(b);
         ((MainActivity) getActivity()).onListViewSelected(b);
     }
 }

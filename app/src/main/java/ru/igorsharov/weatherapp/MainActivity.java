@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements OneFragment.OneFragmentInterface, SecondFragment.SecondFragmentInterface {
+public class MainActivity extends AppCompatActivity implements SecondFragment.SecondFragmentInterface {
 
     OneFragment oneFragment = new OneFragment();
     SecondFragment secondFragment = new SecondFragment();
@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements OneFragment.OneFr
         getFragmentManager().beginTransaction().add(R.id.fragment_container, oneFragment).commit();
     }
 
-    @Override
     public void onListViewSelected(Bundle bundle) {
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, secondFragment).commit();
         secondFragment.setWeather(bundle);

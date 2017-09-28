@@ -16,6 +16,14 @@
         "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher_round.png",
+        "source": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
         "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },

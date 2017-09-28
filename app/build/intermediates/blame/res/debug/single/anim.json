@@ -1,19 +1,119 @@
 [
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_snackbar_out.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\2adeb89c29e13aa9178c990ac115cd42d987ff4a\\output\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\2adeb89c29e13aa9178c990ac115cd42d987ff4a\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_snackbar_in.xml"
     },
     {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_in_top.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\2adeb89c29e13aa9178c990ac115cd42d987ff4a\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
@@ -32,8 +132,8 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_out_top.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_in_top.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
@@ -44,32 +144,16 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_in.xml"
-    },
-    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_exit.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_enter.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
@@ -88,28 +172,16 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_in.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_in.xml"
-    },
-    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_snackbar_out.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_exit.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\2adeb89c29e13aa9178c990ac115cd42d987ff4a\\output\\res\\anim\\design_snackbar_in.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_in_bottom.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
@@ -120,32 +192,16 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
-    },
-    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_snackbar_in.xml"
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_slide_out_top.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_popup_exit.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+        "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Игорь\\.android\\build-cache\\b3255cfe10b2ad84c3b18eb373996ae0fcad88ff\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
