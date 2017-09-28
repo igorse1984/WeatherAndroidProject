@@ -32,6 +32,23 @@ public class OneFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         initView(view);
         setOnClickListeners();
+
+        //Get a Cursor
+        Cursor cursorForList = MyApp.getDb().getReadableCursor(DBEmpl.TableDep.T_NAME);
+
+        //Create arrays of columns and UI elements
+        String[] from = {DBEmpl.TableDep.C_NAME, DBEmpl.TableDep.C_LOCA};
+        int[] to = {R.id.tvName, R.id.tvLocation};
+
+        //Create simple Cursor adapter
+        SimpleCursorAdapter lvAdapter = new SimpleCursorAdapter(this,
+                R.layout.list_item, cursorForList, from, to, 1);
+
+        //setting up adapter to list view
+        lvList.setAdapter(lvAdapter);
+        MyApp.getDb().addDep("Foo", "Bar");
+        MyApp.getDb().deleteDep(1);
+
         return view;
     }
 
