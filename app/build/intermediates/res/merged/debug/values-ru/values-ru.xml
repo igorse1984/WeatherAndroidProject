@@ -28,9 +28,11 @@
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Открыть доступ"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Открыть доступ пользователю %s"</string>
     <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Свернуть"</string>
+    <string name="addCity">Добавить</string>
     <string name="app_name">WeatherApp</string>
     <string name="buttonBackText">Назад</string>
     <string name="button_title">Узнать погоду</string>
+    <string name="find_weather">Введите название города</string>
     <string name="forecast">Прогноз</string>
     <string name="forecast_text">Прогноз погоды:</string>
     <string name="pressure">Давление</string>

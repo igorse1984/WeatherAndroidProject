@@ -3,7 +3,6 @@ package ru.igorsharov.weatherapp;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,11 @@ import java.util.HashMap;
 
 public class SecondFragment extends Fragment {
 
-    public final static String CHECKBOX_STATUSES = "checkBoxesStatus";
+    public final static String WEATHER_INFO_OF_CITY = "checkBoxesStatus";
     public final static String CITY = "city";
-    public final static String LV_POSITION = "lvPosition";
-    public final static String CH_TEMPERATURE = "chTemperature";
-    public final static String CH_PRESSURE = "chPressure";
-    public final static String CH_FORECAST = "chForecast";
+    public final static String SHOW_TEMPERATURE = "temperature";
+    public final static String SHOW_PRESSURE = "pressure";
+    public final static String SHOW_FORECAST = "forecast";
 
 
     private final static String TAG = SecondFragment.class.getSimpleName();
@@ -69,49 +67,44 @@ public class SecondFragment extends Fragment {
     public void onStart() {
         super.onStart();
         tvCity.setText(b.getString(CITY));
-        setTextViewOfOption((HashMap) b.getSerializable(CHECKBOX_STATUSES), b.getInt(LV_POSITION));
+        setTextViewOfOption((HashMap) b.getSerializable(WEATHER_INFO_OF_CITY), b.getString(CITY));
     }
 
     void setWeather(Bundle b) {
         this.b = b;
     }
 
-    void buttonBack() {
-
-    }
-
-    private void setTextViewOfOption(HashMap hm, int pos) {
+    private void setTextViewOfOption(HashMap hmOptionsBox, String city) {
         // обработка чекбоксов
 
         // отображение температуры
-        if ((boolean) hm.get(CH_TEMPERATURE)) {
+        if ((boolean) hmOptionsBox.get(SHOW_TEMPERATURE)) {
             tvTemperatureToday.setVisibility(View.VISIBLE);
 
             // определяем цвет TextView для отображаемой температуры
-            setColorOfTemperature(tvTemperatureToday, getTemperature(pos));
-            Log.d(TAG, "pos " + pos);
-            tvTemperatureToday.setText(plus(getTemperature(pos)).concat(String.valueOf(getTemperature(pos)).concat("°")));
+            setColorOfTemperature(tvTemperatureToday, getOutTemperature(city));
+            tvTemperatureToday.setText(plus(getOutTemperature(city)).concat(String.valueOf(getOutTemperature(city)).concat("°")));
         } else {
             tvTemperatureToday.setVisibility(View.GONE);
         }
 
         // давление воздуха
-        if ((boolean) hm.get(CH_PRESSURE)) {
+        if ((boolean) hmOptionsBox.get(SHOW_PRESSURE)) {
             tvPressureToday.setVisibility(View.VISIBLE);
-            tvPressureToday.setText(String.valueOf(Weather.getInstance().getPressure(pos)).concat(getResources().getString(R.string.pressure1)));
+            tvPressureToday.setText(getOutPressure(city).concat(getResources().getString(R.string.pressure1)));
         } else {
             tvPressureToday.setVisibility(View.GONE);
         }
 
         // прогноз погоды
-        if ((boolean) hm.get(CH_FORECAST)) {
+        if ((boolean) hmOptionsBox.get(SHOW_FORECAST)) {
             tvDescWeatherForecast.setVisibility(View.VISIBLE);
             tvTemperatureForecast.setVisibility(View.VISIBLE);
             tvPressureForecast.setVisibility(View.VISIBLE);
             // определяем цвет TextView для отображаемой температуры
-            setColorOfTemperature(tvTemperatureForecast, getTemperatureForecast(pos));
-            tvTemperatureForecast.setText(plus(getTemperatureForecast(pos)).concat(String.valueOf(getTemperatureForecast(pos)).concat("°")));
-            tvPressureForecast.setText(String.valueOf(Weather.getInstance().getPressureForecast(pos)).concat(getResources().getString(R.string.pressure1)));
+            setColorOfTemperature(tvTemperatureForecast, getOutTemperatureForecast(city));
+            tvTemperatureForecast.setText(plus(getOutTemperatureForecast(city)).concat(String.valueOf(getOutTemperatureForecast(city)).concat("°")));
+            tvPressureForecast.setText(getOutPressureForecast(city).concat(getResources().getString(R.string.pressure1)));
         } else {
             tvDescWeatherForecast.setVisibility(View.GONE);
             tvTemperatureForecast.setVisibility(View.GONE);
@@ -119,12 +112,20 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    int getTemperature(int pos) {
-        return Weather.getInstance().getTemperature(pos);
+    int getOutTemperature(String city) {
+        return WeatherBox.getInstance().getTemperature(city);
     }
 
-    int getTemperatureForecast(int pos) {
-        return Weather.getInstance().getTemperatureForecast(pos);
+    int getOutTemperatureForecast(String city) {
+        return WeatherBox.getInstance().getTemperatureForecast(city);
+    }
+
+    String getOutPressure(String city) {
+        return String.valueOf(WeatherBox.getInstance().getPressure(city));
+    }
+
+    String getOutPressureForecast(String city) {
+       return String.valueOf(WeatherBox.getInstance().getPressureForecast(city));
     }
 
     String plus(int temperature) {
