@@ -7,19 +7,9 @@
     <string name="pressure">Давление</string>
     <string name="forecast">Прогноз</string>
     <string name="buttonBackText">Назад</string>
-    <string name="pressure1"> мм рт. ст.</string>
+    <string name="pressure1">мм рт.ст.</string>
     <string name="forecast_text">Прогноз погоды:</string>
     <string name="find_weather">Введите название города</string>
     <string name="addCity">Добавить</string>
-
-    <string-array name="city_selection">
-        <item>Москва</item>
-        <item>Санкт-Петербург</item>
-        <item>Тверь</item>
-        <item>Воронеж</item>
-        <item>Ростов-на-Дону</item>
-        <item>Краснодар</item>
-        <item>Симферополь</item>
-    </string-array>
 
 </resources>

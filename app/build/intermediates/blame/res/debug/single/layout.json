@@ -612,6 +612,10 @@
         "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\layout\\design_layout_snackbar.xml"
     },
     {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item.xml",
+        "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\layout\\list_item.xml"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
         "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\layout\\activity_main.xml"
     },

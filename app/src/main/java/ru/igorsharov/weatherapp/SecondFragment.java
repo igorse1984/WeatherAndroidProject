@@ -12,12 +12,10 @@ import android.widget.TextView;
 public class SecondFragment extends Fragment {
 
     private final static String TAG = SecondFragment.class.getSimpleName();
-    public final static String WEATHER_INFO_OF_CITY = "checkBoxesStatus";
     public final static String CITY = "city";
     public final static String SHOW_TEMPERATURE = "temperature";
     public final static String SHOW_PRESSURE = "pressure";
     public final static String SHOW_FORECAST = "forecast";
-    private String city;
     private TextView tvCity;
     private TextView tvTemperatureToday;
     private TextView tvPressureToday;
@@ -25,10 +23,15 @@ public class SecondFragment extends Fragment {
     private TextView tvTemperatureForecast;
     private TextView tvPressureForecast;
     Bundle b;
+    String temperature;
+    String temperatureForecast;
+    String pressure;
+    String pressureForecast;
 
     interface SecondFragmentInterface {
         void clickButtonBackOnSecondFragment();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,8 +74,14 @@ public class SecondFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        city = b.getString(CITY);
+        String city = b.getString(CITY);
         tvCity.setText(city);
+
+        temperature = WeatherBox.getInstance().getTemperature(city);
+        temperatureForecast = WeatherBox.getInstance().getTemperatureForecast(city);
+        pressure = String.valueOf(WeatherBox.getInstance().getPressure(city));
+        pressureForecast = String.valueOf(WeatherBox.getInstance().getPressureForecast(city));
+
         setTextViewOfOption();
     }
 
@@ -82,70 +91,49 @@ public class SecondFragment extends Fragment {
 
     private void setTextViewOfOption() {
         // обработка чекбоксов
-
-        // отображение температуры
-        if (b.getBoolean(SHOW_TEMPERATURE)) {
-            tvTemperatureToday.setVisibility(View.VISIBLE);
-
-            // определяем цвет TextView для отображаемой температуры
-            setTextColorOfTemperature(tvTemperatureToday, getOutTemperature(city));
-            tvTemperatureToday.setText(plus(getOutTemperature(city)).concat(String.valueOf(getOutTemperature(city)).concat("°")));
-        } else {
-            tvTemperatureToday.setVisibility(View.GONE);
-        }
+        // отображение основной температуры
+        setWeatherView(tvTemperatureToday, SHOW_TEMPERATURE, temperature, true);
 
         // давление воздуха
-        if (b.getBoolean(SHOW_PRESSURE)) {
-            tvPressureToday.setVisibility(View.VISIBLE);
-            tvPressureToday.setText(getOutPressure(city).concat(getResources().getString(R.string.pressure1)));
-        } else {
-            tvPressureToday.setVisibility(View.GONE);
-        }
+        setWeatherView(tvPressureToday, SHOW_PRESSURE, pressure, false);
 
         // прогноз погоды
-        if (b.getBoolean(SHOW_FORECAST)) {
-            tvDescWeatherForecast.setVisibility(View.VISIBLE);
-            tvTemperatureForecast.setVisibility(View.VISIBLE);
-            tvPressureForecast.setVisibility(View.VISIBLE);
-            // определяем цвет TextView для отображаемой температуры
-            setTextColorOfTemperature(tvTemperatureForecast, getOutTemperatureForecast(city));
-            tvTemperatureForecast.setText(plus(getOutTemperatureForecast(city)).concat(String.valueOf(getOutTemperatureForecast(city)).concat("°")));
-            tvPressureForecast.setText(getOutPressureForecast(city).concat(getResources().getString(R.string.pressure1)));
+        setWeatherView(tvTemperatureForecast, SHOW_FORECAST, temperatureForecast, true);
+        setWeatherView(tvPressureForecast, SHOW_FORECAST, pressureForecast, false);
+        setWeatherView(tvDescWeatherForecast, SHOW_FORECAST, null, false);
+    }
+
+    private void setWeatherView(TextView v, String showParam, String value, boolean isTemp) {
+        if (b.getBoolean(showParam)) {
+            v.setVisibility(View.VISIBLE);
+
+            /* определяем цвет TextView если это температура */
+            if (isTemp) {
+                setTextColorOfTemperature(v, value);
+                v.setText(plus(value).concat(value.concat("°")));
+            } else {
+                if (value != null) {
+                    v.setText(value.concat(" ").concat(getResources().getString(R.string.pressure1)));
+                }
+            }
         } else {
-            tvDescWeatherForecast.setVisibility(View.GONE);
-            tvTemperatureForecast.setVisibility(View.GONE);
-            tvPressureForecast.setVisibility(View.GONE);
+            v.setVisibility(View.GONE);
         }
     }
 
-    int getOutTemperature(String city) {
-        return WeatherBox.getInstance().getTemperature(city);
-    }
-
-    int getOutTemperatureForecast(String city) {
-        return WeatherBox.getInstance().getTemperatureForecast(city);
-    }
-
-    String getOutPressure(String city) {
-        return String.valueOf(WeatherBox.getInstance().getPressure(city));
-    }
-
-    String getOutPressureForecast(String city) {
-       return String.valueOf(WeatherBox.getInstance().getPressureForecast(city));
-    }
-
-    String plus(int temperature) {
-        if (temperature > 0) {
+    String plus(String temperature) {
+        if (Integer.valueOf(temperature) > 0) {
             return "+";
         }
         return "";
     }
 
-    void setTextColorOfTemperature(TextView tv, int temperature) {
+    void setTextColorOfTemperature(TextView tv, String temperature) {
         tv.setTextColor(ContextCompat.getColor(getActivity(), getColorForTemperature(temperature)));
     }
 
-    private int getColorForTemperature(int weather) {
+    private int getColorForTemperature(String w) {
+        int weather = Integer.valueOf(w);
         if (weather >= 0 && weather < 10) {
             return R.color.color0;
         } else {

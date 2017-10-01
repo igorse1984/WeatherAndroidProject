@@ -7,19 +7,9 @@
     <string name="pressure">Pressure</string>
     <string name="forecast">Forecast</string>
     <string name="buttonBackText">Back</string>
-    <string name="pressure1"> mmHg</string>
+    <string name="pressure1">mmHg</string>
     <string name="forecast_text">Weather forecast:</string>
     <string name="find_weather">Enter the name of the city</string>
     <string name="addCity">Add</string>
-
-    <string-array name="city_selection">
-        <item>Moscow</item>
-        <item>Saint-Petersburg </item>
-        <item>Tver</item>
-        <item>Voronezh</item>
-        <item>Rostov-on-don</item>
-        <item>Krasnodar</item>
-        <item>Simferopol</item>
-    </string-array>
 
 </resources>
