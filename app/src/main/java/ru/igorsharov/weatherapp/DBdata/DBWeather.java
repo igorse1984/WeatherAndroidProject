@@ -55,7 +55,7 @@ public class DBWeather extends DBHelper {
     }
 
     /**
-     * Add information about department to a data base
+     * Add information about weather to a data base
      *
      * @param city                city name
      * @param temperature         temperature of city
@@ -77,6 +77,14 @@ public class DBWeather extends DBHelper {
 
 		/* Add item to a data base */
         getWritableDatabase().insert(WeatherEntry.T_NAME, null, v);
+    }
+
+    /**
+     * Add information about weather to a data base
+     * @return id of new element
+     * */
+    long put(ContentValues values) {
+        return this.getWritableDatabase().insert(WeatherEntry.T_NAME, null, values);
     }
 
     public String get(String city, String wParam) {
