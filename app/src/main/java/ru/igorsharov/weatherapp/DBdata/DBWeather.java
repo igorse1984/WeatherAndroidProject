@@ -1,11 +1,12 @@
-package ru.igorsharov.weatherapp.data;
+package ru.igorsharov.weatherapp.DBdata;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import ru.igorsharov.weatherapp.data.DBWeatherContract.WeatherEntry;
+import ru.igorsharov.weatherapp.AppDB;
+import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 
 public class DBWeather extends DBHelper {
 
@@ -62,7 +63,7 @@ public class DBWeather extends DBHelper {
      * @param temperatureForecast temperature forecast of city
      * @param pressureForecast    pressure forecast of city
      */
-    public void addDataWeather(String city, String temperature, String pressure, String temperatureForecast, String pressureForecast) {
+    public void put(String city, String temperature, String pressure, String temperatureForecast, String pressureForecast) {
 
 		/* Create a new map of values, where column names are the keys */
         ContentValues v = new ContentValues();
@@ -78,6 +79,24 @@ public class DBWeather extends DBHelper {
         getWritableDatabase().insert(WeatherEntry.T_NAME, null, v);
     }
 
+    public String get(String city, String wParam) {
+        String tName = WeatherEntry.T_NAME;
+        String cCity = WeatherEntry.C_CITY;
+        String sqlRequest = "SELECT " + wParam
+                + " FROM " + tName
+                + " WHERE " + cCity
+                + "=" + "'" + city + "'";
+        Cursor cursor = AppDB.getDb().getRawReadableCursor(sqlRequest);
+        if (cursor.moveToFirst()) {
+            /* Calculate indexes of columns and get*/
+            String str = cursor.getString(
+                    cursor.getColumnIndex(wParam));
+            cursor.close();
+            return str;
+        }
+        return null;
+    }
+
     /**
      * Update information about weather into a data base.
      *
@@ -88,7 +107,7 @@ public class DBWeather extends DBHelper {
      * @param pressureForecast    pressure forecast of city
      * @param id                  of element that will be updated
      */
-    public void updateWeather(String city, String temperature, String pressure, String temperatureForecast, String pressureForecast, long id) {
+    public void update(String city, String temperature, String pressure, String temperatureForecast, String pressureForecast, long id) {
 
 		/* Create a new map of values, where column names are the keys */
         ContentValues v = new ContentValues();
@@ -110,14 +129,13 @@ public class DBWeather extends DBHelper {
      *
      * @param id of element that will be deleted
      */
-    public void deleteDep(long id) {
+    public void delete(long id) {
         getWritableDatabase().delete(
                 WeatherEntry.T_NAME, WeatherEntry.SQL_WHERE_BY_ID,
                 new String[]{String.valueOf(id)});
     }
 
-    @Override
-    public Cursor getReadableCursor(String sqlRequest) {
+    public Cursor getRawReadableCursor(String sqlRequest) {
         return getReadableDatabase().rawQuery(sqlRequest, null);
     }
 

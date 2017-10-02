@@ -27,6 +27,7 @@ public class SecondFragment extends Fragment {
     String temperatureForecast;
     String pressure;
     String pressureForecast;
+    WeatherBox wBox = WeatherBox.getInstance();
 
     interface SecondFragmentInterface {
         void clickButtonBackOnSecondFragment();
@@ -77,10 +78,10 @@ public class SecondFragment extends Fragment {
         String city = b.getString(CITY);
         tvCity.setText(city);
 
-        temperature = WeatherBox.getInstance().getTemperature(city);
-        temperatureForecast = WeatherBox.getInstance().getTemperatureForecast(city);
-        pressure = String.valueOf(WeatherBox.getInstance().getPressure(city));
-        pressureForecast = String.valueOf(WeatherBox.getInstance().getPressureForecast(city));
+        temperature = wBox.getTemperature(city);
+        temperatureForecast = wBox.getTemperatureForecast(city);
+        pressure = wBox.getPressure(city);
+        pressureForecast = wBox.getPressureForecast(city);
 
         setTextViewOfOption();
     }
@@ -98,13 +99,13 @@ public class SecondFragment extends Fragment {
         setWeatherView(tvPressureToday, SHOW_PRESSURE, pressure, false);
 
         // прогноз погоды
-        setWeatherView(tvTemperatureForecast, SHOW_FORECAST, temperatureForecast, true);
-        setWeatherView(tvPressureForecast, SHOW_FORECAST, pressureForecast, false);
+        setWeatherView(tvTemperatureForecast, b.getBoolean(SHOW_FORECAST) ? SHOW_TEMPERATURE : SHOW_FORECAST, temperatureForecast, true);
+        setWeatherView(tvPressureForecast, b.getBoolean(SHOW_FORECAST) ? SHOW_PRESSURE : SHOW_FORECAST, pressureForecast, false);
         setWeatherView(tvDescWeatherForecast, SHOW_FORECAST, null, false);
     }
 
-    private void setWeatherView(TextView v, String showParam, String value, boolean isTemp) {
-        if (b.getBoolean(showParam)) {
+    private void setWeatherView(TextView v, String showParamKey, String value, boolean isTemp) {
+        if (b.getBoolean(showParamKey)) {
             v.setVisibility(View.VISIBLE);
 
             /* определяем цвет TextView если это температура */

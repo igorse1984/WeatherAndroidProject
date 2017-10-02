@@ -1,15 +1,12 @@
 package ru.igorsharov.weatherapp;
 
 
-import android.database.Cursor;
-
-import ru.igorsharov.weatherapp.data.DBWeatherContract.WeatherEntry;
+import ru.igorsharov.weatherapp.DBdata.DBWeather;
+import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 
 /**
- * ввод/вывод информации о погоде
- * входные параметры: название города
- * генерирует погоду,
- * записывает и читает данные из БД
+ * генерирует погоду
+ * выводит информацию о погоде из БД по запросу названия города
  */
 class WeatherBox {
     private static final WeatherBox ourInstance = new WeatherBox();
@@ -21,21 +18,11 @@ class WeatherBox {
     private WeatherBox() {
     }
 
-    private String temperature;
-    private String pressure;
-    private String temperatureForecast;
-    private String pressureForecast;
+    private DBWeather db = AppDB.getDb();
 
     void addCity(String city) {
-        generateWeather4City();
-        AppDB.getDb().addDataWeather(city, temperature, pressure, temperatureForecast, pressureForecast);
-    }
-
-    private void generateWeather4City() {
-        temperature = generateTemperature();
-        pressure = generatePressure();
-        temperatureForecast = generateTemperature();
-        pressureForecast = generatePressure();
+        db.put(city, generateTemperature(), generatePressure(),
+                generateTemperature(), generatePressure());
     }
 
     private String generateTemperature() {
@@ -49,36 +36,18 @@ class WeatherBox {
     // необходимо реализовать кэш
 
     String getTemperature(String city) {
-        return getWeatherParam(city, WeatherEntry.C_TEMPERATURE);
+        return db.get(city, WeatherEntry.C_TEMPERATURE);
     }
 
     String getPressure(String city) {
-        return getWeatherParam(city, WeatherEntry.C_PRESSURE);
+        return db.get(city, WeatherEntry.C_PRESSURE);
     }
 
     String getTemperatureForecast(String city) {
-        return getWeatherParam(city, WeatherEntry.C_TEMPERATURE_FORECAST);
+        return db.get(city, WeatherEntry.C_TEMPERATURE_FORECAST);
     }
 
     String getPressureForecast(String city) {
-        return getWeatherParam(city, WeatherEntry.C_PRESSURE_FORECAST);
-    }
-
-    private String getWeatherParam(String city, String wParam) {
-        String tName = WeatherEntry.T_NAME;
-        String cCity = WeatherEntry.C_CITY;
-        String sqlRequest = "SELECT " + wParam
-                + " FROM " + tName
-                + " WHERE " + cCity
-                + "=" + "'" + city + "'";
-        Cursor cursor = AppDB.getDb().getReadableCursor(sqlRequest);
-        if (cursor.moveToFirst()) {
-            /* Calculate indexes of columns and get*/
-            String str = cursor.getString(
-                    cursor.getColumnIndex(wParam));
-            cursor.close();
-            return str;
-        }
-        return null;
+        return db.get(city, WeatherEntry.C_PRESSURE_FORECAST);
     }
 }

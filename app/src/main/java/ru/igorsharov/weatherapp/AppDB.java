@@ -3,7 +3,7 @@ package ru.igorsharov.weatherapp;
 import android.app.Application;
 import android.util.Log;
 
-import ru.igorsharov.weatherapp.data.DBWeather;
+import ru.igorsharov.weatherapp.DBdata.DBWeather;
 
 public class AppDB extends Application {
 

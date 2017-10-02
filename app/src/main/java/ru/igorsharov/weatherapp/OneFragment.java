@@ -1,38 +1,48 @@
 package ru.igorsharov.weatherapp;
 
 import android.app.Fragment;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import ru.igorsharov.weatherapp.DBdata.DBWeather;
+import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 
-public class OneFragment extends Fragment {
+public class OneFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private final static String TAG = OneFragment.class.getSimpleName();
     private CheckBox chBoxTemperature, chBoxPressure, chBoxForecast;
     private ListView listView;
     private EditText editTextCityAdd;
     private Button buttonAdd;
-    private List<String> cityArr = new ArrayList<>();
-    private ArrayAdapter<String> listViewAdapter;
+    private SimpleCursorAdapter lvAdapter;
+    private DBWeather db = AppDB.getDb();
+    Cursor cursorForList = db.getReadableCursor(WeatherEntry.T_NAME);
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         initView(view);
-        setOnClickListeners();
+        listView.setOnItemLongClickListener(this);
+        listView.setOnItemClickListener(this);
+        buttonAdd.setOnClickListener(this);
         return view;
+    }
+
+    /* обновление listView по новой технологии взамен устаревшего метода requery */
+    private void cursorReNew() {
+        cursorForList = db.getReadableCursor(WeatherEntry.T_NAME);
+        lvAdapter.swapCursor(cursorForList);
     }
 
     private void initView(View v) {
@@ -43,30 +53,16 @@ public class OneFragment extends Fragment {
         editTextCityAdd = v.findViewById(R.id.editTextCityAdd);
         buttonAdd = v.findViewById(R.id.buttonAdd);
 
-        listViewAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, cityArr);
 
-        listView.setAdapter(listViewAdapter);
-    }
+        //Create arrays of columns and UI elements
+        String[] from = {WeatherEntry.C_CITY};
+        int[] to = {R.id.tvName};
 
-    private void setOnClickListeners() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showWeatherInfo(String.valueOf(((TextView) view).getText()));
-            }
-        });
+        //Create simple Cursor adapter
+        lvAdapter = new SimpleCursorAdapter(getActivity(),
+                R.layout.list_item, cursorForList, from, to, 1);
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String city = String.valueOf(editTextCityAdd.getText());
-                cityArr.add(city);
-                editTextCityAdd.setText("");
-                listViewAdapter.notifyDataSetChanged();
-                WeatherBox.getInstance().addCity(city);
-            }
-        });
+        listView.setAdapter(lvAdapter);
     }
 
     private void showWeatherInfo(String city) {
@@ -82,5 +78,26 @@ public class OneFragment extends Fragment {
         // обратиться к активити можно либо через создание интерфейса фрагмента,
         // либо через каст с получением ссылки на активити
         ((MainActivity) getActivity()).onListViewSelected(b);
+    }
+
+    /* обработка кликов */
+    @Override
+    public void onClick(View v) {
+        String city = String.valueOf(editTextCityAdd.getText());
+        editTextCityAdd.setText("");
+        WeatherBox.getInstance().addCity(city);
+        cursorReNew();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        db.delete(id);
+        cursorReNew();
+        return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        showWeatherInfo(String.valueOf(((TextView) view).getText()));
     }
 }

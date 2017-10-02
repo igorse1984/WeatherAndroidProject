@@ -1,4 +1,4 @@
-package ru.igorsharov.weatherapp.data;
+package ru.igorsharov.weatherapp.DBdata;
 
 import android.content.Context;
 import android.database.Cursor;
