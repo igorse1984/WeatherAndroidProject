@@ -11,5 +11,6 @@
     <string name="forecast_text">Weather forecast:</string>
     <string name="find_weather">Enter the name of the city</string>
     <string name="addCity">Add</string>
+    <string name="findLoc">Locate</string>
 
 </resources>
