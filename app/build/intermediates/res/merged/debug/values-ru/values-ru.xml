@@ -23,6 +23,7 @@
     <string name="app_name">WeatherApp</string>
     <string name="buttonBackText">Назад</string>
     <string name="button_title">Узнать погоду</string>
+    <string name="findLoc">Определить</string>
     <string name="find_weather">Введите название города</string>
     <string name="forecast">Прогноз</string>
     <string name="forecast_text">Прогноз погоды:</string>

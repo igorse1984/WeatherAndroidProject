@@ -3,6 +3,7 @@ package ru.igorsharov.weatherapp;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 public class SecondFragment extends Fragment {
 
-    private final static String TAG = SecondFragment.class.getSimpleName();
+    private final static String LOG_TAG = SecondFragment.class.getSimpleName();
     public final static String CITY = "city";
     public final static String SHOW_TEMPERATURE = "temperature";
     public final static String SHOW_PRESSURE = "pressure";
@@ -111,7 +112,7 @@ public class SecondFragment extends Fragment {
             /* определяем цвет TextView если это температура */
             if (isTemp) {
                 setTextColorOfTemperature(v, value);
-                v.setText(plus(value).concat(value.concat("°")));
+                v.setText(plus(value).concat(value.concat(" ℃")));
             } else {
                 if (value != null) {
                     v.setText(value.concat(" ").concat(getResources().getString(R.string.pressure1)));
@@ -134,6 +135,7 @@ public class SecondFragment extends Fragment {
     }
 
     private int getColorForTemperature(String w) {
+        Log.d(LOG_TAG, w);
         int weather = Integer.valueOf(w);
         if (weather >= 0 && weather < 10) {
             return R.color.color0;

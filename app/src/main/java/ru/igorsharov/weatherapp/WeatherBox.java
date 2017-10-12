@@ -1,15 +1,24 @@
 package ru.igorsharov.weatherapp;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
+import ru.igorsharov.weatherapp.JSON.WeatherJSONLoader;
+import ru.igorsharov.weatherapp.JSON.WeatherJSONParser;
 
 /**
  * генерирует погоду
  * выводит информацию о погоде из БД по запросу названия города
  */
-class WeatherBox {
+final class WeatherBox {
     private static final WeatherBox ourInstance = new WeatherBox();
+    private static final String LOG_TAG = WeatherBox.class.getSimpleName();
+
 
     static WeatherBox getInstance() {
         return ourInstance;
@@ -20,13 +29,35 @@ class WeatherBox {
 
     private DBWeather db = AppDB.getDb();
 
-    void addCity(String city) {
-        db.put(city, generateTemperature(), generatePressure(),
-                generateTemperature(), generatePressure());
+    void addCity(String reqCity) {
+        WeatherJSONParser.setJSONObject(requestWeatherJSONObject(reqCity));
+
+        db.put(WeatherJSONParser.getCityName(),
+                WeatherJSONParser.getTemperature(),generatePressure(),
+                "0", generatePressure());
     }
 
-    private String generateTemperature() {
-        return String.valueOf((int) ((((Math.random() / 2)) - 0.2) * 100));
+    // запрашивает у сервера JSON с информацией о погоде для запрашиваемого города
+    private JSONObject requestWeatherJSONObject(final String reqCity) {
+        final JSONObject[] jsonObject = new JSONObject[1];
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    jsonObject[0] = WeatherJSONLoader.getJSONObj(reqCity);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //        return String.valueOf((int) ((((Math.random() / 2)) - 0.2) * 100));
+        return jsonObject[0];
     }
 
     private String generatePressure() {

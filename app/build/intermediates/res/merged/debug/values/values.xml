@@ -692,6 +692,7 @@
     <string name="buttonBackText">Back</string>
     <string name="button_title">Check the weather</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="findLoc">Locate</string>
     <string name="find_weather">Enter the name of the city</string>
     <string name="forecast">Forecast</string>
     <string name="forecast_text">Weather forecast:</string>

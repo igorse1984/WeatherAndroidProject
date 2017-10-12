@@ -126,9 +126,9 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonAdd:
-                String city = String.valueOf(editTextCityAdd.getText());
+                String reqCity = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
-                WeatherBox.getInstance().addCity(city);
+                WeatherBox.getInstance().addCity(reqCity);
                 cursorReNew();
                 break;
             case R.id.btnFindLoc:
