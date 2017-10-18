@@ -707,6 +707,7 @@
     <string name="share">Share friends</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="temperature">Temperature</string>
+    <string name="textButtonUpd">Update</string>
     <string name="text_title">Select a city</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>

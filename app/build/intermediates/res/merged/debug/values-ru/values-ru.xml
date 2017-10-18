@@ -33,5 +33,6 @@
     <string name="share">Поделиться с другом</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">">999"</string>
     <string name="temperature">Температура</string>
+    <string name="textButtonUpd">Обновить</string>
     <string name="text_title">выберите город</string>
 </resources>

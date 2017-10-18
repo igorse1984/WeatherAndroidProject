@@ -2806,14 +2806,7 @@
                     "endOffset": 2273
                 },
                 "from": {
-                    "file": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\values-ru\\strings.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 648,
-                        "endColumn": 46,
-                        "endOffset": 690
-                    }
+                    "file": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\values-ru\\strings.xml"
                 }
             },
             {
@@ -2929,8 +2922,27 @@
                     "startLine": 35,
                     "startColumn": 4,
                     "startOffset": 2828,
+                    "endColumn": 50,
+                    "endOffset": 2874
+                },
+                "from": {
+                    "file": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\values-ru\\strings.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 696,
+                        "endColumn": 50,
+                        "endOffset": 742
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 2879,
                     "endColumn": 53,
-                    "endOffset": 2877
+                    "endOffset": 2928
                 },
                 "from": {
                     "file": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\values-ru\\strings.xml"
