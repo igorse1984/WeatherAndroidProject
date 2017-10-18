@@ -88,7 +88,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     private void setDbListAdapter() {
         //Create arrays of columns and UI elements
         String[] from = {WeatherEntry.C_CITY};
-        int[] to = {R.id.tvName};
+        int[] to = {R.id.tvListItem};
 
         //Create simple Cursor adapter
         lvAdapter = new SimpleCursorAdapter(getActivity(),
@@ -102,14 +102,17 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         loc = lochlp.getLastLoc();
     }
 
-    private void showWeatherInfo(String city) {
+    private void showWeatherInfo(long id, String city) {
+        // обновление информации о погоде
+        WeatherDataHandler.getInstance().updateCity(id, city);
+
         Bundle b = new Bundle();
 
-        b.putBoolean(SecondFragment.SHOW_TEMPERATURE, chBoxTemperature.isChecked());
-        b.putBoolean(SecondFragment.SHOW_PRESSURE, chBoxPressure.isChecked());
-        b.putBoolean(SecondFragment.SHOW_FORECAST, chBoxForecast.isChecked());
+        b.putBoolean(SecondFragment.TEMPERATURE_SHOW_KEY, chBoxTemperature.isChecked());
+        b.putBoolean(SecondFragment.PRESSURE_SHOW_KEY, chBoxPressure.isChecked());
+        b.putBoolean(SecondFragment.FORECAST_SHOW_KEY, chBoxForecast.isChecked());
 
-        b.putString(SecondFragment.CITY, city);
+        b.putString(SecondFragment.CITY_KEY, city);
 
 
         // обратиться к активити можно либо через создание интерфейса фрагмента,
@@ -128,7 +131,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
             case R.id.buttonAdd:
                 String reqCity = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
-                WeatherBox.getInstance().addCity(reqCity);
+                WeatherDataHandler.getInstance().addCity(reqCity);
                 cursorReNew();
                 break;
             case R.id.btnFindLoc:
@@ -147,7 +150,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     //Клики по listView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        showWeatherInfo(String.valueOf(((TextView) view).getText()));
+        showWeatherInfo(id, String.valueOf(((TextView) view).getText()));
     }
 
     @Override

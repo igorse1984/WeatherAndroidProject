@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import java.util.Arrays;
 
 import ru.igorsharov.weatherapp.AppDB;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
@@ -55,38 +58,39 @@ public class DBWeather extends DBHelper {
     }
 
     /**
-     * Add information about weather to a data base
-     *
-     * @param city                city name
-     * @param temperature         temperature of city
-     * @param pressure            pressure of city
-     * @param temperatureForecast temperature forecast of city
-     * @param pressureForecast    pressure forecast of city
+     * Добавляет информацию о погоде в базу данных
      */
-    public void put(String city, String temperature, String pressure, String temperatureForecast, String pressureForecast) {
+    public void put(String... weatherValues) {
 
-		/* Create a new map of values, where column names are the keys */
+        // заполняем базу через объект вспомогательного класса
         ContentValues v = new ContentValues();
 
-		/* Fill values */
-        v.put(WeatherEntry.C_CITY, city);
-        v.put(WeatherEntry.C_TEMPERATURE, temperature);
-        v.put(WeatherEntry.C_PRESSURE, pressure);
-        v.put(WeatherEntry.C_TEMPERATURE_FORECAST, temperatureForecast);
-        v.put(WeatherEntry.C_PRESSURE_FORECAST, pressureForecast);
+        for (int i = 0; i < weatherValues.length - 1; i += 2) {
+            // Заполение значений
+            v.put(weatherValues[i], weatherValues[i + 1]);
 
-		/* Add item to a data base */
+            Log.d("@@@", weatherValues[i] + " = " + weatherValues[i + 1]);
+        }
+
+        // записываем значения в базу
         getWritableDatabase().insert(WeatherEntry.T_NAME, null, v);
     }
 
     /**
-     * Add information about weather to a data base
+     * Метод для добавления данных в базу через контент-провайдера
+     *
      * @return id of new element
-     * */
+     */
     long put(ContentValues values) {
         return this.getWritableDatabase().insert(WeatherEntry.T_NAME, null, values);
     }
 
+    /**
+     * Получение погодных данных из базы данных
+     *
+     * @param city   название города
+     * @param wParam погодный параметр
+     */
     public String get(String city, String wParam) {
         String tName = WeatherEntry.T_NAME;
         String cCity = WeatherEntry.C_CITY;
@@ -106,26 +110,20 @@ public class DBWeather extends DBHelper {
     }
 
     /**
-     * Update information about weather into a data base.
-     *
-     * @param city                city name
-     * @param temperature         temperature of city
-     * @param pressure            pressure of city
-     * @param temperatureForecast temperature forecast of city
-     * @param pressureForecast    pressure forecast of city
-     * @param id                  of element that will be updated
+     * Обновление информации о погоде в базе
      */
-    public void update(String city, String temperature, String pressure, String temperatureForecast, String pressureForecast, long id) {
+    public void update(long id, String... weatherValues) {
 
 		/* Create a new map of values, where column names are the keys */
         ContentValues v = new ContentValues();
 
 		/* Fill values */
-        v.put(WeatherEntry.C_CITY, city);
-        v.put(WeatherEntry.C_TEMPERATURE, temperature);
-        v.put(WeatherEntry.C_PRESSURE, pressure);
-        v.put(WeatherEntry.C_TEMPERATURE_FORECAST, temperatureForecast);
-        v.put(WeatherEntry.C_PRESSURE_FORECAST, pressureForecast);
+        for (int i = 0; i < weatherValues.length - 1; i += 2) {
+            // Заполение значений
+            v.put(weatherValues[i], weatherValues[i + 1]);
+
+            Log.d("@@@", weatherValues[i] + " = " + weatherValues[i + 1]);
+        }
 
 		/* Update information */
         getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,

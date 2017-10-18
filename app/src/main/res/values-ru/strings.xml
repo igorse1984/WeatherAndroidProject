@@ -12,5 +12,6 @@
     <string name="find_weather">Введите название города</string>
     <string name="addCity">Добавить</string>
     <string name="findLoc">Определить</string>
+    <string name="textButtonUpd">Обновить</string>
 
 </resources>

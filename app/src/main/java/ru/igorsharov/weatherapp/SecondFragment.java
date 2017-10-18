@@ -13,22 +13,19 @@ import android.widget.TextView;
 public class SecondFragment extends Fragment {
 
     private final static String LOG_TAG = SecondFragment.class.getSimpleName();
-    public final static String CITY = "city";
-    public final static String SHOW_TEMPERATURE = "temperature";
-    public final static String SHOW_PRESSURE = "pressure";
-    public final static String SHOW_FORECAST = "forecast";
+    public final static String CITY_KEY = "city";
+    public final static String TEMPERATURE_SHOW_KEY = "temperature";
+    public final static String PRESSURE_SHOW_KEY = "pressure";
+    public final static String FORECAST_SHOW_KEY = "forecast";
     private TextView tvCity;
     private TextView tvTemperatureToday;
     private TextView tvPressureToday;
     private TextView tvDescWeatherForecast;
     private TextView tvTemperatureForecast;
     private TextView tvPressureForecast;
+    private TextView tvLocation;
     Bundle b;
-    String temperature;
-    String temperatureForecast;
-    String pressure;
-    String pressureForecast;
-    WeatherBox wBox = WeatherBox.getInstance();
+    WeatherDataHandler wBox = WeatherDataHandler.getInstance();
 
     interface SecondFragmentInterface {
         void clickButtonBackOnSecondFragment();
@@ -47,6 +44,7 @@ public class SecondFragment extends Fragment {
         tvTemperatureForecast = view.findViewById(R.id.temperatureForecast);
         tvPressureForecast = view.findViewById(R.id.pressureForecast);
         tvCity = view.findViewById(R.id.city);
+        tvLocation = view.findViewById(R.id.location);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,41 +74,40 @@ public class SecondFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String city = b.getString(CITY);
-        tvCity.setText(city);
-
-        temperature = wBox.getTemperature(city);
-        temperatureForecast = wBox.getTemperatureForecast(city);
-        pressure = wBox.getPressure(city);
-        pressureForecast = wBox.getPressureForecast(city);
-
-        setTextViewOfOption();
+        setTextViewOfOption(b.getString(CITY_KEY));
     }
 
+    // метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
     void setWeather(Bundle b) {
         this.b = b;
     }
 
-    private void setTextViewOfOption() {
-        // обработка чекбоксов
-        // отображение основной температуры
-        setWeatherView(tvTemperatureToday, SHOW_TEMPERATURE, temperature, true);
+    private void setTextViewOfOption(String city) {
+        tvCity.setText(city);
+        tvLocation.setText(wBox.getLocation(city));
+
+        // инициализация View в соответствии с настройками чекбоксов
+        // основная температура
+        setWeatherView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, wBox.getTemperature(city));
 
         // давление воздуха
-        setWeatherView(tvPressureToday, SHOW_PRESSURE, pressure, false);
+        setWeatherView(tvPressureToday, PRESSURE_SHOW_KEY, wBox.getPressure(city));
 
         // прогноз погоды
-        setWeatherView(tvTemperatureForecast, b.getBoolean(SHOW_FORECAST) ? SHOW_TEMPERATURE : SHOW_FORECAST, temperatureForecast, true);
-        setWeatherView(tvPressureForecast, b.getBoolean(SHOW_FORECAST) ? SHOW_PRESSURE : SHOW_FORECAST, pressureForecast, false);
-        setWeatherView(tvDescWeatherForecast, SHOW_FORECAST, null, false);
+        setWeatherView(
+                tvTemperatureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
+                wBox.getTemperatureForecast(city));
+        setWeatherView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
+                wBox.getPressureForecast(city));
+        setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
     }
 
-    private void setWeatherView(TextView v, String showParamKey, String value, boolean isTemp) {
-        if (b.getBoolean(showParamKey)) {
+    private void setWeatherView(TextView v, String paramShowKey, String value) {
+        if (b.getBoolean(paramShowKey)) {
             v.setVisibility(View.VISIBLE);
 
-            /* определяем цвет TextView если это температура */
-            if (isTemp) {
+            // определяем цвет TextView если это температура
+            if (paramShowKey.equals(TEMPERATURE_SHOW_KEY)) {
                 setTextColorOfTemperature(v, value);
                 v.setText(plus(value).concat(value.concat(" ℃")));
             } else {
@@ -124,7 +121,7 @@ public class SecondFragment extends Fragment {
     }
 
     String plus(String temperature) {
-        if (Integer.valueOf(temperature) > 0) {
+        if (Double.valueOf(temperature) > 0) {
             return "+";
         }
         return "";
@@ -136,7 +133,7 @@ public class SecondFragment extends Fragment {
 
     private int getColorForTemperature(String w) {
         Log.d(LOG_TAG, w);
-        int weather = Integer.valueOf(w);
+        double weather = Double.valueOf(w);
         if (weather >= 0 && weather < 10) {
             return R.color.color0;
         } else {

@@ -13,6 +13,14 @@
         android:textSize="50sp" />
 
     <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <TextView
         android:id="@+id/temperatureToday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,6 +58,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/buttonUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textButtonUpd" />
 
     <Button
         android:id="@+id/buttonBack"
