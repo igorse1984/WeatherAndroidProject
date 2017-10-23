@@ -25,7 +25,7 @@ public class SecondFragment extends Fragment {
     private TextView tvPressureForecast;
     private TextView tvLocation;
     Bundle b;
-    WeatherDataHandler wBox = WeatherDataHandler.getInstance();
+    WeatherDataHandler dataHandler = WeatherDataHandler.getInstance();
 
     interface SecondFragmentInterface {
         void clickButtonBackOnSecondFragment();
@@ -84,21 +84,21 @@ public class SecondFragment extends Fragment {
 
     private void setTextViewOfOption(String city) {
         tvCity.setText(city);
-        tvLocation.setText(wBox.getLocation(city));
+        tvLocation.setText(dataHandler.getLocation(city));
 
         // инициализация View в соответствии с настройками чекбоксов
         // основная температура
-        setWeatherView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, wBox.getTemperature(city));
+        setWeatherView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, dataHandler.getTemperature(city));
 
         // давление воздуха
-        setWeatherView(tvPressureToday, PRESSURE_SHOW_KEY, wBox.getPressure(city));
+        setWeatherView(tvPressureToday, PRESSURE_SHOW_KEY, dataHandler.getPressure(city));
 
         // прогноз погоды
         setWeatherView(
                 tvTemperatureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                wBox.getTemperatureForecast(city));
+                dataHandler.getTemperatureForecast(city));
         setWeatherView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                wBox.getPressureForecast(city));
+                dataHandler.getPressureForecast(city));
         setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
     }
 

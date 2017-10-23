@@ -1,6 +1,8 @@
 package ru.igorsharov.weatherapp;
 
 
+import android.widget.Toast;
+
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 import ru.igorsharov.weatherapp.JSON.JSONLoader;
@@ -24,35 +26,36 @@ final class WeatherDataHandler {
 
     private DBWeather db = AppDB.getDb();
 
-    private void commonAddOrUpdate(String reqCity) {
-        //устанавливает парсеру JSON обьект
-        JSONParser.OfOpenWeather.setJSONObject(JSONLoader.getJSONWeather(reqCity));
-    }
 
     // TODO оптимизировать оба метода
 
-    void addCity(String reqCity) {
-        commonAddOrUpdate(reqCity);
-
+    void addCity(String city) {
         // запись всей погодной информации о городе в базу
-        db.put(WeatherEntry.C_CITY, JSONParser.OfOpenWeather.getCityName(),
-                WeatherEntry.C_LOCATION,"",
-                WeatherEntry.C_TEMPERATURE,"",
-                WeatherEntry.C_PRESSURE,"",
-                WeatherEntry.C_TEMPERATURE_FORECAST, "",
-                WeatherEntry.C_PRESSURE_FORECAST,"");
+        String cityName;
+        if ((cityName = JSONLoader.getCityNameOfGoogleGeo(city)) != null) {
+            db.put(WeatherEntry.C_CITY, cityName,
+                    WeatherEntry.C_LOCATION, "",
+                    WeatherEntry.C_TEMPERATURE, "",
+                    WeatherEntry.C_PRESSURE, "",
+                    WeatherEntry.C_TEMPERATURE_FORECAST, "",
+                    WeatherEntry.C_PRESSURE_FORECAST, "");
+        }
     }
 
-    void updateCity(long id, String reqCity) {
-        commonAddOrUpdate(reqCity);
+    void updateCity(long id, String city) {
+        //запрашивается погода и устанавливается парсеру
+        JSONParser.OfOpenWeather.setJSONObject(JSONLoader.getJSONWeather(city));
 
         // запись всей погодной информации о городе в базу
-        db.update(id, WeatherEntry.C_CITY, JSONParser.OfOpenWeather.getCityName(),
-                WeatherEntry.C_LOCATION, JSONParser.OfOpenWeather.getLocation(),
-                WeatherEntry.C_TEMPERATURE, JSONParser.OfOpenWeather.getTemperature(),
-                WeatherEntry.C_PRESSURE, JSONParser.OfOpenWeather.getPressure(),
-                WeatherEntry.C_TEMPERATURE_FORECAST, "",
-                WeatherEntry.C_PRESSURE_FORECAST, generatePressure());
+        String cityName;
+        if ((cityName = JSONParser.OfOpenWeather.getCityName()) != null) {
+            db.update(id, WeatherEntry.C_CITY, cityName,
+                    WeatherEntry.C_LOCATION, JSONParser.OfOpenWeather.getLocation(),
+                    WeatherEntry.C_TEMPERATURE, JSONParser.OfOpenWeather.getTemperature(),
+                    WeatherEntry.C_PRESSURE, JSONParser.OfOpenWeather.getPressure(),
+                    WeatherEntry.C_TEMPERATURE_FORECAST, "",
+                    WeatherEntry.C_PRESSURE_FORECAST, generatePressure());
+        }
     }
 
 

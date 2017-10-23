@@ -150,6 +150,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     //Клики по listView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // TODO имя необходимо брать из БД
         showWeatherInfo(id, String.valueOf(((TextView) view).getText()));
     }
 
