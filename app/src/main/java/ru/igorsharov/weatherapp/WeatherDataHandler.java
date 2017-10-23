@@ -1,8 +1,6 @@
 package ru.igorsharov.weatherapp;
 
 
-import android.widget.Toast;
-
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 import ru.igorsharov.weatherapp.JSON.JSONLoader;
@@ -27,7 +25,7 @@ final class WeatherDataHandler {
     private DBWeather db = AppDB.getDb();
 
 
-    // TODO оптимизировать оба метода
+    // TODO оптимизировать addCity и updateCity
 
     void addCity(String city) {
         // запись всей погодной информации о городе в базу
@@ -42,8 +40,9 @@ final class WeatherDataHandler {
         }
     }
 
+    // обновление погоды в БД выбранного города
     void updateCity(long id, String city) {
-        //запрашивается погода и устанавливается парсеру
+        //запрашивается с сервера погода и устанавливается парсеру
         JSONParser.OfOpenWeather.setJSONObject(JSONLoader.getJSONWeather(city));
 
         // запись всей погодной информации о городе в базу
@@ -53,7 +52,7 @@ final class WeatherDataHandler {
                     WeatherEntry.C_LOCATION, JSONParser.OfOpenWeather.getLocation(),
                     WeatherEntry.C_TEMPERATURE, JSONParser.OfOpenWeather.getTemperature(),
                     WeatherEntry.C_PRESSURE, JSONParser.OfOpenWeather.getPressure(),
-                    WeatherEntry.C_TEMPERATURE_FORECAST, "",
+                    WeatherEntry.C_TEMPERATURE_FORECAST, "0",
                     WeatherEntry.C_PRESSURE_FORECAST, generatePressure());
         }
     }
@@ -63,11 +62,11 @@ final class WeatherDataHandler {
         return String.valueOf((int) (((Math.random() / 5) + 0.6) * 1000));
     }
 
-    // необходимо реализовать кэш
+    // TODO необходимо реализовать кэш
 
     // возврат погодных параметров
     private String getCommonParam(String city, String key) {
-        return db.get(city, key);
+        return db.getWeather(city, key);
     }
 
     String getLocation(String city) {

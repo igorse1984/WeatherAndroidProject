@@ -91,7 +91,7 @@ public class DBWeather extends DBHelper {
      * @param city   название города
      * @param wParam погодный параметр
      */
-    public String get(String city, String wParam) {
+    public String getWeather(String city, String wParam) {
         String tName = WeatherEntry.T_NAME;
         String cCity = WeatherEntry.C_CITY;
         String sqlRequest = "SELECT " + wParam
@@ -100,7 +100,7 @@ public class DBWeather extends DBHelper {
                 + "=" + "'" + city + "'";
         Cursor cursor = AppDB.getDb().getRawReadableCursor(sqlRequest);
         if (cursor.moveToFirst()) {
-            /* Calculate indexes of columns and get*/
+            /* Calculate indexes of columns and getWeather*/
             String str = cursor.getString(
                     cursor.getColumnIndex(wParam));
             cursor.close();

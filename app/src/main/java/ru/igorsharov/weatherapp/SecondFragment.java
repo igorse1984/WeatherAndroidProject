@@ -17,6 +17,7 @@ public class SecondFragment extends Fragment {
     public final static String TEMPERATURE_SHOW_KEY = "temperature";
     public final static String PRESSURE_SHOW_KEY = "pressure";
     public final static String FORECAST_SHOW_KEY = "forecast";
+    public final static String ID_DB_KEY = "ID";
     private TextView tvCity;
     private TextView tvTemperatureToday;
     private TextView tvPressureToday;
@@ -57,7 +58,7 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
-    // реализовать метод расшаривания друзьям
+    // TODO реализовать метод расшаривания друзьям
     // передача неявного интента
 //        button.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -74,7 +75,19 @@ public class SecondFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        setTextViewOfOption(b.getString(CITY_KEY));
+        final String city = b.getString(CITY_KEY);
+        tvCity.setText(city);
+        setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
+        // TODO переделать через AsyncTask
+        Thread reqThread = new Thread() {
+            public void run() {
+                WeatherDataHandler.getInstance().updateCity(b.getLong(ID_DB_KEY), city);
+                setTextView(city);
+            }
+        };
+        reqThread.start();
+
+
     }
 
     // метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
@@ -82,10 +95,8 @@ public class SecondFragment extends Fragment {
         this.b = b;
     }
 
-    private void setTextViewOfOption(String city) {
-        tvCity.setText(city);
+    private void setTextView(String city) {
         tvLocation.setText(dataHandler.getLocation(city));
-
         // инициализация View в соответствии с настройками чекбоксов
         // основная температура
         setWeatherView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, dataHandler.getTemperature(city));
@@ -99,7 +110,6 @@ public class SecondFragment extends Fragment {
                 dataHandler.getTemperatureForecast(city));
         setWeatherView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
                 dataHandler.getPressureForecast(city));
-        setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
     }
 
     private void setWeatherView(TextView v, String paramShowKey, String value) {

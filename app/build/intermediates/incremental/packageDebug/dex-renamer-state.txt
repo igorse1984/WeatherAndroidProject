@@ -1,4 +1,4 @@
-#Sat Oct 21 17:52:08 MSK 2017
-base.0=C\:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Mon Oct 23 18:15:46 MSK 2017
+base.0=D\:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=C\:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=D\:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

@@ -102,10 +102,8 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         loc = lochlp.getLastLoc();
     }
 
+    // TODO перенести чекбоксы во второй фрагмент?
     private void showWeatherInfo(long id, String city) {
-        // обновление информации о погоде
-        WeatherDataHandler.getInstance().updateCity(id, city);
-
         Bundle b = new Bundle();
 
         b.putBoolean(SecondFragment.TEMPERATURE_SHOW_KEY, chBoxTemperature.isChecked());
@@ -113,6 +111,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         b.putBoolean(SecondFragment.FORECAST_SHOW_KEY, chBoxForecast.isChecked());
 
         b.putString(SecondFragment.CITY_KEY, city);
+        b.putLong(SecondFragment.ID_DB_KEY, id);
 
 
         // обратиться к активити можно либо через создание интерфейса фрагмента,
@@ -150,7 +149,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     //Клики по listView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO имя необходимо брать из БД
+        // TODO имя города необходимо брать из БД
         showWeatherInfo(id, String.valueOf(((TextView) view).getText()));
     }
 

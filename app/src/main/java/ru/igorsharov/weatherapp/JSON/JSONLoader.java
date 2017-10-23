@@ -49,10 +49,8 @@ public final class JSONLoader implements JSONContract {
     public static JSONObject getJSONWeather(final String city) {
 
 // TODO разделить методы получения данных с гугла и сервера погоды
-        Thread reqThread = new Thread() {
-            public void run() {
-                // получение названия города
-//                String cityOFGoogleApi = getCityNameOfGoogleGeo(city);
+//        Thread reqThread = new Thread() {
+//            public void run() {
 
                 // сборка ссылки для запроса в OpenWeather
                 String urlOfOpenWeather = buildURL(
@@ -64,15 +62,15 @@ public final class JSONLoader implements JSONContract {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        };
+//            }
+//        };
 
-        try {
-            reqThread.start();
-            reqThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            reqThread.start();
+//            reqThread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // возвращаем готовый JSON от OpenWeather
         return jsonObj[0];
