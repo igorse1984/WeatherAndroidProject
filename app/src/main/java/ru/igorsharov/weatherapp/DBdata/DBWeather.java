@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.Arrays;
-
 import ru.igorsharov.weatherapp.AppDB;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 
@@ -60,7 +58,7 @@ public class DBWeather extends DBHelper {
     /**
      * Добавляет информацию о погоде в базу данных
      */
-    public void put(String... weatherValues) {
+    public long put(String... weatherValues) {
 
         // заполняем базу через объект вспомогательного класса
         ContentValues v = new ContentValues();
@@ -69,11 +67,11 @@ public class DBWeather extends DBHelper {
             // Заполение значений
             v.put(weatherValues[i], weatherValues[i + 1]);
 
-            Log.d("@@@", weatherValues[i] + " = " + weatherValues[i + 1]);
+            Log.d("DB.put", weatherValues[i] + " = " + weatherValues[i + 1]);
         }
 
-        // записываем значения в базу
-        getWritableDatabase().insert(WeatherEntry.T_NAME, null, v);
+        // записываем значения в базу и возвращаем ID вставленной строки
+        return getWritableDatabase().insert(WeatherEntry.T_NAME, null, v);
     }
 
     /**
@@ -122,7 +120,7 @@ public class DBWeather extends DBHelper {
             // Заполение значений
             v.put(weatherValues[i], weatherValues[i + 1]);
 
-            Log.d("@@@", weatherValues[i] + " = " + weatherValues[i + 1]);
+            Log.d("DB.update", weatherValues[i] + " = " + weatherValues[i + 1]);
         }
 
 		/* Update information */

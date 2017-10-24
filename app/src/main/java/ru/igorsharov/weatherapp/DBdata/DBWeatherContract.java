@@ -41,7 +41,7 @@ public final class DBWeatherContract {
         final static String SQL_CREATE = "CREATE TABLE " + T_NAME + " ("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + C_CITY + " TEXT NOT NULL, "
-                + C_LOCATION + " TEXT NOT NULL, "
+                + C_LOCATION + " TEXT NOT NULL DEFAULT '', "
                 + C_TEMPERATURE + " INTEGER NOT NULL DEFAULT 0, "
                 + C_PRESSURE + " INTEGER NOT NULL DEFAULT 0, "
                 + C_TEMPERATURE_FORECAST + " INTEGER NOT NULL DEFAULT 0, "

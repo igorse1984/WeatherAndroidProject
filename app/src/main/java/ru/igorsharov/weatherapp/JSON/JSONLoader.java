@@ -24,53 +24,27 @@ public final class JSONLoader implements JSONContract {
 
     // получение названия города от GoogleGeo
     public static String getCityNameOfGoogleGeo(final String city) {
-        Thread reqThread = new Thread() {
-            public void run() {
-                // запрос в GoogleGeo
-                jsonObj[0] = loadJSONObj(
-                        buildURL(
-                                GOOGLE_GEO_API_URL, GOOGLE_KEYS, GOOGLE_GEO_API_KEY, RU, city));
-            }
-        };
-
-        try {
-            reqThread.start();
-            reqThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // запрос в GoogleGeo
+        jsonObj[0] = loadJSONObj(
+                buildURL(
+                        GOOGLE_GEO_API_URL, GOOGLE_KEYS, GOOGLE_GEO_API_KEY, RU, city));
 
         return JSONParser.OfGoogleGeo.getCityName(jsonObj[0]);
     }
 
-
-    // основной метод класса
-
+    // получение погоды от погодного сервиса
     public static JSONObject getJSONWeather(final String city) {
 
-// TODO разделить методы получения данных с гугла и сервера погоды
-//        Thread reqThread = new Thread() {
-//            public void run() {
+        // сборка ссылки для запроса в OpenWeather
+        String urlOfOpenWeather = buildURL(
+                OPENWEATHER_API_BASE_URL, OPEN_WEATHER_KEYS, OPENWEATHER_API_KEY, RU, city, UNITS);
 
-                // сборка ссылки для запроса в OpenWeather
-                String urlOfOpenWeather = buildURL(
-                        OPENWEATHER_API_BASE_URL, OPEN_WEATHER_KEYS, OPENWEATHER_API_KEY, RU, city, UNITS);
-
-                try {
-                    // получение погоды от OpenWeather и ДОБАВЛЕНИЕ города от GoogleGeo
-                    jsonObj[0] = loadJSONObj(urlOfOpenWeather).put(CITY_NAME_OF_GOOGLE, city);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-//            }
-//        };
-
-//        try {
-//            reqThread.start();
-//            reqThread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            // получение погоды от OpenWeather и ДОБАВЛЕНИЕ города от GoogleGeo
+            jsonObj[0] = loadJSONObj(urlOfOpenWeather).put(CITY_NAME_OF_GOOGLE, city);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // возвращаем готовый JSON от OpenWeather
         return jsonObj[0];

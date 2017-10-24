@@ -3,6 +3,7 @@ package ru.igorsharov.weatherapp;
 import android.app.Fragment;
 import android.database.Cursor;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
@@ -128,10 +129,13 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonAdd:
-                String reqCity = String.valueOf(editTextCityAdd.getText());
+                String city = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
-                WeatherDataHandler.getInstance().addCity(reqCity);
-                cursorReNew();
+                // экземпляр AsyncTask
+                DownloadTask downloadTask = new DownloadTask();
+                //Запускаем задачу
+                downloadTask.execute(city);
+
                 break;
             case R.id.btnFindLoc:
                 if (loc != null) {
@@ -149,8 +153,11 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     //Клики по listView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO имя города необходимо брать из БД
-        showWeatherInfo(id, String.valueOf(((TextView) view).getText()));
+        String city = String.valueOf(((TextView) view).getText());
+        // блокирование отправки серверу сообщения "идет загрузка" вместо названия города
+        if (!city.equals(WeatherDataHandler.TEXT_LOAD)) {
+            showWeatherInfo(id, city);
+        }
     }
 
     @Override
@@ -160,8 +167,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         return true;
     }
 
-
-    //Реакция EditText
+    // задаем реакцию EditText
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -177,5 +183,26 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         boolean isEmpty = (String.valueOf(editTextCityAdd.getText()).equals(""));
         btnFindLoc.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
         buttonAdd.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+    }
+
+    // реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
+    private class DownloadTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            WeatherDataHandler.getInstance().addColumnCity();
+            cursorReNew();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            WeatherDataHandler.getInstance().updateCityName(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            cursorReNew();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package ru.igorsharov.weatherapp;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -78,15 +79,10 @@ public class SecondFragment extends Fragment {
         final String city = b.getString(CITY_KEY);
         tvCity.setText(city);
         setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
-        // TODO переделать через AsyncTask
-        Thread reqThread = new Thread() {
-            public void run() {
-                WeatherDataHandler.getInstance().updateCity(b.getLong(ID_DB_KEY), city);
-                setTextView(city);
-            }
-        };
-        reqThread.start();
 
+        DownloadTask downloadTask = new DownloadTask();
+        //Запускаем задачу
+        downloadTask.execute(city);
 
     }
 
@@ -160,6 +156,19 @@ public class SecondFragment extends Fragment {
                     }
                 }
             }
+        }
+    }
+
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            WeatherDataHandler.getInstance().updateCityWeather(b.getLong(ID_DB_KEY), params[0]);
+            return params[0];
+        }
+
+        @Override
+        protected void onPostExecute(String city) {
+            setTextView(city);
         }
     }
 }

@@ -13,6 +13,7 @@ import ru.igorsharov.weatherapp.JSON.JSONParser;
 final class WeatherDataHandler {
     private static final WeatherDataHandler ourInstance = new WeatherDataHandler();
     private static final String LOG_TAG = WeatherDataHandler.class.getSimpleName();
+    public static final String TEXT_LOAD = "Идет загрузка...";
 
 
     static WeatherDataHandler getInstance() {
@@ -23,40 +24,37 @@ final class WeatherDataHandler {
     }
 
     private DBWeather db = AppDB.getDb();
+    private long id;
 
+    void addColumnCity() {
+        // добавление информационной строки о загрузке в базу для отображения в списке
+        id = db.put(WeatherEntry.C_CITY, TEXT_LOAD);
+    }
 
-    // TODO оптимизировать addCity и updateCity
-
-    void addCity(String city) {
-        // запись всей погодной информации о городе в базу
-        String cityName;
-        if ((cityName = JSONLoader.getCityNameOfGoogleGeo(city)) != null) {
-            db.put(WeatherEntry.C_CITY, cityName,
-                    WeatherEntry.C_LOCATION, "",
-                    WeatherEntry.C_TEMPERATURE, "",
-                    WeatherEntry.C_PRESSURE, "",
-                    WeatherEntry.C_TEMPERATURE_FORECAST, "",
-                    WeatherEntry.C_PRESSURE_FORECAST, "");
+    void updateCityName(String city) {
+        // запись названия города в базу
+        String cityName = JSONLoader.getCityNameOfGoogleGeo(city);
+        if (cityName != null) {
+            db.update(id, WeatherEntry.C_CITY, cityName);
         }
     }
 
     // обновление погоды в БД выбранного города
-    void updateCity(long id, String city) {
-        //запрашивается с сервера погода и устанавливается парсеру
+    void updateCityWeather(long id, String city) {
+
+        //запрашивается погода с сервера и передается парсеру
         JSONParser.OfOpenWeather.setJSONObject(JSONLoader.getJSONWeather(city));
 
         // запись всей погодной информации о городе в базу
-        String cityName;
-        if ((cityName = JSONParser.OfOpenWeather.getCityName()) != null) {
-            db.update(id, WeatherEntry.C_CITY, cityName,
-                    WeatherEntry.C_LOCATION, JSONParser.OfOpenWeather.getLocation(),
-                    WeatherEntry.C_TEMPERATURE, JSONParser.OfOpenWeather.getTemperature(),
-                    WeatherEntry.C_PRESSURE, JSONParser.OfOpenWeather.getPressure(),
-                    WeatherEntry.C_TEMPERATURE_FORECAST, "0",
-                    WeatherEntry.C_PRESSURE_FORECAST, generatePressure());
-        }
-    }
+        String cityName = JSONParser.OfOpenWeather.getCityName();
 
+        db.update(id, WeatherEntry.C_CITY, cityName,
+                WeatherEntry.C_LOCATION, JSONParser.OfOpenWeather.getLocation(),
+                WeatherEntry.C_TEMPERATURE, JSONParser.OfOpenWeather.getTemperature(),
+                WeatherEntry.C_PRESSURE, JSONParser.OfOpenWeather.getPressure(),
+                WeatherEntry.C_TEMPERATURE_FORECAST, "0",
+                WeatherEntry.C_PRESSURE_FORECAST, generatePressure());
+    }
 
     private String generatePressure() {
         return String.valueOf((int) (((Math.random() / 5) + 0.6) * 1000));
