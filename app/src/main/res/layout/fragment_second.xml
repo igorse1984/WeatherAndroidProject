@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/city"
+        android:id="@+id/cityName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -13,7 +13,7 @@
         android:textSize="50sp" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/locationWeatherPoint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -25,14 +25,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="35sp" />
+        android:textSize="35sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/pressureToday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/descWeatherForecast"
@@ -50,14 +52,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/pressureForecast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/buttonUpdate"

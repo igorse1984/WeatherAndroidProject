@@ -45,8 +45,8 @@ public class SecondFragment extends Fragment {
         tvDescWeatherForecast = view.findViewById(R.id.descWeatherForecast);
         tvTemperatureForecast = view.findViewById(R.id.temperatureForecast);
         tvPressureForecast = view.findViewById(R.id.pressureForecast);
-        tvCity = view.findViewById(R.id.city);
-        tvLocation = view.findViewById(R.id.location);
+        tvCity = view.findViewById(R.id.cityName);
+        tvLocation = view.findViewById(R.id.locationWeatherPoint);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +79,22 @@ public class SecondFragment extends Fragment {
         final String city = b.getString(CITY_KEY);
         tvCity.setText(city);
         setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
+        // фрагмент загружает каждый раз новые данные о погоде при собственном создании
+        loadWeatherCity(city);
+    }
 
-        DownloadTask downloadTask = new DownloadTask();
+    private void loadWeatherCity(String city) {
+        //загрузка погоды на сегодня
+        LoadTodayWeatherTask todayWeatherTask = new LoadTodayWeatherTask();
         //Запускаем задачу
-        downloadTask.execute(city);
+        todayWeatherTask.execute(city);
 
+        if (b.getBoolean(FORECAST_SHOW_KEY)) {
+            //загрузка прогноза погоды
+            LoadForecastWeatherTask forecastWeatherTask = new LoadForecastWeatherTask();
+            //Запускаем задачу
+            forecastWeatherTask.execute(city);
+        }
     }
 
     // метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
@@ -91,7 +102,7 @@ public class SecondFragment extends Fragment {
         this.b = b;
     }
 
-    private void setTextView(String city) {
+    private void setTextViewTodayWeather(String city) {
         tvLocation.setText(dataHandler.getLocation(city));
         // инициализация View в соответствии с настройками чекбоксов
         // основная температура
@@ -99,7 +110,9 @@ public class SecondFragment extends Fragment {
 
         // давление воздуха
         setWeatherView(tvPressureToday, PRESSURE_SHOW_KEY, dataHandler.getPressure(city));
+    }
 
+    private void setTextViewForecastWeather(String city) {
         // прогноз погоды
         setWeatherView(
                 tvTemperatureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
@@ -107,6 +120,7 @@ public class SecondFragment extends Fragment {
         setWeatherView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
                 dataHandler.getPressureForecast(city));
     }
+
 
     private void setWeatherView(TextView v, String paramShowKey, String value) {
         if (b.getBoolean(paramShowKey)) {
@@ -159,16 +173,29 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+    private class LoadTodayWeatherTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            WeatherDataHandler.getInstance().updateCityWeather(b.getLong(ID_DB_KEY), params[0]);
+            WeatherDataHandler.getInstance().loadTodayWeatherOfCity(b.getLong(ID_DB_KEY), params[0]);
             return params[0];
         }
 
         @Override
         protected void onPostExecute(String city) {
-            setTextView(city);
+            setTextViewTodayWeather(city);
+        }
+    }
+
+    private class LoadForecastWeatherTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            WeatherDataHandler.getInstance().loadForecastWeatherOfCity(b.getLong(ID_DB_KEY), params[0]);
+            return params[0];
+        }
+
+        @Override
+        protected void onPostExecute(String city) {
+            setTextViewForecastWeather(city);
         }
     }
 }

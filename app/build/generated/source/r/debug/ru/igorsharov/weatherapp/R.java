@@ -3196,7 +3196,7 @@ containing a value of this type.
         public static final int checkBoxWeatherForecast=0x7f0d0090;
         public static final int checkbox=0x7f0d0063;
         public static final int chronometer=0x7f0d00a7;
-        public static final int city=0x7f0d0091;
+        public static final int cityName=0x7f0d0091;
         public static final int clip_horizontal=0x7f0d003b;
         public static final int clip_vertical=0x7f0d003c;
         public static final int collapseActionView=0x7f0d0043;
@@ -3243,7 +3243,7 @@ containing a value of this type.
         public static final int listMode=0x7f0d0019;
         public static final int listView=0x7f0d008c;
         public static final int list_item=0x7f0d0050;
-        public static final int location=0x7f0d0092;
+        public static final int locationWeatherPoint=0x7f0d0092;
         public static final int masked=0x7f0d00b3;
         public static final int media_actions=0x7f0d00a1;
         public static final int middle=0x7f0d0041;

@@ -10,7 +10,6 @@ import java.util.Locale;
  * TODO убрать ХАРДКОД и определиться где будут храниться ключи данного парсера
  */
 
-
 public final class JSONParser {
 
 
