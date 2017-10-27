@@ -58,6 +58,8 @@ public class DBWeather extends DBHelper {
     /**
      * Добавляет информацию о погоде в базу данных
      */
+
+    // TODO переделать на раздельные массивы ключей и значений
     public long put(String... weatherValues) {
 
         // заполняем базу через объект вспомогательного класса
@@ -89,7 +91,7 @@ public class DBWeather extends DBHelper {
      * @param city   название города
      * @param wParam погодный параметр
      */
-    public String getWeather(String city, String wParam) {
+    public String getWeatherOfParams(String city, String wParam) {
         String tName = WeatherEntry.T_NAME;
         String cCity = WeatherEntry.C_CITY;
         String sqlRequest = "SELECT " + wParam
@@ -98,7 +100,7 @@ public class DBWeather extends DBHelper {
                 + "=" + "'" + city + "'";
         Cursor cursor = AppDB.getDb().getRawReadableCursor(sqlRequest);
         if (cursor.moveToFirst()) {
-            /* Calculate indexes of columns and getWeather*/
+            /* Calculate indexes of columns and getWeatherOfParams*/
             String str = cursor.getString(
                     cursor.getColumnIndex(wParam));
             cursor.close();
@@ -110,18 +112,27 @@ public class DBWeather extends DBHelper {
     /**
      * Обновление информации о погоде в базе
      */
-    public void update(long id, String... weatherValues) {
-
-		/* Create a new map of values, where column names are the keys */
+    public void update(long id, String[] keys, String[] values) {
+        /* Create a new map of values, where column names are the keys */
         ContentValues v = new ContentValues();
 
 		/* Fill values */
-        for (int i = 0; i < weatherValues.length - 1; i += 2) {
+        for (int i = 0; i < keys.length; i++) {
             // Заполение значений
-            v.put(weatherValues[i], weatherValues[i + 1]);
-
-            Log.d("DB.update", weatherValues[i] + " = " + weatherValues[i + 1]);
+            v.put(keys[i], values[i]);
+            Log.d("DB.update", keys[i] + " = " + values[i]);
         }
+
+		/* Update information */
+        getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,
+                WeatherEntry.SQL_WHERE_BY_ID, new String[]{String.valueOf(id)});
+    }
+
+    public void update(long id, String key, String value) {
+		/* Create a new map of values, where column names are the keys */
+        ContentValues v = new ContentValues();
+        v.put(key, value);
+        Log.d("DB.update", key + " = " + value);
 
 		/* Update information */
         getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,

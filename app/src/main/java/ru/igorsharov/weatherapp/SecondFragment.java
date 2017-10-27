@@ -18,21 +18,23 @@ public class SecondFragment extends Fragment {
     public final static String TEMPERATURE_SHOW_KEY = "temperature";
     public final static String PRESSURE_SHOW_KEY = "pressure";
     public final static String FORECAST_SHOW_KEY = "forecast";
-    public final static String ID_DB_KEY = "ID";
+    public final static String ID_DB_CITY_KEY = "ID";
     private TextView tvCity;
     private TextView tvTemperatureToday;
     private TextView tvPressureToday;
-    private TextView tvDescWeatherForecast;
     private TextView tvTemperatureForecast;
     private TextView tvPressureForecast;
     private TextView tvLocation;
+    private String city;
+    private String lng;
+    private String lat;
+    private long id;
     Bundle b;
-    WeatherDataHandler dataHandler = WeatherDataHandler.getInstance();
+    DataWeatherHandler dataWeatherHandler = DataWeatherHandler.getInstance();
 
     interface SecondFragmentInterface {
         void clickButtonBackOnSecondFragment();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,11 +44,13 @@ public class SecondFragment extends Fragment {
         Button buttonBack = view.findViewById(R.id.buttonBack);
         tvTemperatureToday = view.findViewById(R.id.temperatureToday);
         tvPressureToday = view.findViewById(R.id.pressureToday);
-        tvDescWeatherForecast = view.findViewById(R.id.descWeatherForecast);
         tvTemperatureForecast = view.findViewById(R.id.temperatureForecast);
         tvPressureForecast = view.findViewById(R.id.pressureForecast);
         tvCity = view.findViewById(R.id.cityName);
         tvLocation = view.findViewById(R.id.locationWeatherPoint);
+
+        TextView tvDescWeatherForecast = view.findViewById(R.id.descWeatherForecast);
+        setView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,59 +80,58 @@ public class SecondFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final String city = b.getString(CITY_KEY);
+        //TODO по полученному id из первого фрагмента брать название города из базы
+        city = b.getString(CITY_KEY);
         tvCity.setText(city);
-        setWeatherView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
-        // фрагмент загружает каждый раз новые данные о погоде при собственном создании
-        loadWeatherCity(city);
+
+        // TODO запихать все три, наверное в ArrayList или HashMap
+        id = b.getLong(ID_DB_CITY_KEY);
+        lng = dataWeatherHandler.getLongitude(city);
+        lat = dataWeatherHandler.getLatitude(city);
+
+        loadWeather();
     }
 
-    private void loadWeatherCity(String city) {
+    // загрузка данных о погоде
+    private void loadWeather() {
         //загрузка погоды на сегодня
-        LoadTodayWeatherTask todayWeatherTask = new LoadTodayWeatherTask();
+        LoadWeatherTask todayWeatherTask = new LoadWeatherTask();
         //Запускаем задачу
-        todayWeatherTask.execute(city);
-
-        if (b.getBoolean(FORECAST_SHOW_KEY)) {
-            //загрузка прогноза погоды
-            LoadForecastWeatherTask forecastWeatherTask = new LoadForecastWeatherTask();
-            //Запускаем задачу
-            forecastWeatherTask.execute(city);
-        }
+        todayWeatherTask.execute(b.getBoolean(FORECAST_SHOW_KEY));
     }
 
-    // метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
+    //метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
     void setWeather(Bundle b) {
         this.b = b;
     }
 
-    private void setTextViewTodayWeather(String city) {
-        tvLocation.setText(dataHandler.getLocation(city));
-        // инициализация View в соответствии с настройками чекбоксов
-        // основная температура
-        setWeatherView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, dataHandler.getTemperature(city));
+    private void setViewToday() {
+        tvLocation.setText(dataWeatherHandler.getLocation(city));
+        //инициализация View в соответствии с настройками чекбоксов
+        //основная температура
+        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, dataWeatherHandler.getTemperature(city));
 
-        // давление воздуха
-        setWeatherView(tvPressureToday, PRESSURE_SHOW_KEY, dataHandler.getPressure(city));
+        //давление воздуха
+        setView(tvPressureToday, PRESSURE_SHOW_KEY, dataWeatherHandler.getPressure(city));
     }
 
-    private void setTextViewForecastWeather(String city) {
-        // прогноз погоды
-        setWeatherView(
+    private void setViewForecast() {
+        //прогноз погоды
+        setView(
                 tvTemperatureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                dataHandler.getTemperatureForecast(city));
-        setWeatherView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                dataHandler.getPressureForecast(city));
+                dataWeatherHandler.getTemperatureForecast(city));
+        setView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
+                dataWeatherHandler.getPressureForecast(city));
     }
 
 
-    private void setWeatherView(TextView v, String paramShowKey, String value) {
+    private void setView(TextView v, String paramShowKey, String value) {
         if (b.getBoolean(paramShowKey)) {
             v.setVisibility(View.VISIBLE);
 
             // определяем цвет TextView если это температура
             if (paramShowKey.equals(TEMPERATURE_SHOW_KEY)) {
-                setTextColorOfTemperature(v, value);
+                defineColorDependOfTemp(v, value);
                 v.setText(plus(value).concat(value.concat(" ℃")));
             } else {
                 if (value != null) {
@@ -147,7 +150,7 @@ public class SecondFragment extends Fragment {
         return "";
     }
 
-    void setTextColorOfTemperature(TextView tv, String temperature) {
+    void defineColorDependOfTemp(TextView tv, String temperature) {
         tv.setTextColor(ContextCompat.getColor(getActivity(), getColorForTemperature(temperature)));
     }
 
@@ -173,29 +176,25 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    private class LoadTodayWeatherTask extends AsyncTask<String, Void, String> {
+    private class LoadWeatherTask extends AsyncTask<Boolean, Void, Boolean> {
+
         @Override
-        protected String doInBackground(String... params) {
-            WeatherDataHandler.getInstance().loadTodayWeatherOfCity(b.getLong(ID_DB_KEY), params[0]);
-            return params[0];
+        protected Boolean doInBackground(Boolean... params) {
+            boolean isForecast = params[0];
+            DataWeatherHandler.getInstance().loadWeather(id, lng, lat, false);
+            if (isForecast) {
+                DataWeatherHandler.getInstance().loadWeather(id, lng, lat, true);
+            }
+            return isForecast;
         }
 
         @Override
-        protected void onPostExecute(String city) {
-            setTextViewTodayWeather(city);
+        protected void onPostExecute(Boolean isForecast) {
+            setViewToday();
+            if (isForecast) {
+                setViewForecast();
+            }
         }
     }
 
-    private class LoadForecastWeatherTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            WeatherDataHandler.getInstance().loadForecastWeatherOfCity(b.getLong(ID_DB_KEY), params[0]);
-            return params[0];
-        }
-
-        @Override
-        protected void onPostExecute(String city) {
-            setTextViewForecastWeather(city);
-        }
-    }
 }

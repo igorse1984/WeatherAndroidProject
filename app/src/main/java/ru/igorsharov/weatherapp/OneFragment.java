@@ -104,16 +104,17 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     }
 
     // TODO перенести чекбоксы во второй фрагмент?
+    // TODO уйти от передачи названия города, оставить только id
 
     // переход по второй фрагмент и передача настроек
-    private void showWeatherInfo(long id, String city) {
+    private void showWeatherInfo(long id, String lvCity) {
         Bundle b = new Bundle();
 
         b.putBoolean(SecondFragment.TEMPERATURE_SHOW_KEY, chBoxTemperature.isChecked());
         b.putBoolean(SecondFragment.PRESSURE_SHOW_KEY, chBoxPressure.isChecked());
         b.putBoolean(SecondFragment.FORECAST_SHOW_KEY, chBoxForecast.isChecked());
-        b.putString(SecondFragment.CITY_KEY, city);
-        b.putLong(SecondFragment.ID_DB_KEY, id);
+        b.putLong(SecondFragment.ID_DB_CITY_KEY, id);
+        b.putString(SecondFragment.CITY_KEY, lvCity);
 
 
         // обратиться к активити можно либо через создание интерфейса фрагмента,
@@ -127,6 +128,8 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
 
     // TODO скрывать клавиатуру после нажатия кновки добавления
     // TODO запретить дублировать города в списке
+    // TODO виджет
+    // TODO геолокация
 
     //Клики по кнопкам
     @Override
@@ -135,7 +138,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
             case R.id.buttonAdd:
                 String city = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
-                // экземпляр AsyncTask, получает название города
+                // экземпляр AsyncTask, получает название города ответом на запрос
                 DownloadTask downloadTask = new DownloadTask();
                 //Запускаем задачу
                 downloadTask.execute(city);
@@ -157,11 +160,11 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     //Клики по ListView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String city = String.valueOf(((TextView) view).getText());
+        String lvCity = String.valueOf(((TextView) view).getText());
         // блокирование отправки серверу сообщения о загрузке вместо названия города
-        if (!city.equals(WeatherDataHandler.TEXT_LOAD)) {
-            // переход во второй фрагмент
-            showWeatherInfo(id, city);
+        if (!lvCity.equals(DataWeatherHandler.TEXT_LOAD)) {
+            // переход во второй фрагмент с передачей id города в базе
+            showWeatherInfo(id, lvCity);
         }
     }
 
@@ -195,13 +198,15 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
 
         @Override
         protected void onPreExecute() {
-            WeatherDataHandler.getInstance().addColumnCity();
+            // добавление строки с информацией о загрузке
+            DataWeatherHandler.getInstance().addColumnCity();
             cursorReNew();
         }
 
         @Override
         protected Void doInBackground(String... params) {
-            WeatherDataHandler.getInstance().getCityName(params[0]);
+            // запрос названия города у Гугла
+            DataWeatherHandler.getInstance().requestOfGoogleGeo(params[0]);
             return null;
         }
 

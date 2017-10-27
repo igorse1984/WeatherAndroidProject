@@ -19,66 +19,60 @@ public final class JSONLoader implements JSONContract {
     }
 
     private static final String LOG_TAG = JSONLoader.class.getSimpleName();
-    private static final JSONObject[] jsonObj = {null};
-
+    private static String lng;
+    private static String lat;
 
     // получение названия города от GoogleGeo
-    public static String getCityNameOfGoogleGeo(final String city) {
-        // запрос в GoogleGeo
-        jsonObj[0] = loadJSONObj(
-                buildURL(
-                        GOOGLE_GEO_API_URL, GOOGLE_KEYS, GOOGLE_GEO_API_KEY, RU, city));
-
-        return JSONParser.OfGoogleGeo.getCityName(jsonObj[0]);
+    public static JSONObject loadLocationOfGoogleGeo(String city) {
+        return loadJSONObj(
+                urlBuild(GOOGLE_GEO_API_URL, GOOGLE_KEYS, GOOGLE_GEO_API_KEY, RU, city));
     }
 
-    // получение погоды от погодного сервиса
-    public static JSONObject getJSONWeather(final String city) {
-
+    // общий метод получения погоды от погодного сервиса
+    private static JSONObject loadWeatherOfOpenWeather(String flag) {
         // сборка ссылки для запроса в OpenWeather
-        String urlOfOpenWeather = buildURL(
-                OPENWEATHER_API_BASE_URL, OPEN_WEATHER_KEYS, OPENWEATHER_API_KEY, RU, city, UNITS);
-
-        try {
-            // получение погоды от OpenWeather и ДОБАВЛЕНИЕ города от GoogleGeo
-            jsonObj[0] = loadJSONObj(urlOfOpenWeather).put(CITY_NAME_OF_GOOGLE, city);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // возвращаем готовый JSON от OpenWeather
-        return jsonObj[0];
+        String url = urlBuild(OPENWEATHER_API_URL + flag,
+                OPEN_WEATHER_KEYS, OPENWEATHER_API_KEY, RU, lng, lat, UNITS);
+        // получение погоды от OpenWeather
+        return loadJSONObj(url);
     }
 
-    // собираем URL запрос
-    private static String buildURL(String baseUrl, String[] keys, String... param) {
+    public static JSONObject loadWeather(String lng, String lat, boolean isForecast) {
+        JSONLoader.lng = lng;
+        JSONLoader.lat = lat;
+        return !isForecast ? loadTodayWeather() : loadForecastWeather();
+    }
 
+    private static JSONObject loadTodayWeather() {
+        return loadWeatherOfOpenWeather(OPENWEATHER_TODAY);
+    }
+
+    private static JSONObject loadForecastWeather() {
+        return loadWeatherOfOpenWeather(OPENWEATHER_FORECAST);
+    }
+
+    // сборка URL запроса, подходит для GoogleGeo и OpenWeather
+    private static String urlBuild(String baseUrl, String[] keys, String... param) {
         Uri.Builder uri = Uri.parse(baseUrl)
                 .buildUpon();
-
-
         for (int i = 0; i < param.length; i++) {
             uri.appendQueryParameter(keys[i], param[i]);
         }
-
-        String url = uri.build().toString();
-
-        return url;
+        return uri.build().toString();
     }
 
-    // вспомогательный метод, через вспомогательный метод получает JSON String, преобразуя в обьект
-    private static JSONObject loadJSONObj(final String url) {
+    // получает JSON String, преобразуя в JSON-обьект
+    private static JSONObject loadJSONObj(String url) {
+        JSONObject jsonObj = null;
         try {
-            return new JSONObject(request(url));
-//        } catch (JSONException | NullPointerException e) {
+            jsonObj = new JSONObject(request(url));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        return null;
+        return jsonObj;
     }
 
-    // вспомогательный метод, запращивает и получает у сервера данные JSON
+    // запращивает и получает у сервера данные JSON
     private static String request(String url) {
         String okResult = null;
 
@@ -94,7 +88,8 @@ public final class JSONLoader implements JSONContract {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Log.d(LOG_TAG, "URL " + url);
+        Log.d(LOG_TAG, "okResult " + okResult);
         return okResult;
     }
 }
