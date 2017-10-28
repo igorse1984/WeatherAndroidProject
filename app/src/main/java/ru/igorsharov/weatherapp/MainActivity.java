@@ -1,6 +1,7 @@
 package ru.igorsharov.weatherapp;
 
 import android.os.Bundle;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity implements SecondFragment.Se
     @Override
     public void clickButtonBackOnSecondFragment() {
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, oneFragment).commit();
+    }
+
+    public Fragment getOneFragment(){
+        return oneFragment;
     }
 }
 

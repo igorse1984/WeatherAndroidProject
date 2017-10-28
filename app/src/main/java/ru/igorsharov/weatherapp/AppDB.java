@@ -8,7 +8,7 @@ import ru.igorsharov.weatherapp.DBdata.DBWeather;
 public class AppDB extends Application {
 
     /* Static file for store a link to the data base object */
-    private static DBWeather mDBWeather;
+    static DBWeather mDBWeather;
 
     /* Private field for store a LOG tag */
     public static final String LOG_TAG = "AppDB";

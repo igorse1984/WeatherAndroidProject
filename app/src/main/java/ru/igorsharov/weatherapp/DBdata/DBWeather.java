@@ -112,7 +112,7 @@ public class DBWeather extends DBHelper {
     /**
      * Обновление информации о погоде в базе
      */
-    public void update(long id, String[] keys, String[] values) {
+    public int update(long id, String[] keys, String[] values) {
         /* Create a new map of values, where column names are the keys */
         ContentValues v = new ContentValues();
 
@@ -120,22 +120,11 @@ public class DBWeather extends DBHelper {
         for (int i = 0; i < keys.length; i++) {
             // Заполение значений
             v.put(keys[i], values[i]);
-            Log.d("DB.update", keys[i] + " = " + values[i]);
+            Log.d("ContentValuesPut", keys[i] + " = " + values[i]);
         }
 
-		/* Update information */
-        getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,
-                WeatherEntry.SQL_WHERE_BY_ID, new String[]{String.valueOf(id)});
-    }
-
-    public void update(long id, String key, String value) {
-		/* Create a new map of values, where column names are the keys */
-        ContentValues v = new ContentValues();
-        v.put(key, value);
-        Log.d("DB.update", key + " = " + value);
-
-		/* Update information */
-        getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,
+		/* Update information и возврат статуса выполнения*/
+        return getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,
                 WeatherEntry.SQL_WHERE_BY_ID, new String[]{String.valueOf(id)});
     }
 

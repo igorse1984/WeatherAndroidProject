@@ -49,7 +49,8 @@ public final class DBWeatherContract {
                 + C_TEMPERATURE + " INTEGER NOT NULL DEFAULT 0, "
                 + C_PRESSURE + " INTEGER NOT NULL DEFAULT 0, "
                 + C_TEMPERATURE_FORECAST + " INTEGER NOT NULL DEFAULT 0, "
-                + C_PRESSURE_FORECAST + " INTEGER NOT NULL DEFAULT 0);";
+                + C_PRESSURE_FORECAST + " INTEGER NOT NULL DEFAULT 0," +
+                "UNIQUE (" + C_CITY + ") ON CONFLICT IGNORE);";
 
     }
 }

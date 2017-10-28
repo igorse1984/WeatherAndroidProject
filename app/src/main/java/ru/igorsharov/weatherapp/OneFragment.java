@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
@@ -24,6 +25,8 @@ import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 public class OneFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, TextWatcher {
 
     private final static String TAG = OneFragment.class.getSimpleName();
+    private final static String UPD_ERROR_MSG = "уже присутствует в списке";
+    private final static String UPD_OK_MSG = "Обьект добавлен";
     private final static long MINTIME = 3000L;
     private final static float MINDIST = 1.0F;
     private CheckBox chBoxTemperature, chBoxPressure, chBoxForecast;
@@ -127,7 +130,6 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
      */
 
     // TODO скрывать клавиатуру после нажатия кновки добавления
-    // TODO запретить дублировать города в списке
     // TODO виджет
     // TODO геолокация
 
@@ -193,26 +195,34 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         buttonAdd.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 
+    public void printMessage(String str) {
+        Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+    }
+
     // реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
-    private class DownloadTask extends AsyncTask<String, Void, Void> {
+    private class DownloadTask extends AsyncTask<String, Void, String[]> {
 
         @Override
         protected void onPreExecute() {
             // добавление строки с информацией о загрузке
-            DataWeatherHandler.getInstance().addColumnCity();
+            DataWeatherHandler.addColumnCity();
             cursorReNew();
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected String[] doInBackground(String... params) {
             // запрос названия города у Гугла
-            DataWeatherHandler.getInstance().requestOfGoogleGeo(params[0]);
-            return null;
+            return DataWeatherHandler.requestOfGoogleGeo(params[0]);
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(String[] params) {
             cursorReNew();
+            if (Integer.parseInt(params[1]) == 0) {
+                printMessage(params[0] + " " + UPD_ERROR_MSG);
+            } else if (Integer.parseInt(params[1]) == 1) {
+                printMessage(UPD_OK_MSG);
+            }
         }
     }
 }

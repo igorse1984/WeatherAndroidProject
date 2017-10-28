@@ -30,7 +30,7 @@ public class SecondFragment extends Fragment {
     private String lat;
     private long id;
     Bundle b;
-    DataWeatherHandler dataWeatherHandler = DataWeatherHandler.getInstance();
+//    DataWeatherHandler dataWeatherHandler = new DataWeatherHandler();
 
     interface SecondFragmentInterface {
         void clickButtonBackOnSecondFragment();
@@ -55,8 +55,8 @@ public class SecondFragment extends Fragment {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SecondFragmentInterface secondFragmentInterface = (SecondFragmentInterface) getActivity();
-                secondFragmentInterface.clickButtonBackOnSecondFragment();
+                SecondFragmentInterface anInterface = (SecondFragmentInterface) getActivity();
+                anInterface.clickButtonBackOnSecondFragment();
             }
         });
 
@@ -86,8 +86,8 @@ public class SecondFragment extends Fragment {
 
         // TODO запихать все три, наверное в ArrayList или HashMap
         id = b.getLong(ID_DB_CITY_KEY);
-        lng = dataWeatherHandler.getLongitude(city);
-        lat = dataWeatherHandler.getLatitude(city);
+        lng = DataWeatherHandler.WeatherParam.getLongitude(city);
+        lat = DataWeatherHandler.WeatherParam.getLatitude(city);
 
         loadWeather();
     }
@@ -106,22 +106,22 @@ public class SecondFragment extends Fragment {
     }
 
     private void setViewToday() {
-        tvLocation.setText(dataWeatherHandler.getLocation(city));
+        tvLocation.setText(DataWeatherHandler.WeatherParam.getLocation(city));
         //инициализация View в соответствии с настройками чекбоксов
         //основная температура
-        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, dataWeatherHandler.getTemperature(city));
+        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, DataWeatherHandler.WeatherParam.getTemperature(city));
 
         //давление воздуха
-        setView(tvPressureToday, PRESSURE_SHOW_KEY, dataWeatherHandler.getPressure(city));
+        setView(tvPressureToday, PRESSURE_SHOW_KEY, DataWeatherHandler.WeatherParam.getPressure(city));
     }
 
     private void setViewForecast() {
         //прогноз погоды
         setView(
                 tvTemperatureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                dataWeatherHandler.getTemperatureForecast(city));
+                DataWeatherHandler.WeatherParam.getTemperatureForecast(city));
         setView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                dataWeatherHandler.getPressureForecast(city));
+                DataWeatherHandler.WeatherParam.getPressureForecast(city));
     }
 
 
@@ -150,7 +150,7 @@ public class SecondFragment extends Fragment {
         return "";
     }
 
-    void defineColorDependOfTemp(TextView tv, String temperature) {
+    private void defineColorDependOfTemp(TextView tv, String temperature) {
         tv.setTextColor(ContextCompat.getColor(getActivity(), getColorForTemperature(temperature)));
     }
 
@@ -176,14 +176,16 @@ public class SecondFragment extends Fragment {
         }
     }
 
+
+
     private class LoadWeatherTask extends AsyncTask<Boolean, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Boolean... params) {
             boolean isForecast = params[0];
-            DataWeatherHandler.getInstance().loadWeather(id, lng, lat, false);
+            DataWeatherHandler.loadWeather(id, lng, lat, false);
             if (isForecast) {
-                DataWeatherHandler.getInstance().loadWeather(id, lng, lat, true);
+                DataWeatherHandler.loadWeather(id, lng, lat, true);
             }
             return isForecast;
         }
