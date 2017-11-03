@@ -13,7 +13,7 @@
         android:label="Tests for ru.igorsharov.weatherapp"
         android:targetPackage="ru.igorsharov.weatherapp" />
 
-    <application>
+    <application android:debuggable="true" >
         <uses-library android:name="android.test.runner" />
     </application>
 

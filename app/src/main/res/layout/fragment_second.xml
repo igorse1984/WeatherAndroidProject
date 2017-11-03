@@ -46,28 +46,12 @@
         android:textColor="@color/black"
         android:textSize="35sp" />
 
-    <TextView
-        android:id="@+id/temperatureForecast"
+    <ListView
+        android:id="@+id/lvForecast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/pressureForecast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/buttonUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/textButtonUpd" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
     <Button
         android:id="@+id/buttonBack"

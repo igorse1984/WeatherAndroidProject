@@ -1,15 +1,59 @@
 [
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher_round.png",
-        "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_10d.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_10d.png"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher_round.png",
         "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_01n.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_01n.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_02d.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_02d.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_04n.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_04n.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_cold.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_cold.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_04d.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_04d.png"
+    },
+    {
+        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher_round.png",
+        "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_warm.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_warm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_02n.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_02n.png"
+    },
+    {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher_round.png",
         "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_01d.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_01d.png"
     },
     {
         "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
@@ -32,12 +76,16 @@
         "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
-        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_sunny.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_sunny.png"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
-        "source": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_03d.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_03d.png"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\weather_03n.png",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\mipmap-hdpi\\weather_03n.png"
     },
     {
         "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher_round.png",

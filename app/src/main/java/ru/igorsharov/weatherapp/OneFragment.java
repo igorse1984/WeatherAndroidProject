@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
+import ru.igorsharov.weatherapp.DBdata.CustomSimpleAdapter;
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
 
@@ -34,7 +36,7 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     private EditText editTextCityAdd;
     private Button buttonAdd;
     private Button btnFindLoc;
-    private SimpleCursorAdapter lvAdapter;
+    private CustomSimpleAdapter lvAdapter;
     private DBWeather db = AppDB.getDb();
     private Cursor cursorForList;
     private LocationHelper lochlp;
@@ -91,12 +93,15 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
 
     private void setDbListAdapter() {
         //Create arrays of columns and UI elements
-        String[] from = {WeatherEntry.C_CITY};
-        int[] to = {R.id.tvListItem};
+        String[] from = {
+                WeatherEntry.C_CITY,
+                WeatherEntry.C_TEMPERATURE_TODAY,
+                WeatherEntry.C_ICON_WEATHER};
 
         //Create simple Cursor adapter
-        lvAdapter = new SimpleCursorAdapter(getActivity(),
-                R.layout.list_item, cursorForList, from, to, 1);
+        // null потому что адаптер знает про view элементы
+        lvAdapter = new CustomSimpleAdapter(getActivity(),
+                R.layout.list_item, cursorForList, from, null, 1);
 
         listView.setAdapter(lvAdapter);
     }
@@ -106,8 +111,10 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         loc = lochlp.getLastLoc();
     }
 
-    // TODO перенести чекбоксы во второй фрагмент?
-    // TODO уйти от передачи названия города, оставить только id
+    // TODO загружать погоду при добавлении города
+    // TODO перенести чекбоксы во второй фрагмент
+    // TODO уйти от передачи названия города во второй фрагмент, оставить только id
+
 
     // переход по второй фрагмент и передача настроек
     private void showWeatherInfo(long id, String lvCity) {
@@ -130,8 +137,8 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
      */
 
     // TODO скрывать клавиатуру после нажатия кновки добавления
-    // TODO виджет
-    // TODO геолокация
+    // TODO добавить виджет
+    // TODO доработать геолокацию
 
     //Клики по кнопкам
     @Override
@@ -140,12 +147,10 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
             case R.id.buttonAdd:
                 String city = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
-                // экземпляр AsyncTask, получает название города ответом на запрос
-                DownloadTask downloadTask = new DownloadTask();
-                //Запускаем задачу
-                downloadTask.execute(city);
-
+                // получение названия города с GoogleGeo, запускаем в новом потоке
+                new DownloadTask(this).execute(city);
                 break;
+
             case R.id.btnFindLoc:
                 if (loc != null) {
                     String strLoc = lochlp.getAddressStr(loc);
@@ -159,10 +164,12 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         }
     }
 
+
     //Клики по ListView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String lvCity = String.valueOf(((TextView) view).getText());
+        // TODO надо брать город из базы по id
+        String lvCity = String.valueOf(((TextView) view.findViewById(R.id.tvCityName)).getText());
         // блокирование отправки серверу сообщения о загрузке вместо названия города
         if (!lvCity.equals(DataWeatherHandler.TEXT_LOAD)) {
             // переход во второй фрагмент с передачей id города в базе
@@ -200,29 +207,63 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     }
 
     // реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
-    private class DownloadTask extends AsyncTask<String, Void, String[]> {
+    // описание к происходящему есть во втором фрагменте
+    private static class DownloadTask extends AsyncTask<String, Void, String[]> {
 
-        @Override
-        protected void onPreExecute() {
-            // добавление строки с информацией о загрузке
-            DataWeatherHandler.addColumnCity();
-            cursorReNew();
+        private WeakReference<OneFragment> activityReference;
+        private long id;
+
+        DownloadTask(OneFragment oneFragment) {
+            activityReference = new WeakReference<>(oneFragment);
+
         }
 
         @Override
+        protected void onPreExecute() {
+            // добавление пустой строки с информацией о загрузке
+            // и получение id этой строки
+            id = DataWeatherHandler.addColumnCity();
+
+            OneFragment oneFragment = activityReference.get();
+            if (oneFragment == null) {
+                return;
+            }
+            oneFragment.cursorReNew();
+        }
+
+        /**
+         * @param params подается "черновой" город введеный пользователем
+         * @return город от Гугла и статус попытки записи его в базу
+         * для последующего выбора сообщения пользователю
+         */
+        @Override
         protected String[] doInBackground(String... params) {
-            // запрос названия города у Гугла
-            return DataWeatherHandler.requestOfGoogleGeo(params[0]);
+            String draftCity = params[0];
+            // возвращает массив с названием и статусом запроса
+            String[] cityAndStat = DataWeatherHandler.loadCityOfGoogleAndPutInDB(draftCity);
+
+            String lng = DataWeatherHandler.DBData.getLongitude(cityAndStat[0]);
+            String lat = DataWeatherHandler.DBData.getLatitude(cityAndStat[0]);
+            DataWeatherHandler.loadOfOpenWeatherAndUpdDB(id, lng, lat, false);
+
+            return cityAndStat;
         }
 
         @Override
         protected void onPostExecute(String[] params) {
-            cursorReNew();
+            OneFragment oneFragment = activityReference.get();
+            if (oneFragment == null) {
+                return;
+            }
+            oneFragment.cursorReNew();
+
+            // вывод сообщений пользователю о результате добавления города
             if (Integer.parseInt(params[1]) == 0) {
-                printMessage(params[0] + " " + UPD_ERROR_MSG);
+                oneFragment.printMessage(params[0] + " " + UPD_ERROR_MSG);
             } else if (Integer.parseInt(params[1]) == 1) {
-                printMessage(UPD_OK_MSG);
+                oneFragment.printMessage(UPD_OK_MSG);
             }
         }
     }
+
 }

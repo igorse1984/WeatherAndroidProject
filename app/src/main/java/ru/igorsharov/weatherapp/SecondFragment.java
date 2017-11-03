@@ -1,15 +1,21 @@
 package ru.igorsharov.weatherapp;
 
 import android.app.Fragment;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.lang.ref.WeakReference;
+
+import ru.igorsharov.weatherapp.DBdata.CustomSimpleAdapter;
+import ru.igorsharov.weatherapp.DBdata.DBWeather;
+import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
 
 public class SecondFragment extends Fragment {
 
@@ -22,13 +28,13 @@ public class SecondFragment extends Fragment {
     private TextView tvCity;
     private TextView tvTemperatureToday;
     private TextView tvPressureToday;
-    private TextView tvTemperatureForecast;
-    private TextView tvPressureForecast;
     private TextView tvLocation;
     private String city;
-    private String lng;
-    private String lat;
-    private long id;
+    private CustomSimpleAdapter lvAdapter;
+    private Cursor cursorForList;
+    private DBWeather db = AppDB.getDb();
+    private ListView listViewForecast;
+    private boolean isForecast;
     Bundle b;
 //    DataWeatherHandler dataWeatherHandler = new DataWeatherHandler();
 
@@ -44,10 +50,9 @@ public class SecondFragment extends Fragment {
         Button buttonBack = view.findViewById(R.id.buttonBack);
         tvTemperatureToday = view.findViewById(R.id.temperatureToday);
         tvPressureToday = view.findViewById(R.id.pressureToday);
-        tvTemperatureForecast = view.findViewById(R.id.temperatureForecast);
-        tvPressureForecast = view.findViewById(R.id.pressureForecast);
         tvCity = view.findViewById(R.id.cityName);
         tvLocation = view.findViewById(R.id.locationWeatherPoint);
+        listViewForecast = view.findViewById(R.id.lvForecast);
 
         TextView tvDescWeatherForecast = view.findViewById(R.id.descWeatherForecast);
         setView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
@@ -60,7 +65,30 @@ public class SecondFragment extends Fragment {
             }
         });
 
+        setDbListAdapter();
+        cursorReNew();
+
         return view;
+    }
+
+    // обновление listView
+    private void cursorReNew() {
+        cursorForList = db.getReadableCursor(DBWeatherContract.WeatherEntry.T_NAME);
+        lvAdapter.swapCursor(cursorForList);
+    }
+
+    private void setDbListAdapter() {
+        //Create arrays of columns and UI elements
+        String[] from = {
+                DBWeatherContract.WeatherEntry.C_CITY,
+                DBWeatherContract.WeatherEntry.C_TEMPERATURE_FORECAST,
+                DBWeatherContract.WeatherEntry.C_ICON_WEATHER};
+
+        //Create simple Cursor adapter
+        lvAdapter = new CustomSimpleAdapter(getActivity(),
+                R.layout.list_item, cursorForList, from, null, 1);
+
+        listViewForecast.setAdapter(lvAdapter);
     }
 
     // TODO реализовать метод расшаривания друзьям
@@ -84,20 +112,18 @@ public class SecondFragment extends Fragment {
         city = b.getString(CITY_KEY);
         tvCity.setText(city);
 
-        // TODO запихать все три, наверное в ArrayList или HashMap
-        id = b.getLong(ID_DB_CITY_KEY);
-        lng = DataWeatherHandler.WeatherParam.getLongitude(city);
-        lat = DataWeatherHandler.WeatherParam.getLatitude(city);
+        long id = b.getLong(ID_DB_CITY_KEY);
+        String lng = DataWeatherHandler.DBData.getLongitude(city);
+        String lat = DataWeatherHandler.DBData.getLatitude(city);
+        isForecast = b.getBoolean(FORECAST_SHOW_KEY);
 
-        loadWeather();
+        loadWeather(id, lng, lat);
     }
 
     // загрузка данных о погоде
-    private void loadWeather() {
-        //загрузка погоды на сегодня
-        LoadWeatherTask todayWeatherTask = new LoadWeatherTask();
-        //Запускаем задачу
-        todayWeatherTask.execute(b.getBoolean(FORECAST_SHOW_KEY));
+    private void loadWeather(long id, String lng, String lat) {
+        //загрузка погоды, запуск задачи
+        new LoadWeatherTask(this, id, lng, lat).execute(isForecast);
     }
 
     //метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
@@ -106,23 +132,23 @@ public class SecondFragment extends Fragment {
     }
 
     private void setViewToday() {
-        tvLocation.setText(DataWeatherHandler.WeatherParam.getLocation(city));
+        tvLocation.setText(DataWeatherHandler.DBData.getLocation(city));
         //инициализация View в соответствии с настройками чекбоксов
         //основная температура
-        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, DataWeatherHandler.WeatherParam.getTemperature(city));
+        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, DataWeatherHandler.DBData.getTemperature(city));
 
         //давление воздуха
-        setView(tvPressureToday, PRESSURE_SHOW_KEY, DataWeatherHandler.WeatherParam.getPressure(city));
+        setView(tvPressureToday, PRESSURE_SHOW_KEY, DataWeatherHandler.DBData.getPressure(city));
     }
 
-    private void setViewForecast() {
-        //прогноз погоды
-        setView(
-                tvTemperatureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                DataWeatherHandler.WeatherParam.getTemperatureForecast(city));
-        setView(tvPressureForecast, b.getBoolean(FORECAST_SHOW_KEY) ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
-                DataWeatherHandler.WeatherParam.getPressureForecast(city));
-    }
+//    private void setViewForecast() {
+//        //прогноз погоды
+//        setView(
+//                tvTemperatureForecast, isForecast ? TEMPERATURE_SHOW_KEY : FORECAST_SHOW_KEY,
+//                DataWeatherHandler.DBData.getTemperatureForecast(city));
+//        setView(tvPressureForecast, isForecast ? PRESSURE_SHOW_KEY : FORECAST_SHOW_KEY,
+//                DataWeatherHandler.DBData.getPressureForecast(city));
+//    }
 
 
     private void setView(TextView v, String paramShowKey, String value) {
@@ -131,8 +157,8 @@ public class SecondFragment extends Fragment {
 
             // определяем цвет TextView если это температура
             if (paramShowKey.equals(TEMPERATURE_SHOW_KEY)) {
-                defineColorDependOfTemp(v, value);
-                v.setText(plus(value).concat(value.concat(" ℃")));
+                v.setTextColor(DataWeatherHandler.colorOfTemp(getActivity(), value));
+                v.setText(DataWeatherHandler.weatherString(value));
             } else {
                 if (value != null) {
                     v.setText(value.concat(" ").concat(getResources().getString(R.string.pressure1)));
@@ -143,59 +169,52 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    String plus(String temperature) {
-        if (Double.valueOf(temperature) > 0) {
-            return "+";
+    private static class LoadWeatherTask extends AsyncTask<Boolean, Void, Boolean> {
+
+        // для борьбы с утечками памяти делаем AsyncTask статическим и
+        // создаем экземпляр WeakReference (слабая ссылка)
+        // для возможности доступа AsyncTask к нестатическим методам фрагента
+        private WeakReference<SecondFragment> activityReference;
+
+        private long id;
+        private String lng;
+        private String lat;
+
+        // конструктор AsyncTask
+        LoadWeatherTask(SecondFragment secondFragment, long id, String lng, String lat) {
+            activityReference = new WeakReference<>(secondFragment);
+            this.id = id;
+            this.lng = lng;
+            this.lat = lat;
         }
-        return "";
-    }
 
-    private void defineColorDependOfTemp(TextView tv, String temperature) {
-        tv.setTextColor(ContextCompat.getColor(getActivity(), getColorForTemperature(temperature)));
-    }
-
-    private int getColorForTemperature(String w) {
-        Log.d(LOG_TAG, w);
-        double weather = Double.valueOf(w);
-        if (weather >= 0 && weather < 10) {
-            return R.color.color0;
-        } else {
-            if (weather >= 10 && weather < 20) {
-                return R.color.color10;
-            } else {
-                if (weather >= 20 && weather < 30) {
-                    return R.color.color20;
-                } else {
-                    if (weather >= 30) {
-                        return R.color.color30;
-                    } else {
-                        return R.color.colorCold;
-                    }
-                }
-            }
+        // чтобы не дублировать выражение в doInBackground
+        private void loadWeather(boolean isForecast) {
+            DataWeatherHandler.loadOfOpenWeatherAndUpdDB(id, lng, lat, isForecast);
         }
-    }
-
-
-
-    private class LoadWeatherTask extends AsyncTask<Boolean, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Boolean... params) {
             boolean isForecast = params[0];
-            DataWeatherHandler.loadWeather(id, lng, lat, false);
+
+            loadWeather(false);
             if (isForecast) {
-                DataWeatherHandler.loadWeather(id, lng, lat, true);
+                loadWeather(true);
             }
             return isForecast;
         }
 
         @Override
         protected void onPostExecute(Boolean isForecast) {
-            setViewToday();
-            if (isForecast) {
-                setViewForecast();
-            }
+
+            // получаем слабую ссылку на фрагмент для доступа к его методам
+            SecondFragment secondFragment = activityReference.get();
+            if (secondFragment == null) return;
+
+            secondFragment.setViewToday();
+//            if (isForecast) {
+//                secondFragment.setViewForecast();
+//            }
         }
     }
 
