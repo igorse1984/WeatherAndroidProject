@@ -34,7 +34,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
     private final static long MINTIME = 3000L;
     private final static float MINDIST = 1.0F;
     static final String TEXT_LOAD = "Идет загрузка...";
-    private CheckBox chBoxTemperature, chBoxPressure, chBoxForecast;
+    private CheckBox chBoxTemperature, chBoxPressure;
     private ListView listView;
     private EditText editTextCityAdd;
     private Button buttonAdd;
@@ -74,7 +74,6 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
     private void initViews(View v) {
         chBoxTemperature = v.findViewById(R.id.checkBoxTemperature);
         chBoxPressure = v.findViewById(R.id.checkBoxPressure);
-        chBoxForecast = v.findViewById(R.id.checkBoxWeatherForecast);
         listView = v.findViewById(R.id.listView);
         editTextCityAdd = v.findViewById(R.id.editTextCityAdd);
         buttonAdd = v.findViewById(R.id.buttonAdd);
@@ -119,7 +118,6 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
 
         b.putBoolean(ForecastFragment.TEMPERATURE_SHOW_KEY, chBoxTemperature.isChecked());
         b.putBoolean(ForecastFragment.PRESSURE_SHOW_KEY, chBoxPressure.isChecked());
-        b.putBoolean(ForecastFragment.FORECAST_SHOW_KEY, chBoxForecast.isChecked());
         b.putString(ForecastFragment.ID_DB_CITY_KEY, id);
 
 
