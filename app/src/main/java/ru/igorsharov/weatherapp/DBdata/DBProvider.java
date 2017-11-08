@@ -6,7 +6,8 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
-import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
+
+import ru.igorsharov.weatherapp.TodayFragment;
 
 public class DBProvider extends ContentProvider {
 
@@ -55,7 +56,7 @@ public class DBProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
 
 		/* Получаем курсор */
-        Cursor cursor = mDBWeather.getReadableCursor(WeatherEntry.T_NAME);
+        Cursor cursor = mDBWeather.getReadableCursor(TodayFragment.T_NAME);
 		
 		/*
 		 * Подписываемся на обновления данных по URI для контент-провайдера 
@@ -89,7 +90,7 @@ public class DBProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknow URI " + uri);
 
 		/* Добавляем данные в БД */
-        long id = mDBWeather.put(values);
+        long id = mDBWeather.put(TodayFragment.T_NAME, values);
 		
 		/* 
 		 * Подготовка данных для возврата из метода и уведомление об изменениях 

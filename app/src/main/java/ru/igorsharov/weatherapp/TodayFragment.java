@@ -16,27 +16,31 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
-import ru.igorsharov.weatherapp.DBdata.CustomSimpleAdapter;
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
-import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
+import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
+import ru.igorsharov.weatherapp.DBdata.TodaySimpleAdapter;
 
-public class OneFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, TextWatcher {
+public class TodayFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, TextWatcher {
 
-    private final static String TAG = OneFragment.class.getSimpleName();
-    private final static String UPD_ERROR_MSG = "уже присутствует в списке";
+    private final static String TAG = TodayFragment.class.getSimpleName();
+    public final static String T_NAME = "weatherToday";
+    private final static String UPD_ERROR_MSG = "невозможно добавить обьект";
     private final static String UPD_OK_MSG = "Обьект добавлен";
     private final static long MINTIME = 3000L;
     private final static float MINDIST = 1.0F;
+    static final String TEXT_LOAD = "Идет загрузка...";
     private CheckBox chBoxTemperature, chBoxPressure, chBoxForecast;
     private ListView listView;
     private EditText editTextCityAdd;
     private Button buttonAdd;
     private Button btnFindLoc;
-    private CustomSimpleAdapter lvAdapter;
+    private TodaySimpleAdapter lvTodayAdapter;
+    // TODO здесь только для обновления состояние listView может можно убрать в DataWeatherHandler?
     private DBWeather db = AppDB.getDb();
     private Cursor cursorForList;
     private LocationHelper lochlp;
@@ -87,23 +91,20 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
 
     // обновление listView по новой технологии взамен устаревшего метода requery
     private void cursorReNew() {
-        cursorForList = db.getReadableCursor(WeatherEntry.T_NAME);
-        lvAdapter.swapCursor(cursorForList);
+        cursorForList = db.getReadableCursor(T_NAME);
+        lvTodayAdapter.swapCursor(cursorForList);
     }
 
     private void setDbListAdapter() {
         //Create arrays of columns and UI elements
-        String[] from = {
-                WeatherEntry.C_CITY,
-                WeatherEntry.C_TEMPERATURE_TODAY,
-                WeatherEntry.C_ICON_WEATHER};
+        String[] from = DBWeatherContract.DBKeys.fromForTodayAdapter;
 
         //Create simple Cursor adapter
         // null потому что адаптер знает про view элементы
-        lvAdapter = new CustomSimpleAdapter(getActivity(),
-                R.layout.list_item, cursorForList, from, null, 1);
+        lvTodayAdapter = new TodaySimpleAdapter(getActivity(),
+                R.layout.today_list_item, cursorForList, from, null, 1);
 
-        listView.setAdapter(lvAdapter);
+        listView.setAdapter(lvTodayAdapter);
     }
 
     void initLoc() {
@@ -111,20 +112,15 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         loc = lochlp.getLastLoc();
     }
 
-    // TODO загружать погоду при добавлении города
     // TODO перенести чекбоксы во второй фрагмент
-    // TODO уйти от передачи названия города во второй фрагмент, оставить только id
-
-
     // переход по второй фрагмент и передача настроек
-    private void showWeatherInfo(long id, String lvCity) {
+    private void toNextFragment(String id) {
         Bundle b = new Bundle();
 
-        b.putBoolean(SecondFragment.TEMPERATURE_SHOW_KEY, chBoxTemperature.isChecked());
-        b.putBoolean(SecondFragment.PRESSURE_SHOW_KEY, chBoxPressure.isChecked());
-        b.putBoolean(SecondFragment.FORECAST_SHOW_KEY, chBoxForecast.isChecked());
-        b.putLong(SecondFragment.ID_DB_CITY_KEY, id);
-        b.putString(SecondFragment.CITY_KEY, lvCity);
+        b.putBoolean(ForecastFragment.TEMPERATURE_SHOW_KEY, chBoxTemperature.isChecked());
+        b.putBoolean(ForecastFragment.PRESSURE_SHOW_KEY, chBoxPressure.isChecked());
+        b.putBoolean(ForecastFragment.FORECAST_SHOW_KEY, chBoxForecast.isChecked());
+        b.putString(ForecastFragment.ID_DB_CITY_KEY, id);
 
 
         // обратиться к активити можно либо через создание интерфейса фрагмента,
@@ -145,10 +141,10 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonAdd:
-                String city = String.valueOf(editTextCityAdd.getText());
+                String draftCity = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
                 // получение названия города с GoogleGeo, запускаем в новом потоке
-                new DownloadTask(this).execute(city);
+                new DownloadTask(this).execute(draftCity);
                 break;
 
             case R.id.btnFindLoc:
@@ -164,25 +160,28 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         }
     }
 
-
     //Клики по ListView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO надо брать город из базы по id
+
         String lvCity = String.valueOf(((TextView) view.findViewById(R.id.tvCityName)).getText());
         // блокирование отправки серверу сообщения о загрузке вместо названия города
-        if (!lvCity.equals(DataWeatherHandler.TEXT_LOAD)) {
+        if (!lvCity.equals(TEXT_LOAD)) {
             // переход во второй фрагмент с передачей id города в базе
-            showWeatherInfo(id, lvCity);
+            toNextFragment(String.valueOf(id));
         }
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        db.delete(id);
+        String sId = String.valueOf(id);
+        // удаление записи о городе
+        db.delete(T_NAME, sId);
         cursorReNew();
         return true;
     }
+
+
 
     // задаем реакцию EditText
     @Override
@@ -202,33 +201,38 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         buttonAdd.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 
-    public void printMessage(String str) {
-        Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+    private void printMessage(String str) {
+        DataWeatherHandler.printMessage(getActivity(), str);
     }
 
-    // реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
-    // описание к происходящему есть во втором фрагменте
+
+    /**
+     * реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
+     * описание к происходящему есть во втором фрагменте
+     */
     private static class DownloadTask extends AsyncTask<String, Void, String[]> {
 
-        private WeakReference<OneFragment> activityReference;
-        private long id;
+        private WeakReference<TodayFragment> activityReference;
+        private String id;
 
-        DownloadTask(OneFragment oneFragment) {
-            activityReference = new WeakReference<>(oneFragment);
-
+        DownloadTask(TodayFragment todayFragment) {
+            activityReference = new WeakReference<>(todayFragment);
         }
 
         @Override
         protected void onPreExecute() {
-            // добавление пустой строки с информацией о загрузке
-            // и получение id этой строки
-            id = DataWeatherHandler.addColumnCity();
-
-            OneFragment oneFragment = activityReference.get();
-            if (oneFragment == null) {
+            TodayFragment todayFragment = activityReference.get();
+            if (todayFragment == null) {
                 return;
             }
-            oneFragment.cursorReNew();
+            // добавление пустой строки с информацией о загрузке
+            // и получение id этой строки
+            id = String.valueOf(
+                    DataWeatherHandler.DbUtils.putWeatherDbLine(
+                            T_NAME,
+                            new String[]{DBWeatherContract.DBKeys.C_CITY},
+                            new String[]{TEXT_LOAD}));
+            todayFragment.cursorReNew();
         }
 
         /**
@@ -239,29 +243,36 @@ public class OneFragment extends Fragment implements View.OnClickListener, Adapt
         @Override
         protected String[] doInBackground(String... params) {
             String draftCity = params[0];
-            // возвращает массив с названием и статусом запроса
-            String[] cityAndStat = DataWeatherHandler.loadCityOfGoogleAndPutInDB(draftCity);
-
-            String lng = DataWeatherHandler.DBData.getLongitude(cityAndStat[0]);
-            String lat = DataWeatherHandler.DBData.getLatitude(cityAndStat[0]);
-            DataWeatherHandler.loadOfOpenWeatherAndUpdDB(id, lng, lat, false);
+            // возвращает массив с названием города от Гугл и статусом запроса
+            String[] cityAndStat = DataWeatherHandler.NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
+            String lng = DataWeatherHandler.DbUtils.getLongitude(id);
+            String lat = DataWeatherHandler.DbUtils.getLatitude(id);
+            JSONObject jo = DataWeatherHandler.NetUtils.loadWeather(lng, lat, false);
+            DataWeatherHandler.ParsingUtils.setWeatherJSONParser(jo);
+            DataWeatherHandler.DbUtils.updWeatherDbLine(
+                    T_NAME,
+                    id,
+                    DBWeatherContract.DBKeys.keysTodayArr,
+                    DataWeatherHandler.ParsingUtils.parseWeatherToday());
 
             return cityAndStat;
         }
 
         @Override
         protected void onPostExecute(String[] params) {
-            OneFragment oneFragment = activityReference.get();
-            if (oneFragment == null) {
+            TodayFragment todayFragment = activityReference.get();
+            if (todayFragment == null) {
                 return;
             }
-            oneFragment.cursorReNew();
+            todayFragment.cursorReNew();
 
             // вывод сообщений пользователю о результате добавления города
+            // 0 - название города
+            // 1 - результат добавления
             if (Integer.parseInt(params[1]) == 0) {
-                oneFragment.printMessage(params[0] + " " + UPD_ERROR_MSG);
+                todayFragment.printMessage(params[0] + " " + UPD_ERROR_MSG);
             } else if (Integer.parseInt(params[1]) == 1) {
-                oneFragment.printMessage(UPD_OK_MSG);
+                todayFragment.printMessage(UPD_OK_MSG);
             }
         }
     }

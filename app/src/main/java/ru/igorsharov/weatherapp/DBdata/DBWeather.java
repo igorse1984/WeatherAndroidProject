@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import ru.igorsharov.weatherapp.AppDB;
-import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.WeatherEntry;
+import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.DBKeys;
+import ru.igorsharov.weatherapp.TodayFragment;
 
 public class DBWeather extends DBHelper {
 
@@ -18,7 +19,7 @@ public class DBWeather extends DBHelper {
      * @param context The context object.
      */
     public DBWeather(Context context) {
-        super(context, WeatherEntry.DB_NAME, null, WeatherEntry.DB_VERSION);
+        super(context, DBKeys.DB_NAME, null, DBKeys.DB_VERSION);
     }
 
     /**
@@ -30,9 +31,8 @@ public class DBWeather extends DBHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-		/* Create tables */
-        execSQL(db, WeatherEntry.SQL_CREATE);
+        /* Create tables */
+        execSQL(db, DBKeys.SQL_CREATE_WEATHER_TODAY);
     }
 
     /**
@@ -48,32 +48,57 @@ public class DBWeather extends DBHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 		/* Drop tables */
-        dropTable(db, WeatherEntry.T_NAME);
+        dropTable(db, TodayFragment.T_NAME);
 
 		/* Invoke onCreate method */
         this.onCreate(db);
+    }
 
+
+    private ContentValues fillContentValuesOfArr(String[] keys, String[] values) {
+        // заполняем базу через объект вспомогательного класса
+        ContentValues v = new ContentValues();
+        for (int i = 0; i < keys.length; i++) {
+            // Заполение значений
+            v.put(keys[i], values[i]);
+            Log.d("ContentValuesPut", keys[i] + " = " + values[i]);
+        }
+        return v;
     }
 
     /**
      * Добавляет информацию о погоде в базу данных
      */
+    public long put(String tableName, String[] keys, String[] values) {
 
-    // TODO переделать на раздельные массивы ключей и значений
-    public long put(String... weatherValues) {
-
-        // заполняем базу через объект вспомогательного класса
-        ContentValues v = new ContentValues();
-
-        for (int i = 0; i < weatherValues.length - 1; i += 2) {
-            // Заполение значений
-            v.put(weatherValues[i], weatherValues[i + 1]);
-
-            Log.d("DB.put", weatherValues[i] + " = " + weatherValues[i + 1]);
-        }
+        ContentValues v = fillContentValuesOfArr(keys, values);
 
         // записываем значения в базу и возвращаем ID вставленной строки
-        return getWritableDatabase().insert(WeatherEntry.T_NAME, null, v);
+        return getWritableDatabase().insert(tableName, null, v);
+    }
+
+    public void putArr(String tableName, String key, String[] values) {
+        ContentValues v = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        for (String value : values) {
+            v.put(key, value);
+            db.insert(tableName, null, v);
+        }
+    }
+
+    public void updArr(String tableName, String key, String[] values) {
+        ContentValues v = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        for (int i = 0; i < values.length; i++) {
+            String value = values[i];
+            v.put(key, value);
+            db.update(
+                    tableName,
+                    v,
+                    DBKeys.SQL_WHERE_BY_ID,
+                    // TODO вместо i должен быть id, не могу понять откуда его правильнее брать
+                    new String[]{String.valueOf(i+1)});
+        }
     }
 
     /**
@@ -81,28 +106,28 @@ public class DBWeather extends DBHelper {
      *
      * @return id of new element
      */
-    long put(ContentValues values) {
-        return this.getWritableDatabase().insert(WeatherEntry.T_NAME, null, values);
+    long put(String tableName, ContentValues values) {
+        return this.getWritableDatabase().insert(tableName, null, values);
     }
 
     /**
-     * Получение погодных данных из базы данных
+     * Получение значения из БД
      *
-     * @param city   название города
-     * @param wParam погодный параметр
+     * @param tableName     имя таблицы поиска
+     * @param requestIn     текст запроса
+     * @param requestInKey  по какому столбцу будем проходить в поиске совпадения с текстом запроса
+     * @param requestOutKey из какого столбца брать ответ
      */
-    public String getWeatherOfParams(String city, String wParam) {
-        String tName = WeatherEntry.T_NAME;
-        String cCity = WeatherEntry.C_CITY;
-        String sqlRequest = "SELECT " + wParam
-                + " FROM " + tName
-                + " WHERE " + cCity
-                + "=" + "'" + city + "'";
+    public String getFromDb(String tableName, String requestIn, String requestInKey, String requestOutKey) {
+        String sqlRequest = "SELECT " + requestOutKey
+                + " FROM " + tableName
+                + " WHERE " + requestInKey
+                + "=" + "'" + requestIn + "'";
         Cursor cursor = AppDB.getDb().getRawReadableCursor(sqlRequest);
         if (cursor.moveToFirst()) {
-            /* Calculate indexes of columns and getWeatherOfParams*/
+            /* Calculate indexes of columns and getFromDb*/
             String str = cursor.getString(
-                    cursor.getColumnIndex(wParam));
+                    cursor.getColumnIndex(requestOutKey));
             cursor.close();
             return str;
         }
@@ -112,20 +137,16 @@ public class DBWeather extends DBHelper {
     /**
      * Обновление информации о погоде в базе
      */
-    public int update(long id, String[] keys, String[] values) {
-        /* Create a new map of values, where column names are the keys */
-        ContentValues v = new ContentValues();
+    public int update(String tableName, String id, String[] keys, String[] values) {
 
-		/* Fill values */
-        for (int i = 0; i < keys.length; i++) {
-            // Заполение значений
-            v.put(keys[i], values[i]);
-            Log.d("ContentValuesPut", keys[i] + " = " + values[i]);
-        }
+        ContentValues v = fillContentValuesOfArr(keys, values);
 
 		/* Update information и возврат статуса выполнения*/
-        return getWritableDatabase().update(DBWeatherContract.WeatherEntry.T_NAME, v,
-                WeatherEntry.SQL_WHERE_BY_ID, new String[]{String.valueOf(id)});
+        return getWritableDatabase().update(
+                tableName,
+                v,
+                DBKeys.SQL_WHERE_BY_ID,
+                new String[]{id});
     }
 
     /**
@@ -133,14 +154,25 @@ public class DBWeather extends DBHelper {
      *
      * @param id of element that will be deleted
      */
-    public void delete(long id) {
+    public void delete(String tableName, String id) {
         getWritableDatabase().delete(
-                WeatherEntry.T_NAME, WeatherEntry.SQL_WHERE_BY_ID,
-                new String[]{String.valueOf(id)});
+                tableName,
+                DBKeys.SQL_WHERE_BY_ID,
+                new String[]{id});
     }
 
-    public Cursor getRawReadableCursor(String sqlRequest) {
+    public boolean deleteTable(SQLiteDatabase db, String tableName) {
+        return execSQL(db, "DROP TABLE IF EXISTS " + tableName);
+    }
+
+    private Cursor getRawReadableCursor(String sqlRequest) {
         return getReadableDatabase().rawQuery(sqlRequest, null);
+    }
+
+    public boolean putTable(SQLiteDatabase db, String tableName) {
+        String str = DBKeys.buildSqlCreateTableString(tableName);
+        Log.d("@@@", str);
+        return execSQL(db, str);
     }
 
 }

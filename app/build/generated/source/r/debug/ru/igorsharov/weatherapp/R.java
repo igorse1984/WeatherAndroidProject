@@ -3403,13 +3403,14 @@ public final class R {
     public static final int transition_scene_layoutid_cache=0x7f0800aa;
     public static final int tvCityName=0x7f0800ab;
     public static final int tvTemperature=0x7f0800ac;
-    public static final int up=0x7f0800ad;
-    public static final int useLogo=0x7f0800ae;
-    public static final int view_offset_helper=0x7f0800af;
-    public static final int visible=0x7f0800b0;
-    public static final int withText=0x7f0800b1;
-    public static final int wrap=0x7f0800b2;
-    public static final int wrap_content=0x7f0800b3;
+    public static final int tvTime=0x7f0800ad;
+    public static final int up=0x7f0800ae;
+    public static final int useLogo=0x7f0800af;
+    public static final int view_offset_helper=0x7f0800b0;
+    public static final int visible=0x7f0800b1;
+    public static final int withText=0x7f0800b2;
+    public static final int wrap=0x7f0800b3;
+    public static final int wrap_content=0x7f0800b4;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f090000;
@@ -3465,9 +3466,9 @@ public final class R {
     public static final int design_navigation_menu=0x7f0a0027;
     public static final int design_navigation_menu_item=0x7f0a0028;
     public static final int design_text_input_password_icon=0x7f0a0029;
-    public static final int fragment_one=0x7f0a002a;
-    public static final int fragment_second=0x7f0a002b;
-    public static final int list_item=0x7f0a002c;
+    public static final int forecast_list_item=0x7f0a002a;
+    public static final int fragment_one=0x7f0a002b;
+    public static final int fragment_second=0x7f0a002c;
     public static final int notification_action=0x7f0a002d;
     public static final int notification_action_tombstone=0x7f0a002e;
     public static final int notification_media_action=0x7f0a002f;
@@ -3487,6 +3488,7 @@ public final class R {
     public static final int select_dialog_multichoice_material=0x7f0a003d;
     public static final int select_dialog_singlechoice_material=0x7f0a003e;
     public static final int support_simple_spinner_dropdown_item=0x7f0a003f;
+    public static final int today_list_item=0x7f0a0040;
   }
   public static final class mipmap {
     public static final int ic_launcher=0x7f0b0000;

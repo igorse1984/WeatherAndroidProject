@@ -12,7 +12,7 @@ import ru.igorsharov.weatherapp.DataWeatherHandler;
 import ru.igorsharov.weatherapp.R;
 
 
-public class CustomSimpleAdapter extends SimpleCursorAdapter {
+public class TodaySimpleAdapter extends SimpleCursorAdapter {
 
     //    private Context mContext;
 //    private Context appContext;
@@ -22,7 +22,7 @@ public class CustomSimpleAdapter extends SimpleCursorAdapter {
     private String[] from;
 //    private int[] to;
 
-    public CustomSimpleAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+    public TodaySimpleAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.from = from;
 //        this.to = to;
@@ -38,37 +38,32 @@ public class CustomSimpleAdapter extends SimpleCursorAdapter {
 //    public View newView(Context context, Cursor cursor, ViewGroup parent) {
 //        return inflater.inflate(layout, null);
 //    }
-
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-//        super.bindView(view, context, cursor);
         final String[] mFrom = from;
+        int index;
 
-        int indexCity = cursor.getColumnIndexOrThrow(mFrom[0]);
-        String cityName = cursor.getString(indexCity);
+        index = cursor.getColumnIndexOrThrow(mFrom[0]);
+        String cityName = cursor.getString(index);
         TextView tvCity = view.findViewById(R.id.tvCityName);
         setViewText(tvCity, cityName);
 
         TextView tvTemperature = view.findViewById(R.id.tvTemperature);
+        index = cursor.getColumnIndexOrThrow(mFrom[1]);
+        String temperature = cursor.getString(index);
 
-        // TODO неплохая идея для реализации в парсере вместо написания строки запроса
-        // TODO неправильно что ключи ячеек задаются в адаптере
-        int indexTemp = cursor.getColumnIndexOrThrow(mFrom[1]);
-        String temperature = cursor.getString(indexTemp);
         if (temperature != null) {
             tvTemperature.setVisibility(View.VISIBLE);
             tvTemperature.setTextColor(DataWeatherHandler.colorOfTemp(context, temperature));
             tvTemperature.setText(DataWeatherHandler.weatherString(temperature));
         }
-        ImageView imgView = view.findViewById(R.id.imageView);
 
-        int indexIcon = cursor.getColumnIndexOrThrow(mFrom[2]);
-        String idIconWeatherToday = cursor.getString(indexIcon);
+        ImageView imgView = view.findViewById(R.id.imageView);
+        index = cursor.getColumnIndexOrThrow(mFrom[2]);
+        String idIconWeatherToday = cursor.getString(index);
 
         if (idIconWeatherToday != null) {
-
-            String iconStr = DataWeatherHandler.DBData.getIconId(idIconWeatherToday);
-
+            String iconStr = DataWeatherHandler.getIconId(idIconWeatherToday);
             imgView.setVisibility(View.VISIBLE);
             setViewImage(imgView, iconStr);
         }
