@@ -3467,8 +3467,8 @@ public final class R {
     public static final int design_navigation_menu_item=0x7f0a0028;
     public static final int design_text_input_password_icon=0x7f0a0029;
     public static final int forecast_list_item=0x7f0a002a;
-    public static final int fragment_one=0x7f0a002b;
-    public static final int fragment_second=0x7f0a002c;
+    public static final int fragment_today =0x7f0a002b;
+    public static final int fragment_forecast =0x7f0a002c;
     public static final int notification_action=0x7f0a002d;
     public static final int notification_action_tombstone=0x7f0a002e;
     public static final int notification_media_action=0x7f0a002f;

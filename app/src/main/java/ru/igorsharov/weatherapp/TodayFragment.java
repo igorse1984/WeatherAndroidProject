@@ -49,7 +49,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_one, container, false);
+        View view = inflater.inflate(R.layout.fragment_today, container, false);
         initViews(view);
         setListeners();
         setDbListAdapter();
