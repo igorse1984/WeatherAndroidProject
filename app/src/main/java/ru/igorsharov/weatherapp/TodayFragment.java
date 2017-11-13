@@ -21,9 +21,13 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+import ru.igorsharov.weatherapp.DBdata.Adapters.TodaySimpleAdapter;
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
-import ru.igorsharov.weatherapp.DBdata.TodaySimpleAdapter;
+import ru.igorsharov.weatherapp.DataHandler.DataWeatherHandler;
+import ru.igorsharov.weatherapp.DataHandler.DbUtils;
+import ru.igorsharov.weatherapp.DataHandler.NetUtils;
+import ru.igorsharov.weatherapp.DataHandler.ParsingUtils;
 
 public class TodayFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, TextWatcher {
 
@@ -96,7 +100,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
 
     private void setDbListAdapter() {
         //Create arrays of columns and UI elements
-        String[] from = DBWeatherContract.DBKeys.fromForTodayAdapter;
+        String[] from = DBWeatherContract.DBKeys.keysForTodayAdapter;
 
         //Create simple Cursor adapter
         // null потому что адаптер знает про view элементы
@@ -226,7 +230,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
             // добавление пустой строки с информацией о загрузке
             // и получение id этой строки
             id = String.valueOf(
-                    DataWeatherHandler.DbUtils.putWeatherDbLine(
+                    DbUtils.putWeatherDbLine(
                             T_NAME,
                             new String[]{DBWeatherContract.DBKeys.C_CITY},
                             new String[]{TEXT_LOAD}));
@@ -242,16 +246,16 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         protected String[] doInBackground(String... params) {
             String draftCity = params[0];
             // возвращает массив с названием города от Гугл и статусом запроса
-            String[] cityAndStat = DataWeatherHandler.NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
-            String lng = DataWeatherHandler.DbUtils.getLongitude(id);
-            String lat = DataWeatherHandler.DbUtils.getLatitude(id);
-            JSONObject jo = DataWeatherHandler.NetUtils.loadWeather(lng, lat, false);
-            DataWeatherHandler.ParsingUtils.setWeatherJSONParser(jo);
-            DataWeatherHandler.DbUtils.updWeatherDbLine(
+            String[] cityAndStat = NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
+            String lng = DbUtils.getLongitude(id);
+            String lat = DbUtils.getLatitude(id);
+            JSONObject jo = NetUtils.loadWeather(lng, lat, false);
+            ParsingUtils.setWeatherJSONParser(jo);
+            DbUtils.updWeatherDbLine(
                     T_NAME,
                     id,
                     DBWeatherContract.DBKeys.keysTodayArr,
-                    DataWeatherHandler.ParsingUtils.parseWeatherToday());
+                    ParsingUtils.parseWeatherToday());
 
             return cityAndStat;
         }

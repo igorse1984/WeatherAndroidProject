@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import ru.igorsharov.weatherapp.AppDB;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract.DBKeys;
 import ru.igorsharov.weatherapp.TodayFragment;
@@ -70,36 +72,32 @@ public class DBWeather extends DBHelper {
      * Добавляет информацию о погоде в базу данных
      */
     public long put(String tableName, String[] keys, String[] values) {
-
         ContentValues v = fillContentValuesOfArr(keys, values);
 
         // записываем значения в базу и возвращаем ID вставленной строки
         return getWritableDatabase().insert(tableName, null, v);
     }
 
-    public void putArr(String tableName, String key, String[] values) {
+    // добавляет несколько массивов в базу
+    // при повторном вызове перезапишет текущие значения
+    public void insertArrays(String tableName, String[] keys, ArrayList<String[]> parsingArrays) {
         ContentValues v = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        for (String value : values) {
-            v.put(key, value);
+        String key;
+        String[] parsingValues;
+        // кол-во добавленных в БД строк будет равно длине первого массива со значениями параметра
+        int l = parsingArrays.get(0).length;
+        // построчное заполнение БД
+        for (int z = 0; z < l; z++) {
+            for (int i = 0; i < keys.length; i++) {
+                key = keys[i];
+                parsingValues = parsingArrays.get(i);
+                v.put(key, parsingValues[z]);
+            }
             db.insert(tableName, null, v);
         }
     }
 
-    public void updArr(String tableName, String key, String[] values) {
-        ContentValues v = new ContentValues();
-        SQLiteDatabase db = getWritableDatabase();
-        for (int i = 0; i < values.length; i++) {
-            String value = values[i];
-            v.put(key, value);
-            db.update(
-                    tableName,
-                    v,
-                    DBKeys.SQL_WHERE_BY_ID,
-                    // TODO вместо i должен быть id, не могу понять откуда его правильнее брать
-                    new String[]{String.valueOf(i+1)});
-        }
-    }
 
     /**
      * Метод для добавления данных в базу через контент-провайдера

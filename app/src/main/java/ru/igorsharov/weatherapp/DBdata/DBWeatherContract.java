@@ -55,13 +55,13 @@ public final class DBWeatherContract {
                         C_LATITUDE
                 };
 
-        public static String[] fromForForecastAdapter = {
+        public static String[] keysOfForecastAdapter = {
                 C_DATE,
                 C_TEMPERATURE,
                 C_PRESSURE,
                 C_ICON_WEATHER};
 
-        public static String[] fromForTodayAdapter = {
+        public static String[] keysForTodayAdapter = {
                 C_CITY,
                 C_TEMPERATURE,
                 C_ICON_WEATHER};

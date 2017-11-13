@@ -1,4 +1,4 @@
-package ru.igorsharov.weatherapp.DBdata;
+package ru.igorsharov.weatherapp.DBdata.Adapters;
 
 
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import ru.igorsharov.weatherapp.DataWeatherHandler;
+import ru.igorsharov.weatherapp.DataHandler.DataWeatherHandler;
 import ru.igorsharov.weatherapp.R;
 
 
@@ -55,7 +55,7 @@ public class TodaySimpleAdapter extends SimpleCursorAdapter {
         if (temperature != null) {
             tvTemperature.setVisibility(View.VISIBLE);
             tvTemperature.setTextColor(DataWeatherHandler.colorOfTemp(context, temperature));
-            tvTemperature.setText(DataWeatherHandler.weatherString(temperature));
+            tvTemperature.setText(DataWeatherHandler.addDegree(temperature));
         }
 
         ImageView imgView = view.findViewById(R.id.imageView);

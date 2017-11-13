@@ -11,13 +11,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import java.lang.ref.WeakReference;
 
+import ru.igorsharov.weatherapp.DBdata.Adapters.ForecastSimpleAdapter;
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
-import ru.igorsharov.weatherapp.DBdata.ForecastSimpleAdapter;
+import ru.igorsharov.weatherapp.DataHandler.DataWeatherHandler;
+import ru.igorsharov.weatherapp.DataHandler.DbUtils;
 
 public class ForecastFragment extends Fragment {
 
@@ -62,7 +62,7 @@ public class ForecastFragment extends Fragment {
             public void onClick(View view) {
                 SecondFragmentInterface anInterface = (SecondFragmentInterface) getActivity();
                 anInterface.clickButtonBackOnSecondFragment();
-                DataWeatherHandler.DbUtils.delTable(id, TABLE_NAME);
+                DbUtils.delTable(id, TABLE_NAME);
             }
         });
 
@@ -78,7 +78,7 @@ public class ForecastFragment extends Fragment {
 
     private void setDbListAdapter() {
         //Create arrays of columns and UI elements
-        String[] from = DBWeatherContract.DBKeys.fromForForecastAdapter;
+        String[] from = DBWeatherContract.DBKeys.keysOfForecastAdapter;
 
         //Create simple Cursor adapter
         lvForecastAdapter = new ForecastSimpleAdapter(getActivity(),
@@ -111,13 +111,13 @@ public class ForecastFragment extends Fragment {
         // в случае успешного создания доп таблицы
         if (createAdditionallyTable()) {
             // запись названия доп таблицы в основную
-            DataWeatherHandler.DbUtils.putForecastTableName(id, TABLE_NAME);
+            DbUtils.putForecastTableName(id, TABLE_NAME);
         }
         // отображение во фрагменте названия текущего города
-        tvCity.setText(DataWeatherHandler.DbUtils.getCityFromDb(id));
+        tvCity.setText(DbUtils.getCityFromDb(id));
         // достаем координаты для последующего запроса прогноза
-        String lng = DataWeatherHandler.DbUtils.getLongitude(id);
-        String lat = DataWeatherHandler.DbUtils.getLatitude(id);
+        String lng = DbUtils.getLongitude(id);
+        String lat = DbUtils.getLatitude(id);
         // запуск задачи загрузки погоды
         new LoadWeatherTask(this).execute(TABLE_NAME, lng, lat);
 //        cursorReNew();
@@ -140,13 +140,13 @@ public class ForecastFragment extends Fragment {
     // метод запускается по завершению AsyncTask
     private void setViewToday() {
         // TODO переделать
-        tvLocation.setText(DataWeatherHandler.DbUtils.getLocation(id));
+        tvLocation.setText(DbUtils.getLocation(id));
         //инициализация View в соответствии с настройками чекбоксов
         //основная температура
-        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, DataWeatherHandler.DbUtils.getTemperature(id));
+        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, DbUtils.getTemperature(id));
 
         //давление воздуха
-        setView(tvPressureToday, PRESSURE_SHOW_KEY, DataWeatherHandler.DbUtils.getPressure(id));
+        setView(tvPressureToday, PRESSURE_SHOW_KEY, DbUtils.getPressure(id));
     }
 
 
@@ -157,7 +157,7 @@ public class ForecastFragment extends Fragment {
             // определяем цвет TextView если это температура
             if (paramShowKey.equals(TEMPERATURE_SHOW_KEY)) {
                 v.setTextColor(DataWeatherHandler.colorOfTemp(getActivity(), value));
-                v.setText(DataWeatherHandler.weatherString(value));
+                v.setText(DataWeatherHandler.addDegree(value));
             } else {
                 if (value != null) {
                     v.setText(value.concat(" ").concat(getResources().getString(R.string.pressure1)));
@@ -184,33 +184,8 @@ public class ForecastFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            String TABLE_NAME = params[0];
-            String lng = params[1];
-            String lat = params[2];
-            JSONObject jo = DataWeatherHandler.NetUtils.loadWeather(lng, lat, true);
-            DataWeatherHandler.ParsingUtils.setWeatherJSONParser(jo);
-            // TODO оптимизировать дублирование
-            DataWeatherHandler.DbUtils.putWeatherValuesArrInDb(
-                    TABLE_NAME,
-                    DBWeatherContract.DBKeys.C_DATE,
-                    DataWeatherHandler.ParsingUtils.parseDateForecast());
-
-            DataWeatherHandler.DbUtils.updWeatherValuesArrInDb(
-                    TABLE_NAME,
-                    DBWeatherContract.DBKeys.C_TEMPERATURE,
-                    DataWeatherHandler.ParsingUtils.parseTempForecast());
-
-            DataWeatherHandler.DbUtils.updWeatherValuesArrInDb(
-                    TABLE_NAME,
-                    DBWeatherContract.DBKeys.C_PRESSURE,
-                    DataWeatherHandler.ParsingUtils.parsePressureForecast());
-
-            DataWeatherHandler.DbUtils.updWeatherValuesArrInDb(
-                    TABLE_NAME,
-                    DBWeatherContract.DBKeys.C_ICON_WEATHER,
-                    DataWeatherHandler.ParsingUtils.parseIconIdArr());
-
-
+            // загрузка, парсинг и запись прогноза в БД
+            DataWeatherHandler.loadForecast(params);
             return null;
         }
 
