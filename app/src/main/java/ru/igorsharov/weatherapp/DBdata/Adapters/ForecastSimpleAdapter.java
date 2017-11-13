@@ -29,10 +29,15 @@ public class ForecastSimpleAdapter extends SimpleCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         final String[] mFrom = from;
 
-        TextView tvTime = view.findViewById(R.id.tvDate);
-        tvTime.setText(getCurrentColumn(cursor, mFrom[0]));
-
+        // инициализация view
+        TextView tvDate = view.findViewById(R.id.tvDate);
         TextView tvTemperature = view.findViewById(R.id.tvTemperature);
+        ImageView imgView = view.findViewById(R.id.imageView);
+
+        // установка значений даты
+        tvDate.setText(getCurrentColumn(cursor, mFrom[0]));
+
+        // установка значений температуры
         String temperature = getCurrentColumn(cursor, mFrom[1]);
         if (temperature != null) {
             tvTemperature.setVisibility(View.VISIBLE);
@@ -40,7 +45,7 @@ public class ForecastSimpleAdapter extends SimpleCursorAdapter {
             tvTemperature.setText(DataWeatherHandler.addDegree(temperature));
         }
 
-        ImageView imgView = view.findViewById(R.id.imageView);
+        // установка иконки погоды
         String idIconWeatherToday = getCurrentColumn(cursor, mFrom[3]);
         if (idIconWeatherToday != null) {
             String iconStr = DataWeatherHandler.getIconId(idIconWeatherToday);
