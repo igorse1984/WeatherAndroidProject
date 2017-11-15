@@ -7,7 +7,7 @@
     <string name="pressure">Давление</string>
     <string name="forecast">Прогноз</string>
     <string name="buttonBackText">Назад</string>
-    <string name="pressure1">мм рт.ст.</string>
+    <string name="pressure_amount">мм рт.ст.</string>
     <string name="forecast_text">Прогноз погоды:</string>
     <string name="find_weather">Введите название города</string>
     <string name="addCity">Добавить</string>

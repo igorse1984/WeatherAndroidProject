@@ -48,11 +48,11 @@ public class JSONParserOfOpenWeather extends JSONParser {
     }
 
     public static String parseTempToday() {
-        return format2String(getDoubleOfObj(J_OBJ_MAIN, J_TEMPERATURE));
+        return format2String1(getDoubleOfObj(J_OBJ_MAIN, J_TEMPERATURE));
     }
 
     public static String parsePressureToday() {
-        return format2String(getDoubleOfObj(J_OBJ_MAIN, J_PRESSURE));
+        return format2String1(getDoubleOfObj(J_OBJ_MAIN, J_PRESSURE) * hPa2mmHG);
     }
 
     public static String parseIconIdToday() {
@@ -72,18 +72,9 @@ public class JSONParserOfOpenWeather extends JSONParser {
         return i;
     }
 
-    private static String[] parseWeatherForecast(String key) {
-        String[] arr = new String[getCnt()];
-        for (int i = 0; i < getCnt(); i++) {
-            arr[i] = format2String(getDoubleOfArrNumObjNameObj(J_ARR_LIST, i, J_OBJ_MAIN, key));
-        }
-        return arr;
-    }
-
-    // TODO форматирование даты делать в фрагменте
     public static String[] parseDateForecast() {
-        Locale local = new Locale("ru", "RU");
-        SimpleDateFormat df = new SimpleDateFormat("E, H:mm", local);
+        Locale locale = new Locale("ru", "RU");
+        SimpleDateFormat df = new SimpleDateFormat("E, HH:mm dd MMMM", locale);
         String[] arr = new String[getCnt()];
         for (int i = 0; i < getCnt(); i++) {
             arr[i] = df.format(new Date(getLongOfArrNumObj(J_ARR_LIST, i, J_DATE) * 1000));
@@ -92,11 +83,19 @@ public class JSONParserOfOpenWeather extends JSONParser {
     }
 
     public static String[] parseTempForecast() {
-        return parseWeatherForecast(J_TEMPERATURE);
+        String[] arr = new String[getCnt()];
+        for (int i = 0; i < getCnt(); i++) {
+            arr[i] = format2String1(getDoubleOfArrNumObjNameObj(J_ARR_LIST, i, J_OBJ_MAIN, J_TEMPERATURE));
+        }
+        return arr;
     }
 
     public static String[] parsePressureForecast() {
-        return parseWeatherForecast(J_PRESSURE);
+        String[] arr = new String[getCnt()];
+        for (int i = 0; i < getCnt(); i++) {
+            arr[i] = format2String0(getDoubleOfArrNumObjNameObj(J_ARR_LIST, i, J_OBJ_MAIN, J_PRESSURE) * hPa2mmHG);
+        }
+        return arr;
     }
 
     public static String[] parseIconIdForecast() {

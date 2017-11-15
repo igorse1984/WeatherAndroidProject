@@ -9,16 +9,22 @@ import java.util.Locale;
 public class JSONParser {
 
     static JSONObject globJSONObject;
-    private final static String FORMAT_DOUBLE = "%.1f";
+    private final static String FORMAT_DOUBLE0 = "%.0f";
+    private final static String FORMAT_DOUBLE1 = "%.1f";
 
     // установка классу объекта для последующего парсинга
     public static void setGlobParsingObj(JSONObject jsonObject) {
         globJSONObject = jsonObject;
     }
 
-    static String format2String(double value) {
+    static String format2String0(double value) {
         return String.format(Locale.US,
-                FORMAT_DOUBLE, value);
+                FORMAT_DOUBLE0, value);
+    }
+
+    static String format2String1(double value) {
+        return String.format(Locale.US,
+                FORMAT_DOUBLE1, value);
     }
 
     static JSONObject getObjOfObjX3(String nameJSONArr, String nameJSONObj1, String nameJSONObj2) {

@@ -11,17 +11,17 @@ public class DbUtils extends DataWeatherHandler {
 
     // TODO необходимо реализовать кэш, на случай отсутствия интернет соединения
 
-    public static long putWeatherDbLine(String tableName, String[] keys, String[] valuesOfKeys) {
+    public static long putWeatherDbLine(String tableName, String[] keys, String[] values) {
         // возвращает id последней загруженной строки
-        return dbWeather.put(tableName, keys, valuesOfKeys);
+        return dbWeather.put(tableName, keys, values);
     }
 
     static int updateLineDb(String tableName, String id, String[] keys, String[] values) {
         return dbWeather.update(tableName, id, keys, values);
     }
 
-    static void addWeatherArrInDb(String tableName, String[] keys, ArrayList valuesOfKey) {
-        dbWeather.insertArrays(tableName, keys, valuesOfKey);
+    static void addWeatherArrInDb(String tableName, String[] keys, ArrayList<String[]> arraysValues) {
+        dbWeather.insertArrays(tableName, keys, arraysValues);
     }
 
     public static void updWeatherDbLine(String tableName, String id, String[] keys, String[] valuesOfKeys) {
@@ -51,10 +51,6 @@ public class DbUtils extends DataWeatherHandler {
         return dbWeather.getFromDb(TodayFragment.T_NAME, id, DBWeatherContract.DBKeys._ID, key);
     }
 
-    private static String getForecastValueFromDb(String nameForecastTable, String id, String key) {
-        return dbWeather.getFromDb(nameForecastTable, id, DBWeatherContract.DBKeys._ID, key);
-    }
-
     public static String getCityFromDb(String id) {
         return dbWeather.getFromDb(TodayFragment.T_NAME, id, DBWeatherContract.DBKeys._ID, DBWeatherContract.DBKeys.C_CITY);
     }
@@ -71,12 +67,8 @@ public class DbUtils extends DataWeatherHandler {
         return getTodayValueFromDb(request, DBWeatherContract.DBKeys.C_PRESSURE);
     }
 
-    static String getTemperatureForecast(String request) {
-        return getTodayValueFromDb(request, DBWeatherContract.DBKeys.C_TEMPERATURE);
-    }
-
-    static String getPressureForecast(String request) {
-        return getTodayValueFromDb(request, DBWeatherContract.DBKeys.C_PRESSURE);
+    public static String getIconToday(String request) {
+        return getTodayValueFromDb(request, DBWeatherContract.DBKeys.C_ICON_WEATHER);
     }
 
     public static String getLongitude(String request) {
@@ -85,9 +77,5 @@ public class DbUtils extends DataWeatherHandler {
 
     public static String getLatitude(String request) {
         return getTodayValueFromDb(request, DBWeatherContract.DBKeys.C_LATITUDE);
-    }
-
-    static String getNameForecastTable(String request) {
-        return getTodayValueFromDb(request, DBWeatherContract.DBKeys.C_FORECAST_TABLE_NAME);
     }
 }

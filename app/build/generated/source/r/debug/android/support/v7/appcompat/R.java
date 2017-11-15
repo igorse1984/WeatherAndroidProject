@@ -575,18 +575,18 @@ public final class R {
         public static final int customPanel = 0x7f08002f;
         public static final int decor_content_parent = 0x7f080030;
         public static final int default_activity_button = 0x7f080031;
-        public static final int disableHome = 0x7f080038;
-        public static final int edit_query = 0x7f08003a;
-        public static final int end = 0x7f08003b;
-        public static final int end_padder = 0x7f08003c;
-        public static final int expand_activities_button = 0x7f080040;
-        public static final int expanded_menu = 0x7f080041;
-        public static final int home = 0x7f080047;
-        public static final int homeAsUp = 0x7f080048;
-        public static final int icon = 0x7f080049;
-        public static final int icon_group = 0x7f08004a;
-        public static final int ifRoom = 0x7f08004b;
-        public static final int image = 0x7f08004c;
+        public static final int disableHome = 0x7f080037;
+        public static final int edit_query = 0x7f080039;
+        public static final int end = 0x7f08003a;
+        public static final int end_padder = 0x7f08003b;
+        public static final int expand_activities_button = 0x7f08003f;
+        public static final int expanded_menu = 0x7f080040;
+        public static final int home = 0x7f080046;
+        public static final int homeAsUp = 0x7f080047;
+        public static final int icon = 0x7f080048;
+        public static final int icon_group = 0x7f080049;
+        public static final int ifRoom = 0x7f08004a;
+        public static final int image = 0x7f08004b;
         public static final int info = 0x7f08004e;
         public static final int line1 = 0x7f080052;
         public static final int line3 = 0x7f080053;
@@ -645,10 +645,10 @@ public final class R {
         public static final int title_template = 0x7f0800a3;
         public static final int top = 0x7f0800a4;
         public static final int topPanel = 0x7f0800a5;
-        public static final int up = 0x7f0800ae;
-        public static final int useLogo = 0x7f0800af;
-        public static final int withText = 0x7f0800b2;
-        public static final int wrap_content = 0x7f0800b4;
+        public static final int up = 0x7f0800af;
+        public static final int useLogo = 0x7f0800b0;
+        public static final int withText = 0x7f0800b3;
+        public static final int wrap_content = 0x7f0800b5;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;

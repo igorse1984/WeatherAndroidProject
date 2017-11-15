@@ -26,10 +26,7 @@ public abstract class DataWeatherHandler {
     static DBWeather dbWeather = AppDB.getDb();
 
 
-    public static void loadForecast(String... params) {
-        String TABLE_NAME = params[0];
-        String lng = params[1];
-        String lat = params[2];
+    public static void loadForecast(String tableName, String lng, String lat) {
         JSONObject jo = NetUtils.loadWeather(lng, lat, true);
         ParsingUtils.setWeatherJSONParser(jo);
 
@@ -40,7 +37,7 @@ public abstract class DataWeatherHandler {
         al.add(ParsingUtils.parseIconIdArr());
 
         DbUtils.addWeatherArrInDb(
-                TABLE_NAME,
+                tableName,
                 DBWeatherContract.DBKeys.keysOfForecastAdapter,
                 al);
     }
@@ -83,7 +80,7 @@ public abstract class DataWeatherHandler {
     }
 
     // подбор иконки погоды
-    public static String getIconId(String idIconWeatherToday) {
+    public static int getIconId(String idIconWeatherToday) {
         int icon;
         switch (idIconWeatherToday) {
             case "01d":
@@ -131,7 +128,7 @@ public abstract class DataWeatherHandler {
             default:
                 icon = 0;
         }
-        return String.valueOf(icon);
+        return icon;
     }
 
 

@@ -79,13 +79,14 @@ public class DBWeather extends DBHelper {
     }
 
     // добавляет несколько массивов в базу
-    // при повторном вызове перезапишет текущие значения
+    // при повторном вызове перезапишет текущие значения т.к. db.insert
     public void insertArrays(String tableName, String[] keys, ArrayList<String[]> parsingArrays) {
         ContentValues v = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
         String key;
         String[] parsingValues;
-        // кол-во добавленных в БД строк будет равно длине первого массива со значениями параметра
+        // кол-во добавленных в БД строк будет равно длине
+        // передаваемого первого массива
         int l = parsingArrays.get(0).length;
         // построчное заполнение БД
         for (int z = 0; z < l; z++) {

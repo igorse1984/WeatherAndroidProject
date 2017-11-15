@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,13 +25,13 @@ public class ForecastFragment extends Fragment {
     private final static String LOG_TAG = ForecastFragment.class.getSimpleName();
     public final static String TEMPERATURE_SHOW_KEY = "temperature";
     public final static String PRESSURE_SHOW_KEY = "pressure";
-    public final static String FORECAST_SHOW_KEY = "forecast";
     public final static String ID_DB_CITY_KEY = "ID";
     private String TABLE_NAME;
     private TextView tvCity;
     private TextView tvTemperatureToday;
     private TextView tvPressureToday;
     private TextView tvLocation;
+    private ImageView ivIconToday;
     private String id;
     private ForecastSimpleAdapter lvForecastAdapter;
     private Cursor cursorForList;
@@ -53,9 +54,7 @@ public class ForecastFragment extends Fragment {
         tvCity = view.findViewById(R.id.cityName);
         tvLocation = view.findViewById(R.id.locationWeatherPoint);
         listViewForecast = view.findViewById(R.id.lvForecast);
-
-        TextView tvDescWeatherForecast = view.findViewById(R.id.descWeatherForecast);
-        setView(tvDescWeatherForecast, FORECAST_SHOW_KEY, null);
+        ivIconToday = view.findViewById(R.id.imageViewToday);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +80,14 @@ public class ForecastFragment extends Fragment {
         String[] from = DBWeatherContract.DBKeys.keysOfForecastAdapter;
 
         //Create simple Cursor adapter
-        lvForecastAdapter = new ForecastSimpleAdapter(getActivity(),
-                R.layout.forecast_list_item, cursorForList, from, null, 1);
+        lvForecastAdapter = new ForecastSimpleAdapter(
+                getActivity(),
+                R.layout.forecast_list_item,
+                cursorForList,
+                from,
+                null,
+                1,
+                new boolean[]{bundle.getBoolean(TEMPERATURE_SHOW_KEY), bundle.getBoolean(PRESSURE_SHOW_KEY)});
 
         listViewForecast.setAdapter(lvForecastAdapter);
     }
@@ -118,9 +123,12 @@ public class ForecastFragment extends Fragment {
         // достаем координаты для последующего запроса прогноза
         String lng = DbUtils.getLongitude(id);
         String lat = DbUtils.getLatitude(id);
+
+        setViewToday();
+
         // запуск задачи загрузки погоды
         new LoadWeatherTask(this).execute(TABLE_NAME, lng, lat);
-//        cursorReNew();
+//        spillCursorReNew();
     }
 
     private boolean createAdditionallyTable() {
@@ -132,39 +140,50 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    //метод для полученя Bundle из другой активити до начала работы системных методов данного фрагмента
+    //метод для полученя Bundle из другой активити до начала работы callback методов данного фрагмента
     void setWeather(Bundle b) {
         this.bundle = b;
     }
 
-    // метод запускается по завершению AsyncTask
     private void setViewToday() {
         // TODO переделать
         tvLocation.setText(DbUtils.getLocation(id));
+
         //инициализация View в соответствии с настройками чекбоксов
         //основная температура
-        setView(tvTemperatureToday, TEMPERATURE_SHOW_KEY, DbUtils.getTemperature(id));
+        if (bundle.getBoolean(TEMPERATURE_SHOW_KEY)) {
+            setTemperatureView(tvTemperatureToday, DbUtils.getTemperature(id));
+        }
 
-        //давление воздуха
-        setView(tvPressureToday, PRESSURE_SHOW_KEY, DbUtils.getPressure(id));
+        if (bundle.getBoolean(PRESSURE_SHOW_KEY)) {
+            //давление воздуха
+            setPressureView(tvPressureToday, DbUtils.getPressure(id));
+        }
+
+        setIconView(ivIconToday, DbUtils.getIconToday(id));
     }
 
-
-    private void setView(TextView v, String paramShowKey, String value) {
-        if (bundle.getBoolean(paramShowKey)) {
+    private void setTemperatureView(TextView v, String value) {
+        if (value != null) {
             v.setVisibility(View.VISIBLE);
+            // определяем цвет TextView
+            v.setTextColor(DataWeatherHandler.colorOfTemp(getActivity(), value));
+            // добавляем символ градуса
+            v.setText(DataWeatherHandler.addDegree(value));
+        }
+    }
 
-            // определяем цвет TextView если это температура
-            if (paramShowKey.equals(TEMPERATURE_SHOW_KEY)) {
-                v.setTextColor(DataWeatherHandler.colorOfTemp(getActivity(), value));
-                v.setText(DataWeatherHandler.addDegree(value));
-            } else {
-                if (value != null) {
-                    v.setText(value.concat(" ").concat(getResources().getString(R.string.pressure1)));
-                }
-            }
-        } else {
-            v.setVisibility(View.GONE);
+    private void setPressureView(TextView v, String value) {
+        if (value != null) {
+            v.setVisibility(View.VISIBLE);
+            v.setText(value.concat(" ").concat(getResources().getString(R.string.pressure_amount)));
+        }
+    }
+
+    private void setIconView(ImageView iv, String icon){
+        if (icon != null) {
+            iv.setVisibility(View.VISIBLE);
+            iv.setImageResource(DataWeatherHandler.getIconId(icon));
         }
     }
 
@@ -182,22 +201,28 @@ public class ForecastFragment extends Fragment {
             activityReference = new WeakReference<>(forecastFragment);
         }
 
+        private void spillCursorReNew(){
+            // получаем слабую ссылку на фрагмент для доступа к его методам
+            ForecastFragment forecastFragment = activityReference.get();
+            if (forecastFragment == null) return;
+            forecastFragment.cursorReNew();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            spillCursorReNew();
+        }
+
         @Override
         protected Void doInBackground(String... params) {
             // загрузка, парсинг и запись прогноза в БД
-            DataWeatherHandler.loadForecast(params);
+            DataWeatherHandler.loadForecast(params[0], params[1], params[2]);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
-            // получаем слабую ссылку на фрагмент для доступа к его методам
-            ForecastFragment forecastFragment = activityReference.get();
-            if (forecastFragment == null) return;
-
-            forecastFragment.setViewToday();
-            forecastFragment.cursorReNew();
+           spillCursorReNew();
         }
     }
 

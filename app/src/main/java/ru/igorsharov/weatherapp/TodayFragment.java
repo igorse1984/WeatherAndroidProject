@@ -184,7 +184,6 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
     }
 
 
-
     // задаем реакцию EditText
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -221,12 +220,16 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
             activityReference = new WeakReference<>(todayFragment);
         }
 
+        private TodayFragment spillCursorReNew() {
+            // получаем слабую ссылку на фрагмент для доступа к его методам
+            TodayFragment todayFragment = activityReference.get();
+            if (todayFragment == null) return null;
+            todayFragment.cursorReNew();
+            return todayFragment;
+        }
+
         @Override
         protected void onPreExecute() {
-            TodayFragment todayFragment = activityReference.get();
-            if (todayFragment == null) {
-                return;
-            }
             // добавление пустой строки с информацией о загрузке
             // и получение id этой строки
             id = String.valueOf(
@@ -234,7 +237,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
                             T_NAME,
                             new String[]{DBWeatherContract.DBKeys.C_CITY},
                             new String[]{TEXT_LOAD}));
-            todayFragment.cursorReNew();
+            spillCursorReNew();
         }
 
         /**
@@ -245,6 +248,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         @Override
         protected String[] doInBackground(String... params) {
             String draftCity = params[0];
+            // TODO DbUtil и тому подобное спрядать в один метод DataHandler
             // возвращает массив с названием города от Гугл и статусом запроса
             String[] cityAndStat = NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
             String lng = DbUtils.getLongitude(id);
@@ -262,11 +266,9 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
 
         @Override
         protected void onPostExecute(String[] params) {
-            TodayFragment todayFragment = activityReference.get();
-            if (todayFragment == null) {
-                return;
-            }
-            todayFragment.cursorReNew();
+            // обновляет курсор и возвращает ссылку на фрагмент
+            TodayFragment todayFragment = spillCursorReNew();
+            if (todayFragment == null) return;
 
             // вывод сообщений пользователю о результате добавления города
             // 0 - название города

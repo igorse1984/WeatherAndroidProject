@@ -7,7 +7,7 @@
     <string name="pressure">Pressure</string>
     <string name="forecast">Forecast</string>
     <string name="buttonBackText">Back</string>
-    <string name="pressure1">mmHg</string>
+    <string name="pressure_amount">mmHg</string>
     <string name="forecast_text">Weather forecast:</string>
     <string name="find_weather">Enter the name of the city</string>
     <string name="addCity">Add</string>
