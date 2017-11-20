@@ -42,10 +42,10 @@ public class TodaySimpleAdapter extends SimpleCursorAdapter {
         return cursor.getString(cursor.getColumnIndexOrThrow(from));
     }
 
+
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         final String[] mFrom = from;
-
         String cityName = getCurrentColumn(cursor, mFrom[0]);
         TextView tvCity = view.findViewById(R.id.tvCityName);
         setViewText(tvCity, cityName);
@@ -67,6 +67,6 @@ public class TodaySimpleAdapter extends SimpleCursorAdapter {
             imgView.setVisibility(View.VISIBLE);
             setViewImage(imgView, iconStr);
         }
-
     }
+
 }

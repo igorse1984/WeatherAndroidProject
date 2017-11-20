@@ -1,12 +1,17 @@
 package ru.igorsharov.weatherapp;
 
 import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +27,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 import ru.igorsharov.weatherapp.DBdata.Adapters.TodaySimpleAdapter;
+import ru.igorsharov.weatherapp.DBdata.DBProvider;
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
 import ru.igorsharov.weatherapp.DataHandler.DataWeatherHandler;
@@ -29,7 +35,17 @@ import ru.igorsharov.weatherapp.DataHandler.DbUtils;
 import ru.igorsharov.weatherapp.DataHandler.NetUtils;
 import ru.igorsharov.weatherapp.DataHandler.ParsingUtils;
 
-public class TodayFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, TextWatcher {
+public class TodayFragment extends Fragment implements
+        View.OnClickListener,
+        AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener,
+        TextWatcher,
+        LoaderManager.LoaderCallbacks<Cursor> {
+
+
+    // The adapter that binds our data to the ListView
+    private TodaySimpleAdapter lvTodayAdapter;
+
 
     private final static String TAG = TodayFragment.class.getSimpleName();
     public final static String T_NAME = "weatherToday";
@@ -43,10 +59,8 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
     private EditText editTextCityAdd;
     private Button buttonAdd;
     private Button btnFindLoc;
-    private TodaySimpleAdapter lvTodayAdapter;
-    // TODO здесь только для обновления состояние listView может можно убрать в DataWeatherHandler?
+    // TODO данная переменная здесь только для обновления состояние listView может убрать в DataWeatherHandler?
     private DBWeather db = AppDB.getDb();
-    private Cursor cursorForList;
     private LocationHelper lochlp;
     private Location loc;
 
@@ -56,11 +70,15 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         View view = inflater.inflate(R.layout.fragment_today, container, false);
         initViews(view);
         setListeners();
-        setDbListAdapter();
-        cursorReNew();
         initLoc();
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setDbListAdapter();
     }
 
     @Override
@@ -92,22 +110,24 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         editTextCityAdd.addTextChangedListener(this);
     }
 
-    // обновление listView по новой технологии взамен устаревшего метода requery
-    private void cursorReNew() {
-        cursorForList = db.getReadableCursor(T_NAME);
-        lvTodayAdapter.swapCursor(cursorForList);
-    }
-
     private void setDbListAdapter() {
         //Create arrays of columns and UI elements
         String[] from = DBWeatherContract.DBKeys.keysForTodayAdapter;
 
         //Create simple Cursor adapter
         // null потому что адаптер знает про view элементы
-        lvTodayAdapter = new TodaySimpleAdapter(getActivity(),
-                R.layout.today_list_item, cursorForList, from, null, 1);
+        lvTodayAdapter = new TodaySimpleAdapter(getActivity(), R.layout.today_list_item,
+                null, from, null, 0);
 
         listView.setAdapter(lvTodayAdapter);
+
+        // Initialize the Loader with id '1' and callbacks 'mCallbacks'.
+        // If the loader doesn't already exist, one is created. Otherwise,
+        // the already created Loader is reused. In either case, the
+        // LoaderManager will manage the Loader across the Activity/Fragment
+        // lifecycle, will receive any new loads once they have completed,
+        // and will report this new data back to the 'mCallbacks' object.
+        getLoaderManager().initLoader(0, null, this);
     }
 
     void initLoc() {
@@ -179,7 +199,8 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         String sId = String.valueOf(id);
         // удаление записи о городе
         db.delete(T_NAME, sId);
-        cursorReNew();
+        // обновляем вид, для исчезновения item'а с listView
+        getLoaderManager().getLoader(0).forceLoad();
         return true;
     }
 
@@ -206,6 +227,33 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         DataWeatherHandler.printMessage(getActivity(), str);
     }
 
+    /**
+     * реализация интерфейса LoaderManager
+     */
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d("@@@@", "onCreateLoader");
+        // Create a new CursorLoader with the following query parameters.
+        return new CursorLoader(getActivity(), DBProvider.CONTENT_URI,
+                null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Log.d("@@@@", "onLoaderFinished");
+        lvTodayAdapter.swapCursor(cursor);
+    }
+    // The listview now displays the queried data.
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        Log.d("@@@@", "onLoaderReset");
+        // For whatever reason, the Loader's data is now unavailable.
+        // Remove any references to the old data by replacing it with
+        // a null Cursor.
+        lvTodayAdapter.swapCursor(null);
+    }
+
 
     /**
      * реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
@@ -220,16 +268,12 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
             activityReference = new WeakReference<>(todayFragment);
         }
 
-        private TodayFragment spillCursorReNew() {
-            // получаем слабую ссылку на фрагмент для доступа к его методам
-            TodayFragment todayFragment = activityReference.get();
-            if (todayFragment == null) return null;
-            todayFragment.cursorReNew();
-            return todayFragment;
-        }
 
         @Override
         protected void onPreExecute() {
+
+            // получаем слабую ссылку на фрагмент для доступа к его методам
+            TodayFragment todayFragment = activityReference.get();
             // добавление пустой строки с информацией о загрузке
             // и получение id этой строки
             id = String.valueOf(
@@ -237,7 +281,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
                             T_NAME,
                             new String[]{DBWeatherContract.DBKeys.C_CITY},
                             new String[]{TEXT_LOAD}));
-            spillCursorReNew();
+            todayFragment.getLoaderManager().getLoader(0).forceLoad();
         }
 
         /**
@@ -248,7 +292,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
         @Override
         protected String[] doInBackground(String... params) {
             String draftCity = params[0];
-            // TODO DbUtil и тому подобное спрядать в один метод DataHandler
+            // TODO DbUtil и тому подобное спрядать в один метод внутрь DataHandler
             // возвращает массив с названием города от Гугл и статусом запроса
             String[] cityAndStat = NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
             String lng = DbUtils.getLongitude(id);
@@ -266,9 +310,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
 
         @Override
         protected void onPostExecute(String[] params) {
-            // обновляет курсор и возвращает ссылку на фрагмент
-            TodayFragment todayFragment = spillCursorReNew();
-            if (todayFragment == null) return;
+            TodayFragment todayFragment = activityReference.get();
 
             // вывод сообщений пользователю о результате добавления города
             // 0 - название города
@@ -278,6 +320,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Ada
             } else if (Integer.parseInt(params[1]) == 1) {
                 todayFragment.printMessage(UPD_OK_MSG);
             }
+            todayFragment.getLoaderManager().getLoader(0).forceLoad();
         }
     }
 

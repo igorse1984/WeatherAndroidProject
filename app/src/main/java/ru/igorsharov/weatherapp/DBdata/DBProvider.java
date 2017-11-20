@@ -57,7 +57,7 @@ public class DBProvider extends ContentProvider {
 
 		/* Получаем курсор */
         Cursor cursor = mDBWeather.getReadableCursor(TodayFragment.T_NAME);
-		
+
 		/*
 		 * Подписываемся на обновления данных по URI для контент-провайдера 
 		 * */
@@ -84,7 +84,6 @@ public class DBProvider extends ContentProvider {
      * */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-
 		/* Проверка URI */
         if (mUriMatcher.match(uri) != DB_ITEMS)
             throw new IllegalArgumentException("Unknow URI " + uri);

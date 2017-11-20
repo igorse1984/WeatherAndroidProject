@@ -78,9 +78,9 @@ public final class DBWeatherContract {
                 + C_TEMPERATURE + " INTEGER, "
                 + C_PRESSURE + " INTEGER, "
                 + C_ICON_WEATHER + " TEXT,"
-                + C_FORECAST_TABLE_NAME + " TEXT,"
+                + C_FORECAST_TABLE_NAME + " TEXT);";
                 // позволяет игнорировать добавление повторяющихся данных
-                + "UNIQUE (" + C_CITY + ") ON CONFLICT IGNORE);";
+//                + "UNIQUE (" + C_CITY + ") ON CONFLICT IGNORE);";
 
         static String buildSqlCreateTableString(String tableName) {
             return "CREATE TABLE " + tableName + " ("
