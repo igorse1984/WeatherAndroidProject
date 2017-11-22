@@ -13,5 +13,9 @@
     <string name="addCity">Добавить</string>
     <string name="findLoc">Определить</string>
     <string name="textButtonUpd">Обновить</string>
+    <string name="add_desc">Добавьте местоположение в список</string>
+    <string name="load_message">Загрузка…</string>
+    <string name="error_load_message">невозможно добавить обьект</string>
+    <string name="ok_load_message">Обьект добавлен</string>
 
 </resources>

@@ -14,22 +14,11 @@ import ru.igorsharov.weatherapp.R;
 
 public class TodaySimpleAdapter extends SimpleCursorAdapter {
 
-    //    private Context mContext;
-//    private Context appContext;
-//    private int layout;
-    //    private Cursor cr;
-//    private final LayoutInflater inflater;
     private String[] from;
-//    private int[] to;
 
     public TodaySimpleAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.from = from;
-//        this.to = to;
-//        this.layout = layout;
-//        this.mContext = context;
-//        this.inflater = LayoutInflater.from(context);
-//        this.cr = c;
     }
 
     // Метод положено переопределять в кастомных Simple адаптерах,

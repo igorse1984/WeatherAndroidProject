@@ -112,13 +112,13 @@ public class DBWeather extends DBHelper {
     /**
      * Получение значения из БД
      *
-     * @param tableName     имя таблицы поиска
-     * @param requestIn     текст запроса
-     * @param requestInKey  по какому столбцу будем проходить в поиске совпадения с текстом запроса
-     * @param requestOutKey из какого столбца брать ответ
+     * @param tableName       имя таблицы поиска
+     * @param requestIn       подаем запрос на поиск
+     * @param requestInKey    по какому столбцу будем проходить в поиске совпадения с текстом запроса
+     * @param keyOfOut        из какого столбца брать значения
      */
-    public String getFromDb(String tableName, String requestIn, String requestInKey, String requestOutKey) {
-        String sqlRequest = "SELECT " + requestOutKey
+    public String getFromDb(String tableName, String requestIn, String requestInKey, String keyOfOut) {
+        String sqlRequest = "SELECT " + keyOfOut
                 + " FROM " + tableName
                 + " WHERE " + requestInKey
                 + "=" + "'" + requestIn + "'";
@@ -126,7 +126,7 @@ public class DBWeather extends DBHelper {
         if (cursor.moveToFirst()) {
             /* Calculate indexes of columns and getFromDb*/
             String str = cursor.getString(
-                    cursor.getColumnIndex(requestOutKey));
+                    cursor.getColumnIndex(keyOfOut));
             cursor.close();
             return str;
         }

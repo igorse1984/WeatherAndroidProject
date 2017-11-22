@@ -1,7 +1,6 @@
 package ru.igorsharov.weatherapp;
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -28,8 +27,5 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, todayFragment).commit();
     }
 
-    public Fragment getTodayFragment(){
-        return todayFragment;
-    }
 }
 

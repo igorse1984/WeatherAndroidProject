@@ -16,13 +16,11 @@ public class ForecastSimpleAdapter extends SimpleCursorAdapter {
 
     private String[] from;
     private boolean showTemperature;
-    private boolean showPressure;
 
     public ForecastSimpleAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags, boolean[] showFlags) {
         super(context, layout, c, from, to, flags);
         this.from = from;
         showTemperature = showFlags[0];
-        showPressure = showFlags[1];
     }
 
     private String getCurrentColumn(Cursor cursor, String from) {
@@ -52,17 +50,6 @@ public class ForecastSimpleAdapter extends SimpleCursorAdapter {
                 tvTemperature.setVisibility(View.VISIBLE);
                 tvTemperature.setTextColor(DataWeatherHandler.colorOfTemp(context, temperature));
                 tvTemperature.setText(DataWeatherHandler.addDegree(temperature));
-            }
-        }
-
-        // установка значений давления
-        if (showPressure) {
-            TextView tvPressure = view.findViewById(R.id.tvPressure);
-
-            String pressure = getCurrentColumn(cursor, mFrom[2]);
-            if (pressure != null) {
-                tvPressure.setVisibility(View.VISIBLE);
-                tvPressure.setText(pressure.concat(" ").concat(context.getResources().getString(R.string.pressure_amount)));
             }
         }
 

@@ -13,5 +13,9 @@
     <string name="addCity">Add</string>
     <string name="findLoc">Locate</string>
     <string name="textButtonUpd">Update</string>
+    <string name="add_desc">Add a location to the list</string>
+    <string name="load_message">Loading…</string>
+    <string name="error_load_message">can not add object</string>
+    <string name="ok_load_message">Item added</string>
 
 </resources>

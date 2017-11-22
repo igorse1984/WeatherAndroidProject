@@ -2,11 +2,11 @@ package ru.igorsharov.weatherapp;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,18 +23,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
-import java.lang.ref.WeakReference;
-
+import ru.igorsharov.weatherapp.Async.DownloadTask;
 import ru.igorsharov.weatherapp.DBdata.Adapters.TodaySimpleAdapter;
 import ru.igorsharov.weatherapp.DBdata.DBProvider;
 import ru.igorsharov.weatherapp.DBdata.DBWeather;
 import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
-import ru.igorsharov.weatherapp.DataHandler.DataWeatherHandler;
-import ru.igorsharov.weatherapp.DataHandler.DbUtils;
-import ru.igorsharov.weatherapp.DataHandler.NetUtils;
-import ru.igorsharov.weatherapp.DataHandler.ParsingUtils;
 
 public class TodayFragment extends Fragment implements
         View.OnClickListener,
@@ -49,11 +43,8 @@ public class TodayFragment extends Fragment implements
 
     private final static String TAG = TodayFragment.class.getSimpleName();
     public final static String T_NAME = "weatherToday";
-    private final static String UPD_ERROR_MSG = "невозможно добавить обьект";
-    private final static String UPD_OK_MSG = "Обьект добавлен";
     private final static long MINTIME = 3000L;
     private final static float MINDIST = 1.0F;
-    static final String TEXT_LOAD = "Идет загрузка...";
     private CheckBox chBoxTemperature, chBoxPressure;
     private ListView listView;
     private EditText editTextCityAdd;
@@ -67,7 +58,7 @@ public class TodayFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_today, container, false);
+        View view = inflater.inflate(R.layout.fragment_today_lv, container, false);
         initViews(view);
         setListeners();
         initLoc();
@@ -102,7 +93,7 @@ public class TodayFragment extends Fragment implements
         btnFindLoc = v.findViewById(R.id.btnFindLoc);
     }
 
-    void setListeners() {
+    private void setListeners() {
         listView.setOnItemLongClickListener(this);
         listView.setOnItemClickListener(this);
         buttonAdd.setOnClickListener(this);
@@ -165,8 +156,16 @@ public class TodayFragment extends Fragment implements
             case R.id.buttonAdd:
                 String draftCity = String.valueOf(editTextCityAdd.getText());
                 editTextCityAdd.setText("");
-                // получение названия города с GoogleGeo, запускаем в новом потоке
-                new DownloadTask(this).execute(draftCity);
+
+                // способ скрыть клавиатуру с экрана
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+
+                // получение текущей погоды, запускаем в новом потоке
+                new DownloadTask(this, T_NAME).execute(draftCity);
                 break;
 
             case R.id.btnFindLoc:
@@ -188,7 +187,7 @@ public class TodayFragment extends Fragment implements
 
         String lvCity = String.valueOf(((TextView) view.findViewById(R.id.tvCityName)).getText());
         // блокирование отправки серверу сообщения о загрузке вместо названия города
-        if (!lvCity.equals(TEXT_LOAD)) {
+        if (!lvCity.equals(getResources().getString(R.string.load_message))) {
             // переход во второй фрагмент с передачей id города в базе
             toNextFragment(String.valueOf(id));
         }
@@ -223,9 +222,6 @@ public class TodayFragment extends Fragment implements
         buttonAdd.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 
-    private void printMessage(String str) {
-        DataWeatherHandler.printMessage(getActivity(), str);
-    }
 
     /**
      * реализация интерфейса LoaderManager
@@ -253,75 +249,4 @@ public class TodayFragment extends Fragment implements
         // a null Cursor.
         lvTodayAdapter.swapCursor(null);
     }
-
-
-    /**
-     * реализация фонового запроса названия города от GoogleGeo по введенным данным пользователя
-     * описание к происходящему есть во втором фрагменте
-     */
-    private static class DownloadTask extends AsyncTask<String, Void, String[]> {
-
-        private WeakReference<TodayFragment> activityReference;
-        private String id;
-
-        DownloadTask(TodayFragment todayFragment) {
-            activityReference = new WeakReference<>(todayFragment);
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-
-            // получаем слабую ссылку на фрагмент для доступа к его методам
-            TodayFragment todayFragment = activityReference.get();
-            // добавление пустой строки с информацией о загрузке
-            // и получение id этой строки
-            id = String.valueOf(
-                    DbUtils.putWeatherDbLine(
-                            T_NAME,
-                            new String[]{DBWeatherContract.DBKeys.C_CITY},
-                            new String[]{TEXT_LOAD}));
-            todayFragment.getLoaderManager().getLoader(0).forceLoad();
-        }
-
-        /**
-         * @param params подается "черновой" город введеный пользователем
-         * @return город от Гугла и статус попытки записи его в базу
-         * для последующего выбора сообщения пользователю
-         */
-        @Override
-        protected String[] doInBackground(String... params) {
-            String draftCity = params[0];
-            // TODO DbUtil и тому подобное спрядать в один метод внутрь DataHandler
-            // возвращает массив с названием города от Гугл и статусом запроса
-            String[] cityAndStat = NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
-            String lng = DbUtils.getLongitude(id);
-            String lat = DbUtils.getLatitude(id);
-            JSONObject jo = NetUtils.loadWeather(lng, lat, false);
-            ParsingUtils.setWeatherJSONParser(jo);
-            DbUtils.updWeatherDbLine(
-                    T_NAME,
-                    id,
-                    DBWeatherContract.DBKeys.keysTodayArr,
-                    ParsingUtils.parseWeatherToday());
-
-            return cityAndStat;
-        }
-
-        @Override
-        protected void onPostExecute(String[] params) {
-            TodayFragment todayFragment = activityReference.get();
-
-            // вывод сообщений пользователю о результате добавления города
-            // 0 - название города
-            // 1 - результат добавления
-            if (Integer.parseInt(params[1]) == 0) {
-                todayFragment.printMessage(params[0] + " " + UPD_ERROR_MSG);
-            } else if (Integer.parseInt(params[1]) == 1) {
-                todayFragment.printMessage(UPD_OK_MSG);
-            }
-            todayFragment.getLoaderManager().getLoader(0).forceLoad();
-        }
-    }
-
 }

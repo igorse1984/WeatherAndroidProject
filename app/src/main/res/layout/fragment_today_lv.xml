@@ -17,13 +17,13 @@
             android:layout_weight="2.06"
             android:hint="@string/find_weather" />
 
+        <!-- должен исчезать когда начинает заполняться EditText -->
         <Button
             android:id="@+id/btnFindLoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/findLoc"
-            android:visibility="visible" />
+            android:text="@string/findLoc" />
 
         <Button
             android:id="@+id/buttonAdd"
