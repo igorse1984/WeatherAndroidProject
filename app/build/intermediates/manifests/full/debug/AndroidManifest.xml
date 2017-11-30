@@ -13,10 +13,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <meta-data
-        android:name="android.support.VERSION"
-        android:value="26.0.0-alpha1" />
-
     <application
         android:name="ru.igorsharov.weatherapp.AppDB"
         android:allowBackup="true"
@@ -39,6 +35,12 @@
             android:name="ru.igorsharov.weatherapp.DBdata.DBProvider"
             android:authorities="ru.igorsharov.db" />
         />
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
     </application>
 
 </manifest>

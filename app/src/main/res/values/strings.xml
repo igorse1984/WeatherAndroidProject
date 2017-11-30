@@ -17,5 +17,6 @@
     <string name="load_message">Loading…</string>
     <string name="error_load_message">can not add object</string>
     <string name="ok_load_message">Item added</string>
+    <string name="clear">Clear</string>
 
 </resources>

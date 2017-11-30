@@ -112,10 +112,10 @@ public class DBWeather extends DBHelper {
     /**
      * Получение значения из БД
      *
-     * @param tableName       имя таблицы поиска
-     * @param requestIn       подаем запрос на поиск
-     * @param requestInKey    по какому столбцу будем проходить в поиске совпадения с текстом запроса
-     * @param keyOfOut        из какого столбца брать значения
+     * @param tableName       имя таблицы
+     * @param requestIn
+     * @param requestInKey
+     * @param keyOfOut
      */
     public String getFromDb(String tableName, String requestIn, String requestInKey, String keyOfOut) {
         String sqlRequest = "SELECT " + keyOfOut

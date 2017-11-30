@@ -12,7 +12,10 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -32,7 +35,7 @@ import ru.igorsharov.weatherapp.DBdata.DBWeatherContract;
 public class TodayFragment extends Fragment implements
         View.OnClickListener,
         AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener,
+//        AdapterView.OnItemLongClickListener,
         TextWatcher,
         LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -62,7 +65,6 @@ public class TodayFragment extends Fragment implements
         initViews(view);
         setListeners();
         initLoc();
-
         return view;
     }
 
@@ -94,7 +96,7 @@ public class TodayFragment extends Fragment implements
     }
 
     private void setListeners() {
-        listView.setOnItemLongClickListener(this);
+//        listView.setOnItemLongClickListener(this);
         listView.setOnItemClickListener(this);
         buttonAdd.setOnClickListener(this);
         btnFindLoc.setOnClickListener(this);
@@ -102,6 +104,9 @@ public class TodayFragment extends Fragment implements
     }
 
     private void setDbListAdapter() {
+        //регистрируем контекстное меню
+        registerForContextMenu(listView);
+
         //Create arrays of columns and UI elements
         String[] from = DBWeatherContract.DBKeys.keysForTodayAdapter;
 
@@ -140,6 +145,7 @@ public class TodayFragment extends Fragment implements
         // либо через каст с получением ссылки на активити
         ((MainActivity) getActivity()).onListViewSelected(b);
     }
+
 
     /**
      * ОБРАБОТКА КЛИКОВ
@@ -182,6 +188,38 @@ public class TodayFragment extends Fragment implements
     }
 
     //Клики по ListView
+
+    /**
+     * Реализация методов контекстного меню
+     */
+    // Метод, который вызывается не всего один раз как было с option menu, а каждый раз перед тем,
+    // как context-ное меню будет показано.
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.my_context_menu, menu);
+    }
+
+
+    // Метод вызывается по нажатию на любой пункт меню. В качестве агрумента приходит item меню.
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        String sId = String.valueOf(info.id);
+        switch (item.getItemId()) {
+            case R.id.menu_clear:
+                // удаление записи о городе
+                db.delete(T_NAME, sId);
+                // обновляем вид, для исчезновения item'а с listView
+                getLoaderManager().getLoader(0).forceLoad();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -193,15 +231,15 @@ public class TodayFragment extends Fragment implements
         }
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        String sId = String.valueOf(id);
-        // удаление записи о городе
-        db.delete(T_NAME, sId);
-        // обновляем вид, для исчезновения item'а с listView
-        getLoaderManager().getLoader(0).forceLoad();
-        return true;
-    }
+//    @Override
+//    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//        String sId = String.valueOf(id);
+//        // удаление записи о городе
+//        db.delete(T_NAME, sId);
+//        // обновляем вид, для исчезновения item'а с listView
+//        getLoaderManager().getLoader(0).forceLoad();
+//        return true;
+//    }
 
 
     // задаем реакцию EditText
