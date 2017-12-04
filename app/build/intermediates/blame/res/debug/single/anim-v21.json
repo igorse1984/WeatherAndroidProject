@@ -1,50 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\db2a1cfc9a3e117e70d9225ce06573f2\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
     },
     {
-        "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\db2a1cfc9a3e117e70d9225ce06573f2\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_out.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_out.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\anim-v21\\design_bottom_sheet_slide_in.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\b5506b3255487ba3385f2375723d980ef9ca0f99\\output\\res\\anim-v21\\design_bottom_sheet_slide_in.xml"
     }
 ]

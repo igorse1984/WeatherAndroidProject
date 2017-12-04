@@ -1,75 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\41259fd6bf86eb00bd0e683340dd2525\\res\\layout-v21\\notification_action.xml"
     },
     {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\41259fd6bf86eb00bd0e683340dd2525\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject1\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_icon_group.xml"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
@@ -78,21 +14,5 @@
     {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\41259fd6bf86eb00bd0e683340dd2525\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
-        "merged": "C:\\Users\\IgorSE\\AndroidStudioProjects\\WeatherApp\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
-        "source": "C:\\Users\\IgorSE\\.android\\build-cache\\dce3d46ac707c8fb818dfbc3856ad1f31dd15770\\output\\res\\layout-v21\\notification_action.xml"
     }
 ]
