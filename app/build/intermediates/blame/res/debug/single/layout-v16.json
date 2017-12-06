@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\IgorSE\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9b946c5eb1641948ef844a73791183b3\\res\\layout-v16\\notification_template_custom_big.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\41259fd6bf86eb00bd0e683340dd2525\\res\\layout-v16\\notification_template_custom_big.xml"
     }

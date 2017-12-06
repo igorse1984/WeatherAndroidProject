@@ -2,5 +2,9 @@
     {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\animator-v21\\design_appbar_state_list_animator.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\db2a1cfc9a3e117e70d9225ce06573f2\\res\\animator-v21\\design_appbar_state_list_animator.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\animator-v21\\design_appbar_state_list_animator.xml",
+        "source": "C:\\Users\\IgorSE\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\69532fd4bc20615f678787a667be9ea3\\res\\animator-v21\\design_appbar_state_list_animator.xml"
     }
 ]

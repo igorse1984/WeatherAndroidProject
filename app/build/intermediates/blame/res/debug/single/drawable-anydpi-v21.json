@@ -4,7 +4,15 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\db2a1cfc9a3e117e70d9225ce06573f2\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
     },
     {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "C:\\Users\\IgorSE\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\69532fd4bc20615f678787a667be9ea3\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\db2a1cfc9a3e117e70d9225ce06573f2\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "C:\\Users\\IgorSE\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\69532fd4bc20615f678787a667be9ea3\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
     }
 ]
