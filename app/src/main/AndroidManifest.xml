@@ -9,14 +9,20 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="ru.igorsharov.weatherapp.AppDB"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:name="ru.igorsharov.weatherapp.AppDB" >
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+        <!--
+        stateHidden - отвечает за запуск активити со скрытой клавиатурой
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +32,7 @@
 
         <provider
             android:name=".DBdata.DBProvider"
-            android:authorities="ru.igorsharov.db"/>
+            android:authorities="ru.igorsharov.db" />
         />
 
     </application>
