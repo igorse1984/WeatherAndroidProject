@@ -156,6 +156,10 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\4643f5e23ee35ec471fda43f9f9c1bf6\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\feedback.xml",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\layout\\feedback.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\db2a1cfc9a3e117e70d9225ce06573f2\\res\\layout\\design_bottom_sheet_dialog.xml"
     },
@@ -258,6 +262,10 @@
     {
         "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
         "source": "C:\\Users\\IgorSE\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\875cbae25bc83fc04261aaf01806c026\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\about_developer.xml",
+        "source": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\src\\main\\res\\layout\\about_developer.xml"
     },
     {
         "merged": "C:\\AndroidStudioProjects\\WeatherAndroidProject\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",

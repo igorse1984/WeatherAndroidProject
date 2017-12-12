@@ -2,26 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:title="Tools" />
+            android:id="@+id/to_main"
+            android:title="@string/main_screen" />
     </group>
-    <item android:title="Communicate">
+    <item android:title="Помощь">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:title="Share" />
+                android:id="@+id/about_developer"
+                android:title="@string/about_developers" />
             <item
-                android:id="@+id/nav_send"
-                android:title="Send" />
+                android:id="@+id/feedback"
+                android:title="@string/feedback" />
         </menu>
     </item>
 </menu>

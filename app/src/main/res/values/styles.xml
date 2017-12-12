@@ -1,11 +1,18 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Базовая тема -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Кастомизация дефолтной темы -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Кастомная тема для Activity-->
+    <style name="CustomActivityTheme" parent="Base.ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/color20</item>
+        <item name="colorPrimaryDark">@color/color10</item>
+        <item name="colorAccent">@color/color30</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +23,29 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Стиль для TextView в NavigationHandler -->
+    <style name="tvHandlerStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="tvStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Стиль для Floating Button -->
+    <style name="floatingButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
 
 </resources>

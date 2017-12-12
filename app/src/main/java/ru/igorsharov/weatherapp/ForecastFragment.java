@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class ForecastFragment extends Fragment {
     private TextView tvPressureToday;
     private TextView tvLocation;
     private ImageView ivIconToday;
+    private NavigationView navigationView;
     private String id;
     private ForecastSimpleAdapter lvForecastAdapter;
     private Cursor cursorForList;
@@ -55,7 +57,9 @@ public class ForecastFragment extends Fragment {
         tvLocation = view.findViewById(R.id.locationWeatherPoint);
         listViewForecast = view.findViewById(R.id.lvForecast);
         ivIconToday = view.findViewById(R.id.imageViewToday);
+        navigationView = getActivity().findViewById(R.id.nav_view);
 
+        // слушатель на кнопку Назад
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,8 +122,7 @@ public class ForecastFragment extends Fragment {
             // запись названия доп таблицы в основную
             DbUtils.putForecastTableName(id, TABLE_NAME);
         }
-        // отображение во фрагменте названия текущего города
-        tvCity.setText(DbUtils.getCityFromDb(id));
+
         // достаем координаты для последующего запроса прогноза
         String lng = DbUtils.getLongitude(id);
         String lat = DbUtils.getLatitude(id);
@@ -145,9 +148,19 @@ public class ForecastFragment extends Fragment {
         this.bundle = b;
     }
 
+    // установки текущих значений города в заголовке
     private void setViewToday() {
-        // TODO переделать
+        // отображение названия текущего города
+        String city = DbUtils.getCityFromDb(id);
+        tvCity.setText(city);
+
+        // отображение локации поголной точки
         tvLocation.setText(DbUtils.getLocation(id));
+
+        // устанавливаем название города в Navigation View
+        TextView headerTextView = navigationView.findViewById(R.id.tvNavHandlerCity);
+        headerTextView.setVisibility(View.VISIBLE);
+        headerTextView.setText(city);
 
         //инициализация View в соответствии с настройками чекбоксов
         //основная температура
@@ -168,8 +181,15 @@ public class ForecastFragment extends Fragment {
             v.setVisibility(View.VISIBLE);
             // определяем цвет TextView
             v.setTextColor(DataWeatherHandler.colorOfTemp(getActivity(), value));
-            // добавляем символ градуса
-            v.setText(DataWeatherHandler.addDegree(value));
+            // получаем значение температуры и добавляем символ градуса
+            String temperature = DataWeatherHandler.addDegree(value);
+            // устанавливаем полученное значение
+            v.setText(temperature);
+
+            // устанавливаем температуру в Navigation View
+            TextView headerTextView = navigationView.findViewById(R.id.tvNavHandlerTemp);
+            headerTextView.setVisibility(View.VISIBLE);
+            headerTextView.setText(temperature);
         }
     }
 
@@ -180,10 +200,14 @@ public class ForecastFragment extends Fragment {
         }
     }
 
-    private void setIconView(ImageView iv, String icon){
+    private void setIconView(ImageView iv, String icon) {
         if (icon != null) {
             iv.setVisibility(View.VISIBLE);
             iv.setImageResource(DataWeatherHandler.getIconId(icon));
+
+            // устанавливаем картинку погоды в Navigation View
+            ImageView headerImageView = navigationView.findViewById(R.id.ivNavHeader);
+            headerImageView.setImageResource(DataWeatherHandler.getIconId(icon));
         }
     }
 
@@ -201,7 +225,7 @@ public class ForecastFragment extends Fragment {
             activityReference = new WeakReference<>(forecastFragment);
         }
 
-        private void spillCursorReNew(){
+        private void spillCursorReNew() {
             // получаем слабую ссылку на фрагмент для доступа к его методам
             ForecastFragment forecastFragment = activityReference.get();
             if (forecastFragment == null) return;
@@ -222,7 +246,7 @@ public class ForecastFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-           spillCursorReNew();
+            spillCursorReNew();
         }
     }
 

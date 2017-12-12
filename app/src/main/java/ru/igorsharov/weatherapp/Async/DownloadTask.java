@@ -54,8 +54,10 @@ public class DownloadTask extends AsyncTask<String, Void, String[]> {
     protected String[] doInBackground(String... params) {
         String draftCity = params[0];
         // TODO DbUtil и тому подобное спрядать в один метод внутрь DataHandler
+
         // возвращает массив с названием города от Гугл и статусом запроса
         String[] cityAndStat = NetUtils.loadCityOfGoogleAndPutInDB(T_NAME, draftCity, id);
+
         String lng = DbUtils.getLongitude(id);
         String lat = DbUtils.getLatitude(id);
         JSONObject jo = NetUtils.loadWeather(lng, lat, false);

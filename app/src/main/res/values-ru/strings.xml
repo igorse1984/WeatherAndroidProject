@@ -18,5 +18,8 @@
     <string name="error_load_message">невозможно добавить обьект</string>
     <string name="ok_load_message">Обьект добавлен</string>
     <string name="clear">Удалить</string>
+    <string name="about_developers">Об авторах</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="main_screen">Главный экран</string>
 
 </resources>

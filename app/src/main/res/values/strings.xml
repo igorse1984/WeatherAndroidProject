@@ -20,5 +20,8 @@
     <string name="clear">Clear</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about_developers">About</string>
+    <string name="feedback">Feedback</string>
+    <string name="main_screen">Main screen</string>
 
 </resources>
